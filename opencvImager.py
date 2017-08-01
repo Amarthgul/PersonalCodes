@@ -1,5 +1,3 @@
-import os, re
-
 class opencvImager():
 
     def __init__(self, loc = 'abs'):
@@ -25,11 +23,13 @@ class opencvImager():
 
     @property
     def path(self):
+        if self.OS == 'windows': sep = '\\'
+        else: sep = '/'
         self.method = self.method.lower()
         if self.method == 'abs':
             current = str(os.path.abspath(__file__))
             for itera in range(len(current) - 1, 0, -1):
-                if current[itera] == '\\':
+                if current[itera] == sep:
                     dir = current[0: itera]#Get current directory
                     break;
             self._path = dir
