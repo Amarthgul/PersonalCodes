@@ -92,3 +92,23 @@ partition: [] and []
 [1, 3, 4, 7, 8, 9, 36, 53] 24
 '''
 
+'''
+==============conclusion==============
+
+First I have to claim, Both the 2 methods can sort the array properly.
+
+The difference occours in the partition process:
+  The first recursion is always the same, but then their sub-arrays starts to diverge.
+  The key point is that the lecture method SWAP the elements, while my method appends the elements to 2 new sub-arrays.
+  
+  Thus the lecture method changed the order of the array, but without introducing new array, 
+  and my method keeps the original array's order but also takes extra memory.
+  
+  After the first recursion, the sub-arrays generated from the 2 methods have same elements but in different order.
+  Since the order is different, when set the first element as pivot, they're very likely to have different pivot.
+  
+  The different pivot, in this way, enlarged the difference. 
+  Make the input size of the following recursions different either, 
+  which finally caused the distinct result of the number of comparisons.
+
+'''
