@@ -1,9 +1,4 @@
-import timeit
-import math
-import random
-import numpy as np
-import itertools
-
+'''Set the first element as pivot'''
 
 counter = 0
 
@@ -84,3 +79,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# result see outputOne.py    
