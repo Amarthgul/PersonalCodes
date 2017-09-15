@@ -1,6 +1,7 @@
 import re
 class babs():
     def __init__(self, input = [0, 0, 0]):
+        self.autoSize = False
         self.maxBit = 3
         self._value = []
 
@@ -36,7 +37,18 @@ class babs():
             elif isinstance(var, str): strNum = var
             elif isinstance(var, int): decNum += var
             else: raise ValueError
-        # 2.) modify str data:
+        # 2.) modify list data:
+        tempList = []; length = 0
+        if listNum:
+            for lis in listNum:
+                if len(lis) > length:
+                    length = len(lis)
+            tempList = [0 for i in range(length)]
+            for lis in listNum:
+                for i in range(len(lis)):
+                    tempList[i] += lis[i]
+            listNum = tempList; del(tempList)
+        # 3.) modify str data:
         if strNum:
             strNum = eval(strNum)
             if isinstance(strNum, list): listNum.extend(var)
@@ -44,7 +56,8 @@ class babs():
             elif isinstance(strNum, tuple): decNum += sum(strNum)
             else: raise ValueError
 
-        #print(listNum, strNum, decNum)
+        if self.autoSize: self.maxBit = len(listNum)
+        print('listNum:{} strNum:{} decNum:{}'.format(listNum, strNum, decNum))
 
         while True:
             higher, lower = self.decToBabs(decNum)
@@ -53,4 +66,8 @@ class babs():
                 break
             decNum = higher
 
-        #print(out)
+        while len(listNum) > self.maxBit:
+            listNum[1] += listNum.pop[0] * 60
+
+        print('listNum:{} strNum:{} decNum:{}'.format(listNum, strNum, decNum))
+        print(out)
