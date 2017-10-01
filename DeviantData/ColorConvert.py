@@ -13,3 +13,17 @@ def hexToDec(inNum):
     green = int(found[2: 4], 16)
     blue = int(found[4: 6], 16)
     return [red, green, blue]
+
+def decToHex(inNum, prefix = '0x', hexColor = True):
+    '''inNum: Dec number, prefix: 0x or # or custom, hexColor: return str or list'''
+    if isinstance(inNum, int): return prefix + hex(inNum)[2:]
+    elif isinstance(inNum, list):
+        if len(inNum) != 3: raise Exception('Need a list of three')
+        if hexColor:
+            return prefix + hex(inNum[0])[2:] + \
+                   hex(inNum[1])[2:] + hex(inNum[2])[2:]
+        else:
+            return [hex(inNum[0])[2:],
+                    hex(inNum[1])[2:],
+                    hex(inNum[2])[2:]]
+    else: raise Exception('Unrecognized Data Type')
