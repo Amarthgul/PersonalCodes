@@ -1,3 +1,5 @@
 This folder contains:
-    A sexagesimal caculation
-    A Hex-Dec convert
+
+    '''A sexagesimal caculation'''
+    
+    '''ColorConvert.py: A Hex-Dec convert'''
