@@ -1,3 +1,62 @@
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+class dataPlot():
+    def __init__(self):
+        self.xData = []
+        self.yData = []
+        self.xLabel = 'X'
+        self.yLabel = 'Y'
+        self.type = 'o' 
+        self.mainPlotColor = 'red'
+        self.gridColor = 'r'
+        self.alp = 0.5
+        self.xStripMaj = 1
+        self.xStripMin = 1
+        self.yStripMaj = 0.1
+        self.yStripMin = 0.1
+        self.xStripMajWid = 1
+        self.xStripMinWid = 1
+        self.yStripMajWid = 0.1
+        self.yStripMinWid = 0.1
+
+    def creatPlot(self, *args):
+        fig = plt.figure(figsize = (10, 10))
+        ax = plt.axes()
+        if self.xData and self.yData:
+            ax.plot(xData, yData, *args)
+
+    def addPlot(self, x, y, plotType = None, addLabel = 'Sample'):
+        if not plotType:
+            ax.plot(x, y, addLabel)
+        else:
+            ax.plot(x, y, plotType, addLabel)
+
+    def addGrid(self):
+        ax.xaxis.set_major_locator(plt.MultipleLocator(self.xStripMaj))
+        ax.xaxis.set_minor_locator(plt.MultipleLocator(self.xStripMin))
+        ax.yaxis.set_major_locator(plt.MultipleLocator(self.yStripMaj))
+        ax.yaxis.set_minor_locator(plt.MultipleLocator(self.yStripMin))
+        ax.grid(which='major', axis='x', linewidth=self.xStripMajWid, 
+                linestyle='-', color = self.gridColor, alpha = self.alp)
+        ax.grid(which='minor', axis='x', linewidth=self.xStripMinWid, 
+                linestyle='-', color = self.gridColor, alpha = self.alp)
+        ax.grid(which='major', axis='y', linewidth=self.yStripMajWid, 
+                linestyle='-', color = self.gridColor, alpha = self.alp)
+        ax.grid(which='minor', axis='y', linewidth=self.yStripMinWid, 
+                linestyle='-', color = self.gridColor, alpha = self.alp)
+
+    def showPlot(self):
+        plt.show()
+
+
+def plotSam():
+    fig = dataPlot()
+
+
+plotSam()
+
 def phy17_9_25_():
     grid = True; gridColor = 'r'; alp = 0.5; scalar = 1.5
     deltaTemp = np.array([0, 5, 10, 15, 20, 25, 30])
