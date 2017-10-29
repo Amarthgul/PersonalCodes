@@ -12,6 +12,7 @@ class dataPlot():
         self.mainPlotColor = 'red'
         self.gridColor = 'r'
         self.alp = 0.5
+        self.biStrip = True
         self.xStripMaj = 1
         self.xStripMin = 1
         self.yStripMaj = 0.1
@@ -20,12 +21,12 @@ class dataPlot():
         self.xStripMinWid = 1
         self.yStripMajWid = 0.1
         self.yStripMinWid = 0.1
-
+        self.fig = plt.figure()
+        self.ax = plt.axes()
+		
     def creatPlot(self, *args):
-        fig = plt.figure(figsize = (10, 10))
-        ax = plt.axes()
-        if self.xData and self.yData:
-            ax.plot(xData, yData, *args)
+        if len(self.xData) and len(self.yData):
+            self.ax.plot(self.xData, self.yData, *args)
 
     def addPlot(self, x, y, plotType = None, addLabel = 'Sample'):
         if not plotType:
@@ -34,17 +35,19 @@ class dataPlot():
             ax.plot(x, y, plotType, addLabel)
 
     def addGrid(self):
-        ax.xaxis.set_major_locator(plt.MultipleLocator(self.xStripMaj))
-        ax.xaxis.set_minor_locator(plt.MultipleLocator(self.xStripMin))
-        ax.yaxis.set_major_locator(plt.MultipleLocator(self.yStripMaj))
-        ax.yaxis.set_minor_locator(plt.MultipleLocator(self.yStripMin))
-        ax.grid(which='major', axis='x', linewidth=self.xStripMajWid, 
+        self.ax.xaxis.set_major_locator(plt.MultipleLocator(self.xStripMaj))
+        self.ax.yaxis.set_major_locator(plt.MultipleLocator(self.yStripMaj))
+        self.ax.grid(which='major', axis='x', linewidth=self.xStripMajWid, 
                 linestyle='-', color = self.gridColor, alpha = self.alp)
-        ax.grid(which='minor', axis='x', linewidth=self.xStripMinWid, 
+        self.ax.grid(which='major', axis='y', linewidth=self.yStripMajWid, 
                 linestyle='-', color = self.gridColor, alpha = self.alp)
-        ax.grid(which='major', axis='y', linewidth=self.yStripMajWid, 
+                
+        if self.biStrip:
+        	self.ax.yaxis.set_minor_locator(plt.MultipleLocator(self.yStripMin))
+        	self.ax.xaxis.set_minor_locator(plt.MultipleLocator(self.xStripMin))
+        	self.ax.grid(which='minor', axis='y', linewidth=self.yStripMinWid, 
                 linestyle='-', color = self.gridColor, alpha = self.alp)
-        ax.grid(which='minor', axis='y', linewidth=self.yStripMinWid, 
+        	self.ax.grid(which='minor', axis='x', linewidth=self.xStripMinWid, 
                 linestyle='-', color = self.gridColor, alpha = self.alp)
 
     def showPlot(self):
@@ -53,6 +56,11 @@ class dataPlot():
 
 def plotSam():
     fig = dataPlot()
+    fig.xData = np.array([1, 2, 3, 4])
+    fig.yData = np.array([2.5, 3.3, 4.1, 5.6])
+    fig.creatPlot()
+    fig.addGrid()
+    fig.showPlot()
 
 
 plotSam()
