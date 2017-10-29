@@ -25,6 +25,9 @@ def plotChange():
                         [4.2,  2,  10,  7,  2],#====6
                         ])
 
+    for i in range(len(dataSet)):
+        dataSet[i][1] *= 0.53
+    print(dataSet)
     plot = False
     if plot:
         gridColor = 'r'; alp = 0.5
@@ -50,17 +53,17 @@ def plotChange():
         ax.grid(which='minor', axis='y', linewidth=0.75, linestyle='-', color = gridColor, alpha = alp)
         ax.grid(which='major', axis='x', linewidth=1.5, linestyle='-', color = gridColor, alpha = alp)
         ax.grid(which='minor', axis='x', linewidth=0.75, linestyle='-', color = gridColor, alpha = alp)
-        plt.legend(loc = 'best')
+        ax.legend(loc = 'best')
         plt.xlim(1.25, 2); plt.ylim(2, 5)
         plt.show()
 
-    force = dataSet[:, 0];
+    force = dataSet[:, [0]];
 
     rest = dataSet[:, 1:] #use np.c_[a, b] to merge
     #print(force, pins, n_0, n_1, n_2)
-    input = np.array([pins, n_0, n_1, n_2])
-    print(input)
+    input = np.array(dataSet[:, [1, 4]])
     reg = linear_model.LinearRegression()
-    reg.fit(rest, force)
+    reg.fit(force, input)
     print(reg.coef_)
+
     return 0
