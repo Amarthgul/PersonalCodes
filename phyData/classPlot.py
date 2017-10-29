@@ -6,11 +6,12 @@ class dataPlot():
         self.ovaScale = 1
         self.xData = []
         self.yData = []
-        self.xLabel = 'X'
-        self.yLabel = 'Y'
-        self.limBorder = True
         self.xLim = [0, 10]
         self.yLim = [0, 10]
+        self.limBorder = True
+        self.xLabel = 'X'
+        self.yLabel = 'Y'
+        self.plotTitle = None
         self.figureSize = None
         self.axesPara = None
         self.labelFontSize = 15
@@ -52,10 +53,19 @@ class dataPlot():
                          linewidth=self.xStripMinWid * self.ovaScale, 
                          linestyle='-', color = self.gridColor, alpha = self.alp)
         
+    def addLegend(self, loc = 'best', rounded=True, alpha=0.75, 
+                  enableShadow = False, legTitle = None, colume = 1):
+        self.ax.legend(loc = 'best', fancybox = rounded, framealpha = alpha,
+                       shadow = enableShadow, title = legTitle, ncol = colume)
+        
     def showPlot(self):
+        if self.plotTitle != None:
+            plt.title(self.plotTitle, fontsize = self.labelFontSize*1.25*self.ovaScale)
         if self.figureSize != None:
             plt.rcParams["figure.figsize"] = (self.figureSize[0]*self.ovaScale,
                 self.figureSize[1]*self.ovaScale)
+        plt.yticks(fontsize = self.labelFontSize*0.5*self.ovaScale)
+        plt.yticks(fontsize = self.labelFontSize*0.4*self.ovaScale)
         plt.xlabel(self.xLabel, fontsize = self.labelFontSize*self.ovaScale)
         plt.ylabel(self.yLabel, fontsize = self.labelFontSize*self.ovaScale)
         if self.limBorder:
