@@ -61,11 +61,12 @@ class dataPlot():
         self.ax.legend(loc = 'best', fancybox = rounded, framealpha = alpha,
                        shadow = enableShadow, title = legTitle, ncol = colume)
         
-    def addLinearSample(self, sampleSet = [], startPoint = None, endPoint = None,
-                        extend = False, color = 'r', lineWidth = 1):
-        if sampleSet: 
-            startPoint = [self.xData[sampleSet[0]], self.xData[sampleSet[1]]]
-            endPoint = [self.yData[sampleSet[0]], self.yData[sampleSet[1]]]
+    def addLinearSample(self, sampleList = [], startPoint = None, endPoint = None,
+                        samplePoint = [], extend = False, color = 'r', lineWidth = 1):
+        if sampleList: 
+            startPoint = list(sampleList[samplePoint[0]])
+            endPoint = list(sampleList[samplePoint[1]])
+            print(startPoint, endPoint)
         if startPoint == None or endPoint == None:
             self.ax.text(0.5, 0.5, "INVALID SAMPLE")
             return 0, 0
@@ -73,9 +74,23 @@ class dataPlot():
             slope = (endPoint[1] - startPoint[1])/(endPoint[0] - startPoint[0])
             intercept = startPoint[1] - slope*startPoint[0]
             xRange = [self.xLim[0], self.xLim[0]] if extend else [startPoint[0], endPoint[0]]
+            xRange = np.array(xRange)
             yValue = slope * xRange + intercept
             self.ax.plot(xRange, yValue, c = color, linewidth = lineWidth)
         return slope, intercept
+    def addRefLine(self, paraAxis = 'x', value = 0, thick = 1.5, color = 'r',
+                   showDigit = True):
+        dataOne = [value, value]; 
+        dataTwo = [self.xLim[0], self.xLim[1]] if paraAxis == 'x' else [self.yLim[0], self.yLim[1]]
+        modifier = (self.xLim[1] - self.xLim[0]) / 20 if paraAxis == 'x' else (self.yLim[1] - self.yLim[0]) / 20
+        xPos = 0-modifier if paraAxis == 'x' else value
+        yPos = value if paraAxis == 'x' else 0-modifier
+
+        if paraAxis == 'y': dataOne, dataTwo = dataTwo, dataOne
+        self.ax.plot(dataTwo, dataOne, linestyle = '--', color = color,
+                        linewidth = thick)
+        self.ax.text(xPos, yPos, str(value))
+        return 0
 
     def showPlot(self):
         if self.plotTitle != None:
@@ -91,4 +106,3 @@ class dataPlot():
             plt.xlim(self.xLim[0], self.xLim[1])
             plt.ylim(self.yLim[0], self.yLim[1])
         plt.show()
-        
