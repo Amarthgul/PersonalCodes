@@ -17,6 +17,7 @@ class dataPlot():
         self.labelFontSize = 15
         self.type = 'o'
         self.gridColor = 'r'
+        self.gridLayer = 0
         self.alp = 0.5
         self.biStrip = True
         self.xStripMaj = 1
@@ -31,7 +32,7 @@ class dataPlot():
         
         #self.fig = plt.figure(figsize = self.figureSize)
         self.ax = plt.axes() if not self.axesPara else plt.axes(self.axesPara)
-		
+
     def creatPlot(self, *args):
         if len(self.xData) and len(self.yData):
             self.ax.plot(self.xData, self.yData, *args)
@@ -39,17 +40,19 @@ class dataPlot():
     def addGrid(self):
         self.ax.xaxis.set_major_locator(plt.MultipleLocator(self.xStripMaj))
         self.ax.yaxis.set_major_locator(plt.MultipleLocator(self.yStripMaj))
-        self.ax.grid(which='major', axis='x', linewidth=self.xStripMajWid * self.ovaScale, 
+        self.ax.grid(which='major', axis='x', zorder = self.gridLayer,
+                     linewidth=self.xStripMajWid * self.ovaScale, 
                 linestyle='-', color = self.gridColor, alpha = self.alp)
-        self.ax.grid(which='major', axis='y', linewidth=self.yStripMajWid * self.ovaScale, 
+        self.ax.grid(which='major', axis='y', zorder = self.gridLayer,
+                     linewidth=self.yStripMajWid * self.ovaScale, 
                 linestyle='-', color = self.gridColor, alpha = self.alp)       
         if self.biStrip:
             self.ax.yaxis.set_minor_locator(plt.MultipleLocator(self.yStripMin))
             self.ax.xaxis.set_minor_locator(plt.MultipleLocator(self.xStripMin))
-            self.ax.grid(which='minor', axis='y', 
+            self.ax.grid(which='minor', axis='y', zorder = self.gridLayer, 
                          linewidth=self.yStripMinWid * self.ovaScale, 
                          linestyle='-', color = self.gridColor, alpha = self.alp)
-            self.ax.grid(which='minor', axis='x', 
+            self.ax.grid(which='minor', axis='x', zorder = self.gridLayer,
                          linewidth=self.xStripMinWid * self.ovaScale, 
                          linestyle='-', color = self.gridColor, alpha = self.alp)
         
@@ -58,17 +61,34 @@ class dataPlot():
         self.ax.legend(loc = 'best', fancybox = rounded, framealpha = alpha,
                        shadow = enableShadow, title = legTitle, ncol = colume)
         
+    def addLinearSample(self, sampleSet = [], startPoint = None, endPoint = None,
+                        extend = False, color = 'r', lineWidth = 1):
+        if sampleSet: 
+            startPoint = [self.xData[sampleSet[0]], self.xData[sampleSet[1]]]
+            endPoint = [self.yData[sampleSet[0]], self.yData[sampleSet[1]]]
+        if startPoint == None or endPoint == None:
+            self.ax.text(0.5, 0.5, "INVALID SAMPLE")
+            return 0, 0
+        else:
+            slope = (endPoint[1] - startPoint[1])/(endPoint[0] - startPoint[0])
+            intercept = startPoint[1] - slope*startPoint[0]
+            xRange = [self.xLim[0], self.xLim[0]] if extend else [startPoint[0], endPoint[0]]
+            yValue = slope * xRange + intercept
+            self.ax.plot(xRange, yValue, c = color, linewidth = lineWidth)
+        return slope, intercept
+
     def showPlot(self):
         if self.plotTitle != None:
             plt.title(self.plotTitle, fontsize = self.labelFontSize*1.25*self.ovaScale)
         if self.figureSize != None:
             plt.rcParams["figure.figsize"] = (self.figureSize[0]*self.ovaScale,
                 self.figureSize[1]*self.ovaScale)
-        plt.yticks(fontsize = self.labelFontSize*0.5*self.ovaScale)
-        plt.yticks(fontsize = self.labelFontSize*0.4*self.ovaScale)
+        plt.yticks(fontsize = self.labelFontSize*0.55*self.ovaScale)
+        plt.yticks(fontsize = self.labelFontSize*0.6*self.ovaScale)
         plt.xlabel(self.xLabel, fontsize = self.labelFontSize*self.ovaScale)
         plt.ylabel(self.yLabel, fontsize = self.labelFontSize*self.ovaScale)
         if self.limBorder:
             plt.xlim(self.xLim[0], self.xLim[1])
             plt.ylim(self.yLim[0], self.yLim[1])
         plt.show()
+        
