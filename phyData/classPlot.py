@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 class dataPlot():
     def __init__(self):
         self.ovaScale = 1
@@ -32,6 +33,15 @@ class dataPlot():
         
         #self.fig = plt.figure(figsize = self.figureSize)
         self.ax = plt.axes() if not self.axesPara else plt.axes(self.axesPara)
+
+    def calGamma(self, x = [], y = []):
+        if not x: x = self.xData; 
+        if not y: y = self.yData
+        x = np.array(x); y = np.array(y)
+        numerator = (x*y).mean() - x.mean() * y.mean()
+        denominator = ((x**2).mean() - (x.mean())**2)
+        denominator *= ((y**2).mean() - (y.mean())**2)
+        return numerator / np.sqrt(denominator)
 
     def creatPlot(self, *args):
         if len(self.xData) and len(self.yData):
