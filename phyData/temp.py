@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 class dataPlot():
     def __init__(self):
         self.ovaScale = 1
@@ -33,6 +34,15 @@ class dataPlot():
         #self.fig = plt.figure(figsize = self.figureSize)
         self.ax = plt.axes() if not self.axesPara else plt.axes(self.axesPara)
 
+    def calGamma(self, x = [], y = []):
+        if not x: x = self.xData; 
+        if not y: y = self.yData
+        x = np.array(x); y = np.array(y)
+        numerator = (x*y).mean() - x.mean() * y.mean()
+        denominator = ((x**2).mean() - (x.mean())**2)
+        denominator *= ((y**2).mean() - (y.mean())**2)
+        return numerator / np.sqrt(denominator)
+
     def creatPlot(self, *args):
         if len(self.xData) and len(self.yData):
             self.ax.plot(self.xData, self.yData, *args)
@@ -60,7 +70,26 @@ class dataPlot():
                   enableShadow = False, legTitle = None, colume = 1):
         self.ax.legend(loc = 'best', fancybox = rounded, framealpha = alpha,
                        shadow = enableShadow, title = legTitle, ncol = colume)
-        
+
+    def addScatterPoint(self, x = [], y = [], pointType = 'o', zDepth = 5,
+                        faceColor = 'w', edgeColor = 'r', edgeWidth = 1.5,
+                        markerSize = 7.5):
+        if not x : x = self.xData
+        if not y: y = self.yData
+        self.ax.plot(x, y, pointType, markerfacecolor = faceColor,
+                     markeredgecolor = edgeColor, markeredgewidth = edgeWidth,
+                     markersize = markerSize*self.ovaScale, zorder = zDepth)
+
+    def addRegressLine(self, x = [], y = [], times = 1, division = 10, 
+                       lineWidth = 1, lineType = 'r-', regLabel = 'regression'):
+        if not x : x = self.xData
+        if not y: y = self.yData
+        para = np.polyfit(x, y, times)
+        equ = np.poly1d(para)
+        newX = np.linspace(x[0], x[len(x)-1], division)
+        self.ax.plot(newX, equ(newX), lineType, linewidth = lineWidth)
+        return para
+
     def addLinearSample(self, sampleList = [], startPoint = None, endPoint = None,
                         samplePoint = [], extend = False, color = 'r', lineWidth = 1):
         if sampleList: 
@@ -78,6 +107,7 @@ class dataPlot():
             yValue = slope * xRange + intercept
             self.ax.plot(xRange, yValue, c = color, linewidth = lineWidth)
         return slope, intercept
+
     def addRefLine(self, paraAxis = 'x', value = 0, thick = 1.5, color = 'r',
                    showDigit = True):
         dataOne = [value, value]; 
@@ -109,97 +139,22 @@ class dataPlot():
         
 #=======================================================================        
 '''=================================================================='''  
-def horPlot():
-    I_S = np.arange(0.1, 0.85, 0.1)
-    U_1_0 = np.array([7.1, 9.8, 12.4, 15, 17.6, 20.2, 22.8, 25.4])
-    U_1_1 = np.array([-2.3, 0.2, 2.8, 5.4, 7.9, 10.5, 13.1, 15.6])
-
-    dataGram = dataPlot()
-    dataGram.limBorder = True
-    dataGram.xLim = [0, 0.9]; dataGram.yLim = [-3, 26]
-    dataGram.xStripMaj = 0.2; dataGram.xStripMin = 0.02
-    dataGram.yStripMaj = 5; dataGram.yStripMin = 0.5
-    dataGram.addGrid()
-    dataGram.ax.plot(I_S, U_1_0, 'o', markerfacecolor = 'w', zorder = 5,
-                     markeredgecolor = 'r', markeredgewidth = 1.5)
-    #dataGram.ax.plot(I_S, U_1_0, 'b-', zorder = 4)
-    dataGram.ax.plot(I_S, U_1_1, 'o', markerfacecolor = 'w', zorder = 5,
-                     markeredgecolor = 'r', markeredgewidth = 1.5)
-    dataGram.addRefLine(paraAxis = 'x', value = 0.5)
-    slo1, int1 = dataGram.addLinearSample(sampleList = list(zip(I_S, U_1_0)), 
-                             samplePoint = [0, len(I_S)-1], color = 'b')
-    slo2, int2 = dataGram.addLinearSample(sampleList = list(zip(I_S, U_1_1)), 
-                             samplePoint = [0, len(I_S)-1], color = 'm')
-    dataGram.showPlot()
+def exp_1():
+    lambda_i = np.array([365, 404.7, 435.8, 546.1, 577.0])
+    V_i = np.array([8.214, 7.408, 6.879, 5.490, 5.196])
+    U_S = np.array([-1.68, -1.39, -1.17, -0.63, -0.49])
+    fig = dataPlot()
+    fig.xData = V_i; fig.yData = U_S
+    fig.limBorder = False
+    print(fig.calGamma())
+    fig.addScatterPoint()
+    fig.addRegressLine()
+    fig.showPlot()
 
 #=======================================================================        
 '''=================================================================='''      
-def phyExp():
-    f = np.array([1122, 1322, 1522, 1552, 1582, 1612, 1642, 1672, 1702, 1902, 2102])
-    U_R = np.array([0.88, 1.52, 3.2, 4, 4.16, 4.2, 4.14, 3.72, 3.18, 1.6, 1])
-    I = (U_R / 2) / 20; I *= 1000
-    print(I)
-    print(len(f), len(I))
-    plotSam = dataPlot()
-    plotSam.xData = f
-    plotSam.yData = I
-    plotSam.figureSize = [6, 4.5]; plotSam.ovaScale = 1.5
-    plotSam.xLim = [1000, 2200]; plotSam.yLim = [0, 110]
-    plotSam.xStripMaj = 200; plotSam.xStripMin = 20
-    plotSam.yStripMaj = 20; plotSam.yStripMin = 2
-    plotSam.xLabel = r'$f/Hz$'; plotSam.yLabel = r'$I/mA$'
-    plotSam.creatPlot('-k')
-    plotSam.addGrid()
-    plotSam.ax.plot(f, I, 'o', markerfacecolor = 'w', markeredgecolor = 'r',
-                    zorder = 10, markeredgewidth = 1.5)
-    plotSam.ax.plot(np.repeat(1522, 10) ,np.linspace(0, I[2], 10), '--r',
-                    linewidth = 1.5, zorder = 5)
-    plotSam.ax.plot(np.repeat(1702, 10) ,np.linspace(0, I[8], 10), '--r',
-                    linewidth = 1.5, zorder = 5)
-    plotSam.ax.plot(np.repeat(1612, 10) ,np.linspace(0, I[5], 10), '--r',
-                    linewidth = 1.5, zorder = 5)
-    #for spine in plotSam.ax.spines.values(): 
-        #spine.set_edgecolor('r')
-    #plotSam.ax.tick_params(axis = 'x', color = 'r')
-    plotSam.showPlot()
-def lagInt():
-    import scipy.interpolate as inte
-    x = np.array([1, 2, 3, 4, 5])
-    y = np.array([1, 2, 3, 4, 5])
-    plo = inte.lagrange(x, y)
-    fun = np.poly1d(plo)
-    xnew = np.linspace(1, 5, 100)
-    
-    plotSam = dataPlot()
-    plotSam.xData = xnew
-    plotSam.alp = 0.25
-    plotSam.yData = fun(xnew)
-    plotSam.figureSize = [5, 4]; plotSam.ovaScale = 1.5
-    plotSam.limBorder = True
-    plotSam.xLim = [0.5, 5.5]; plotSam.yLim = [0, 20]
-    plotSam.xStripMaj = 1; plotSam.xStripMin = 0.1
-    plotSam.yStripMaj = 2; plotSam.yStripMin = 0.2
-    plotSam.creatPlot('-k')
-    plotSam.addGrid()
-    
-    plotSam.ax.plot(x, y, 'o', markerfacecolor = 'w', markeredgecolor = 'r',
-                    zorder = 5, markeredgewidth = 1.5)
-                    
-    with open('data.txt', 'a+') as f:
-        for i in range(5):
-            y[4] += i**2
-            para = inte.lagrange(x, y)
-            fun = np.poly1d(para)
-            plotSam.ax.plot(xnew, fun(xnew), label = '$x_{5}=$'+str(y[4]))    
-            plotSam.ax.plot(x[4], fun(x[4]), 'o', markerfacecolor = 'w', 
-                            markeredgecolor = 'r', zorder = 5, markeredgewidth = 1.5)
-            f.write(str(inte.lagrange(x, y)) + '\n')
-            f.write('X[4]=' + str(y[4]) + '\n\n')
-    plotSam.addLegend()
-    plotSam.showPlot()
-    #print(1.208 - 12.08 + 42.29 - 59.42 + 29)
-    print(plo)
+
     
 
 if __name__ == '__main__':
-    horPlot()
+    exp_1()
