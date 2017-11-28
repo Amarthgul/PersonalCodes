@@ -70,7 +70,26 @@ class dataPlot():
                   enableShadow = False, legTitle = None, colume = 1):
         self.ax.legend(loc = 'best', fancybox = rounded, framealpha = alpha,
                        shadow = enableShadow, title = legTitle, ncol = colume)
-        
+
+    def addScatterPoint(self, x = [], y = [], pointType = 'o', zDepth = 5,
+                        faceColor = 'w', edgeColor = 'r', edgeWidth = 1.5,
+                        markerSize = 7.5):
+        if not x : x = self.xData
+        if not y: y = self.yData
+        self.ax.plot(x, y, pointType, markerfacecolor = faceColor,
+                     markeredgecolor = edgeColor, markeredgewidth = edgeWidth,
+                     markersize = markerSize*self.ovaScale, zorder = zDepth)
+
+    def addRegressLine(self, x = [], y = [], times = 1, division = 10, 
+                       lineWidth = 1, lineType = 'r-', regLabel = 'regression'):
+        if not x : x = self.xData
+        if not y: y = self.yData
+        para = np.polyfit(x, y, times)
+        equ = np.poly1d(para)
+        newX = np.linspace(x[0], x[len(x)-1], division)
+        self.ax.plot(newX, equ(newX), lineType, linewidth = lineWidth)
+        return para
+
     def addLinearSample(self, sampleList = [], startPoint = None, endPoint = None,
                         samplePoint = [], extend = False, color = 'r', lineWidth = 1):
         if sampleList: 
@@ -88,6 +107,7 @@ class dataPlot():
             yValue = slope * xRange + intercept
             self.ax.plot(xRange, yValue, c = color, linewidth = lineWidth)
         return slope, intercept
+
     def addRefLine(self, paraAxis = 'x', value = 0, thick = 1.5, color = 'r',
                    showDigit = True):
         dataOne = [value, value]; 
