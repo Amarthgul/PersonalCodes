@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Nov 29 08:31:43 2017
+
+@author: Administrator
+"""
+
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -47,7 +54,27 @@ class dataPlot():
         if len(self.xData) and len(self.yData):
             self.ax.plot(self.xData, self.yData, *args)
 
-    def addGrid(self):
+    def addGrid(self, autoFit = True, intense = 1):
+        def getDiv(inList):
+            listRange = max(inList) - min(inList)
+            counter = 0
+            while True:
+                if listRange > 10:
+                    listRange /= 10.0; counter += 1
+                elif listRange <1:
+                    listRange *= 10.0; counter -= 1
+                else: 
+                    listRange = 10
+                    break
+            listRange = round(listRange)
+            return listRange * 10 ** (counter - 1) * (1.0/intense)
+            
+        if autoFit:
+            self.xStripMaj = getDiv(self.xData)
+            self.xStripMin = self.xStripMaj / 10
+            self.yStripMaj = getDiv(self.yData)
+            self.yStripMin = self.yStripMaj / 10
+        
         self.ax.xaxis.set_major_locator(plt.MultipleLocator(self.xStripMaj))
         self.ax.yaxis.set_major_locator(plt.MultipleLocator(self.yStripMaj))
         self.ax.grid(which='major', axis='x', zorder = self.gridLayer,
@@ -149,6 +176,7 @@ def exp_1():
     print(fig.calGamma())
     fig.addScatterPoint()
     fig.addRegressLine()
+    fig.addGrid(intense = 2)
     fig.showPlot()
 
 #=======================================================================        
