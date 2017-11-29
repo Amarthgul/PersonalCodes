@@ -47,7 +47,27 @@ class dataPlot():
         if len(self.xData) and len(self.yData):
             self.ax.plot(self.xData, self.yData, *args)
 
-    def addGrid(self):
+    def addGrid(self, autoFit = True, intense = 1):
+        def getDiv(inList):
+            listRange = max(inList) - min(inList)
+            counter = 0
+            while True:
+                if listRange > 10:
+                    listRange /= 10.0; counter += 1
+                elif listRange <1:
+                    listRange *= 10.0; counter -= 1
+                else: 
+                    listRange = 10
+                    break
+            listRange = round(listRange)
+            return listRange * 10 ** (counter - 1) * (1.0/intense)
+            
+        if autoFit:
+            self.xStripMaj = getDiv(self.xData)
+            self.xStripMin = self.xStripMaj / 10
+            self.yStripMaj = getDiv(self.yData)
+            self.yStripMin = self.yStripMaj / 10
+        
         self.ax.xaxis.set_major_locator(plt.MultipleLocator(self.xStripMaj))
         self.ax.yaxis.set_major_locator(plt.MultipleLocator(self.yStripMaj))
         self.ax.grid(which='major', axis='x', zorder = self.gridLayer,
@@ -73,10 +93,10 @@ class dataPlot():
 
     def addScatterPoint(self, x = [], y = [], pointType = 'o', zDepth = 5,
                         faceColor = 'w', edgeColor = 'r', edgeWidth = 1.5,
-                        markerSize = 7.5):
+                        markerSize = 7.5, pLabel = 'DataPoints'):
         if not x : x = self.xData
         if not y: y = self.yData
-        self.ax.plot(x, y, pointType, markerfacecolor = faceColor,
+        self.ax.plot(x, y, pointType, markerfacecolor = faceColor, label = pLabel,
                      markeredgecolor = edgeColor, markeredgewidth = edgeWidth,
                      markersize = markerSize*self.ovaScale, zorder = zDepth)
 
@@ -97,7 +117,9 @@ class dataPlot():
             endPoint = list(sampleList[samplePoint[1]])
             print(startPoint, endPoint)
         if startPoint == None or endPoint == None:
-            self.ax.text(0.5, 0.5, "INVALID SAMPLE")
+            self.ax.text((max(self.xData) + min(self.xData)) / 2, 
+                         (max(self.yData) + min(self.yData)) / 2, 
+                         "INVALID SAMPLING")
             return 0, 0
         else:
             slope = (endPoint[1] - startPoint[1])/(endPoint[0] - startPoint[0])
@@ -109,7 +131,7 @@ class dataPlot():
         return slope, intercept
 
     def addRefLine(self, paraAxis = 'x', value = 0, thick = 1.5, color = 'r',
-                   showDigit = True):
+                   showDigit = True, zDepth = 1):
         dataOne = [value, value]; 
         dataTwo = [self.xLim[0], self.xLim[1]] if paraAxis == 'x' else [self.yLim[0], self.yLim[1]]
         modifier = (self.xLim[1] - self.xLim[0]) / 20 if paraAxis == 'x' else (self.yLim[1] - self.yLim[0]) / 20
@@ -118,10 +140,20 @@ class dataPlot():
 
         if paraAxis == 'y': dataOne, dataTwo = dataTwo, dataOne
         self.ax.plot(dataTwo, dataOne, linestyle = '--', color = color,
-                        linewidth = thick)
+                        linewidth = thick, zorder = zDepth)
         self.ax.text(xPos, yPos, str(value))
         return 0
-
+        
+    def addTextBox(self, posX = None, posY = None, offsetX = 0, offsetY = 0,
+                   content = 'Hello World', opacity = 0.7, Size = 20, zDepth = 10):
+        if not posX: posX = (max(self.xData) + min(self.xData)) / 2
+        if not posY: posY = (max(self.yData) + min(self.yData)) / 2
+        posX += offsetX; posY += offsetY
+        boxStyle = dict(facecolor='white', edgecolor='red', 
+                        boxstyle='round,pad=1', alpha = opacity)
+        self.ax.text(posX, posY, content, bbox = boxStyle, fontsize = Size,
+                     zorder = zDepth)
+        
     def showPlot(self):
         if self.plotTitle != None:
             plt.title(self.plotTitle, fontsize = self.labelFontSize*1.25*self.ovaScale)
@@ -136,3 +168,4 @@ class dataPlot():
             plt.xlim(self.xLim[0], self.xLim[1])
             plt.ylim(self.yLim[0], self.yLim[1])
         plt.show()
+        
