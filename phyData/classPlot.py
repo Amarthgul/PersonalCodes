@@ -36,6 +36,7 @@ class dataPlot():
         self.ax = plt.axes() if not self.axesPara else plt.axes(self.axesPara)
 
     def calGamma(self, x = [], y = []):
+        '''Linear dependence of 2 sets'''
         if not len(x): x = self.xData 
         if not len(y): y = self.yData
         x = np.array(x); y = np.array(y)
@@ -44,13 +45,15 @@ class dataPlot():
         denominator *= ((y**2).mean() - (y.mean())**2)
         return numerator / np.sqrt(denominator)
         
-    def sciFormat(self, num, precision = 4):
+    def sciFormat(self, num, precision = 4, upperBound = 1000, lowerBound = 0.01):
+        '''Convert to Scitific format if necessary'''
         sci = '{:.'+str(precision)+'e}'
         norm = '{:.'+str(precision)+'f}'
-        if num > 1000 or num < 0.01: return sci.format(num)
+        if num > upperBound or num < lowerBound: return sci.format(num)
         return norm.format(num)
         
     def creatPlot(self, *args):
+        '''Literally Useless'''
         if len(self.xData) and len(self.yData):
             self.ax.plot(self.xData, self.yData, *args)
 
@@ -190,5 +193,3 @@ class dataPlot():
         self.generatePlot()
         plt.show()
         
-
-    
