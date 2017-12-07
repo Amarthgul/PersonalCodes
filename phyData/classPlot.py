@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Nov 29 08:31:43 2017
+
+@author: Administrator
+"""
+
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -35,19 +42,25 @@ class dataPlot():
         self.ax = plt.axes() if not self.axesPara else plt.axes(self.axesPara)
 
     def calGamma(self, x = [], y = []):
-        if not x: x = self.xData; 
-        if not y: y = self.yData
+        if not len(x): x = self.xData 
+        if not len(y): y = self.yData
         x = np.array(x); y = np.array(y)
         numerator = (x*y).mean() - x.mean() * y.mean()
         denominator = ((x**2).mean() - (x.mean())**2)
         denominator *= ((y**2).mean() - (y.mean())**2)
         return numerator / np.sqrt(denominator)
-
+        
+    def sciFormat(self, num, precision = 4):
+        sci = '{:.'+str(precision)+'e}'
+        norm = '{:.'+str(precision)+'f}'
+        if num > 1000 or num < 0.01: return sci.format(num)
+        return norm.format(num)
+        
     def creatPlot(self, *args):
         if len(self.xData) and len(self.yData):
             self.ax.plot(self.xData, self.yData, *args)
 
-    def addGrid(self, autoFit = True, intense = 1):
+    def addGrid(self, autoFit = True, xIntense = 1, yIntense = 1):
         def getDiv(inList):
             listRange = max(inList) - min(inList)
             counter = 0
@@ -60,12 +73,12 @@ class dataPlot():
                     listRange = 10
                     break
             listRange = round(listRange)
-            return listRange * 10 ** (counter - 1) * (1.0/intense)
+            return listRange * 10 ** (counter - 1)
             
         if autoFit:
-            self.xStripMaj = getDiv(self.xData)
+            self.xStripMaj = getDiv(self.xData) * xIntense
             self.xStripMin = self.xStripMaj / 10
-            self.yStripMaj = getDiv(self.yData)
+            self.yStripMaj = getDiv(self.yData) * yIntense
             self.yStripMin = self.yStripMaj / 10
         
         self.ax.xaxis.set_major_locator(plt.MultipleLocator(self.xStripMaj))
@@ -86,29 +99,39 @@ class dataPlot():
                          linewidth=self.xStripMinWid * self.ovaScale, 
                          linestyle='-', color = self.gridColor, alpha = self.alp)
         
-    def addLegend(self, loc = 'best', rounded=True, alpha=0.75, 
+    def addLegend(self, loc = 'best', rounded=True, alpha=0.75, Size = 15,
                   enableShadow = False, legTitle = None, colume = 1):
         self.ax.legend(loc = 'best', fancybox = rounded, framealpha = alpha,
-                       shadow = enableShadow, title = legTitle, ncol = colume)
+                       shadow = enableShadow, title = legTitle, ncol = colume,
+                       fontsize = Size * self.ovaScale)
 
     def addScatterPoint(self, x = [], y = [], pointType = 'o', zDepth = 5,
                         faceColor = 'w', edgeColor = 'r', edgeWidth = 1.5,
-                        markerSize = 7.5, pLabel = 'DataPoints'):
-        if not x : x = self.xData
-        if not y: y = self.yData
-        self.ax.plot(x, y, pointType, markerfacecolor = faceColor, label = pLabel,
+                        markerSize = 7.5, Label = 'DataPoints'):
+        if not len(x): x = self.xData
+        if not len(y): y = self.yData
+        self.ax.plot(x, y, pointType, markerfacecolor = faceColor, label = Label,
                      markeredgecolor = edgeColor, markeredgewidth = edgeWidth,
                      markersize = markerSize*self.ovaScale, zorder = zDepth)
-
-    def addRegressLine(self, x = [], y = [], times = 1, division = 10, 
-                       lineWidth = 1, lineType = 'r-', regLabel = 'regression'):
+                     
+    def calRegression(self, x = [], y = [], times = 1):
         if not x : x = self.xData
         if not y: y = self.yData
-        para = np.polyfit(x, y, times)
+        return np.polyfit(x, y, times)
+        
+    def addRegressLine(self, para = [], start = None, end = None, division = 20, 
+                       lineWidth = 1, lineType = 'r-', Label = 'regression'):
+        if not start: start = self.xData[0]
+        if not end: end = self.xData[len(self.xData)-1]
+        if not len(para): 
+            para = self.calRegression()
+            Label = 'Slope:     {}\n'.format(self.sciFormat(para[0]) + \
+                    'Intercept: {}\n'.format(self.sciFormat(para[1])) + \
+                    '$\gamma$' + ':             {}'.format(
+                    self.sciFormat(self.calGamma(self.xData, self.yData)))
         equ = np.poly1d(para)
-        newX = np.linspace(x[0], x[len(x)-1], division)
-        self.ax.plot(newX, equ(newX), lineType, linewidth = lineWidth)
-        return para
+        newX = np.linspace(start, end, division)
+        self.ax.plot(newX, equ(newX), lineType, linewidth = lineWidth, label = Label)
 
     def addLinearSample(self, sampleList = [], startPoint = None, endPoint = None,
                         samplePoint = [], extend = False, color = 'r', lineWidth = 1):
@@ -145,14 +168,14 @@ class dataPlot():
         return 0
         
     def addTextBox(self, posX = None, posY = None, offsetX = 0, offsetY = 0,
-                   content = 'Hello World', opacity = 0.7, Size = 20, zDepth = 10):
+                   content = 'Hello World', opacity = 0.7, Size = 15, zDepth = 10):
         if not posX: posX = (max(self.xData) + min(self.xData)) / 2
         if not posY: posY = (max(self.yData) + min(self.yData)) / 2
         posX += offsetX; posY += offsetY
         boxStyle = dict(facecolor='white', edgecolor='red', 
                         boxstyle='round,pad=1', alpha = opacity)
-        self.ax.text(posX, posY, content, bbox = boxStyle, fontsize = Size,
-                     zorder = zDepth)
+        self.ax.text(posX, posY, content, bbox = boxStyle, zorder = zDepth,
+                     fontsize = Size * self.ovaScale)
         
     def showPlot(self):
         if self.plotTitle != None:
@@ -168,4 +191,4 @@ class dataPlot():
             plt.xlim(self.xLim[0], self.xLim[1])
             plt.ylim(self.yLim[0], self.yLim[1])
         plt.show()
-        
+
