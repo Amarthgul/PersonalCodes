@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Nov 29 08:31:43 2017
-
-@author: Administrator
-"""
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -120,15 +114,16 @@ class dataPlot():
         return np.polyfit(x, y, times)
         
     def addRegressLine(self, para = [], start = None, end = None, division = 20, 
-                       lineWidth = 1, lineType = 'r-', Label = 'regression'):
+                       lineWidth = 1, lineType = 'r-', Label = 'regression', 
+                       precision = 4):
         if not start: start = self.xData[0]
         if not end: end = self.xData[len(self.xData)-1]
         if not len(para): 
             para = self.calRegression()
-            Label = 'Slope:     {}\n'.format(self.sciFormat(para[0]) + \
-                    'Intercept: {}\n'.format(self.sciFormat(para[1])) + \
-                    '$\gamma$' + ':             {}'.format(
-                    self.sciFormat(self.calGamma(self.xData, self.yData)))
+            Label = 'Slope:     {}\n'.format(self.sciFormat(para[0], precision)) + \
+            'Intercept: {}\n'.format(self.sciFormat(para[1], precision)) + \
+            '$\gamma$' + ':             {}'.format(
+            self.sciFormat(self.calGamma(self.xData, self.yData), precision))
         equ = np.poly1d(para)
         newX = np.linspace(start, end, division)
         self.ax.plot(newX, equ(newX), lineType, linewidth = lineWidth, label = Label)
@@ -177,7 +172,7 @@ class dataPlot():
         self.ax.text(posX, posY, content, bbox = boxStyle, zorder = zDepth,
                      fontsize = Size * self.ovaScale)
         
-    def showPlot(self):
+    def generatePlot(self):
         if self.plotTitle != None:
             plt.title(self.plotTitle, fontsize = self.labelFontSize*1.25*self.ovaScale)
         if self.figureSize != None:
@@ -190,5 +185,10 @@ class dataPlot():
         if self.limBorder:
             plt.xlim(self.xLim[0], self.xLim[1])
             plt.ylim(self.yLim[0], self.yLim[1])
+            
+    def showPlot(self):
+        self.generatePlot()
         plt.show()
+        
 
+    
