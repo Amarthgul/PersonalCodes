@@ -1,4 +1,3 @@
-
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -31,9 +30,15 @@ class dataPlot():
         self.yStripMajWid = 1
         self.yStripMinWid = 0.5
         
-        
         #self.fig = plt.figure(figsize = self.figureSize)
         self.ax = plt.axes() if not self.axesPara else plt.axes(self.axesPara)
+
+    def squeezelist(self, auto = True, *args):
+        if auto:
+            self.xData = np.squeeze(self.xData) if len(xData.shape) < 1 else self.xData
+            self.yData = np.squeeze(self.yData) if len(yData.shape) < 1 else self.yData
+        for _ in args:
+            _ = np.squeeze(_)
 
     def calGamma(self, x = [], y = []):
         '''Linear dependence of 2 sets'''
@@ -57,9 +62,10 @@ class dataPlot():
         if len(self.xData) and len(self.yData):
             self.ax.plot(self.xData, self.yData, *args)
 
-    def addGrid(self, autoFit = True, xIntense = 1, yIntense = 1):
+    def addGrid(self, autoFit = True, xIntense = 1, yIntense = 1, lineWidthMult = 1):
         def getDiv(inList):
             listRange = max(inList) - min(inList)
+            print(listRange)#=============================
             counter = 0
             while True:
                 if listRange > 10:
@@ -81,19 +87,19 @@ class dataPlot():
         self.ax.xaxis.set_major_locator(plt.MultipleLocator(self.xStripMaj))
         self.ax.yaxis.set_major_locator(plt.MultipleLocator(self.yStripMaj))
         self.ax.grid(which='major', axis='x', zorder = self.gridLayer,
-                     linewidth=self.xStripMajWid * self.ovaScale, 
+                     linewidth=self.xStripMajWid * self.ovaScale * lineWidthMult, 
                 linestyle='-', color = self.gridColor, alpha = self.alp)
         self.ax.grid(which='major', axis='y', zorder = self.gridLayer,
-                     linewidth=self.yStripMajWid * self.ovaScale, 
+                     linewidth=self.yStripMajWid * self.ovaScale * lineWidthMult, 
                 linestyle='-', color = self.gridColor, alpha = self.alp)       
         if self.biStrip:
             self.ax.yaxis.set_minor_locator(plt.MultipleLocator(self.yStripMin))
             self.ax.xaxis.set_minor_locator(plt.MultipleLocator(self.xStripMin))
             self.ax.grid(which='minor', axis='y', zorder = self.gridLayer, 
-                         linewidth=self.yStripMinWid * self.ovaScale, 
+                         linewidth=self.yStripMinWid * self.ovaScale * lineWidthMult, 
                          linestyle='-', color = self.gridColor, alpha = self.alp)
             self.ax.grid(which='minor', axis='x', zorder = self.gridLayer,
-                         linewidth=self.xStripMinWid * self.ovaScale, 
+                         linewidth=self.xStripMinWid * self.ovaScale * lineWidthMult, 
                          linestyle='-', color = self.gridColor, alpha = self.alp)
         
     def addLegend(self, loc = 'best', rounded=True, alpha=0.75, Size = 15,
@@ -192,4 +198,5 @@ class dataPlot():
     def showPlot(self):
         self.generatePlot()
         plt.show()
-        
+    def save(self, name = 'default.png', dpi = 256):
+        plt.savefig(name, dpi = dpi)
