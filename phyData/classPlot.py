@@ -1,12 +1,44 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import math
 
+class phydata():
+    def __init__(self, value, delta = 0.01, C = 1.46):
+        self.value = value
+        self.delta = delta
+        self._C = C
+        self.summing = np.sum(self.value)
+        self.squre = np.sum(np.sqrt(self.value))
+        self.average = np.mean(self.value)
+        self.reTolera = self.uncertainty / self.average  #percentage
+        self.ln = np.log(self.value)
+        self.biggest = np.max(self.value)
+        self.smallest = np.min(self.value)
+    
+    @property
+    def C(self):
+        return self._C
+
+    @property
+    def uncerA(self):
+        for itera in range(len(self.value)):
+            squrMinu = (self.value[itera] - self.average) ** 2
+        squrMinu /= ((len(self.value) - 1) * len(self.value))
+        return np.sqrt(squrMinu)
+
+    @property
+    def uncerB(self):
+        return self.delta / self.C
+
+    @property
+    def uncertainty(self):
+        return np.sqrt(self.uncerA**2 + self.uncerB**2)
 
 class dataPlot():
-    def __init__(self):
+    def __init__(self, inputX = [0], inputY = [0]):
         self.ovaScale = 1
-        self.xData = []
-        self.yData = []
+        self._xData = inputX
+        self._yData = inputY
         self.xLim = [0, 10]
         self.yLim = [0, 10]
         self.limBorder = True
@@ -33,12 +65,12 @@ class dataPlot():
         #self.fig = plt.figure(figsize = self.figureSize)
         self.ax = plt.axes() if not self.axesPara else plt.axes(self.axesPara)
 
-    def squeezelist(self, auto = True, *args):
-        if auto:
-            self.xData = np.squeeze(self.xData) if len(xData.shape) < 1 else self.xData
-            self.yData = np.squeeze(self.yData) if len(yData.shape) < 1 else self.yData
-        for _ in args:
-            _ = np.squeeze(_)
+    @property
+    def xData(self):
+        return np.squeeze(self._xData)
+    @property
+    def yData(self):
+        return np.squeeze(self._yData)
 
     def calGamma(self, x = [], y = []):
         '''Linear dependence of 2 sets'''
@@ -157,18 +189,19 @@ class dataPlot():
             self.ax.plot(xRange, yValue, c = color, linewidth = lineWidth)
         return slope, intercept
 
-    def addRefLine(self, paraAxis = 'x', value = 0, thick = 1.5, color = 'r',
-                   showDigit = True, zDepth = 1):
+    def addRefLine(self, start=0, end=10, paraAxis = 'x', value = 0, thick = 1.5, color = 'r',
+                   showDigit = True, zDepth = 1, Label = 'ref'):
         dataOne = [value, value]; 
-        dataTwo = [self.xLim[0], self.xLim[1]] if paraAxis == 'x' else [self.yLim[0], self.yLim[1]]
+        dataTwo = [start, end]
         modifier = (self.xLim[1] - self.xLim[0]) / 20 if paraAxis == 'x' else (self.yLim[1] - self.yLim[0]) / 20
         xPos = 0-modifier if paraAxis == 'x' else value
         yPos = value if paraAxis == 'x' else 0-modifier
 
         if paraAxis == 'y': dataOne, dataTwo = dataTwo, dataOne
         self.ax.plot(dataTwo, dataOne, linestyle = '--', color = color,
-                        linewidth = thick, zorder = zDepth)
-        self.ax.text(xPos, yPos, str(value))
+                        linewidth = thick, zorder = zDepth, label = Label)
+        if showDigit:
+            self.ax.text(xPos, yPos, str(value))
         return 0
         
     def addTextBox(self, posX = None, posY = None, offsetX = 0, offsetY = 0,
@@ -176,7 +209,7 @@ class dataPlot():
         if not posX: posX = (max(self.xData) + min(self.xData)) / 2
         if not posY: posY = (max(self.yData) + min(self.yData)) / 2
         posX += offsetX; posY += offsetY
-        boxStyle = dict(facecolor='white', edgecolor='red', 
+        boxStyle = dict(facecolor='white', edgecolor='k', 
                         boxstyle='round,pad=1', alpha = opacity)
         self.ax.text(posX, posY, content, bbox = boxStyle, zorder = zDepth,
                      fontsize = Size * self.ovaScale)
@@ -200,3 +233,14 @@ class dataPlot():
         plt.show()
     def save(self, name = 'default.png', dpi = 256):
         plt.savefig(name, dpi = dpi)
+#=======================================================================        
+'''=================================================================='''  
+
+def trial():
+    pass
+
+#=======================================================================        
+'''=================================================================='''      
+
+if __name__ == '__main__':
+    trial()
