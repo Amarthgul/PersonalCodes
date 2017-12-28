@@ -1,47 +1,86 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import math
+import re
+
+'''=================================================='''
+#=======================================================
 
 class phydata():
     def __init__(self, value, delta = 0.01, C = 1.46):
-        self.value = value
-        self.delta = delta
+        self.value = np.array(value)
+        self._delta = delta
         self._C = C
         self.summing = np.sum(self.value)
-        self.squre = np.sum(np.sqrt(self.value))
         self.average = np.mean(self.value)
-        self.reTolera = self.uncertainty / self.average  #percentage
-        self.ln = np.log(self.value)
         self.biggest = np.max(self.value)
         self.smallest = np.min(self.value)
-    
-    @property
-    def C(self):
-        return self._C
+        self.length = len(self.value)
 
+    @property
+    def C(self): return self._C
+    @property
+    def delta(self): return self._delta
+    @property
+    def uncerB(self): return self.delta / self.C
     @property
     def uncerA(self):
-        for itera in range(len(self.value)):
-            squrMinu = (self.value[itera] - self.average) ** 2
-        squrMinu /= ((len(self.value) - 1) * len(self.value))
-        return np.sqrt(squrMinu)
-
-    @property
-    def uncerB(self):
-        return self.delta / self.C
+        if len(self.value) == 1: return 0
+        else:
+            return np.sqrt(np.sum((self.value - self.average)**2) 
+                           / (self.length * (self.length - 1)))
 
     @property
     def uncertainty(self):
         return np.sqrt(self.uncerA**2 + self.uncerB**2)
+    @property
+    def relativeUncertainty(self): 
+        '''That's percentage'''
+        return 100 * self.uncertainty / self.average
 
+    def getPara(self, *args):
+        '''args: unwanted parameters'''
+        parameters = {
+            'value': self.value,
+            'delta': self.delta,
+            'c': self.C,
+            'sum': self.summing,
+            'average': self.average,
+            'biggest': self.biggest,
+            'smallest': self.smallest,
+            'uncertainty a': self.uncerA,
+            'uncertainty b': self.uncerB,
+            'uncertainty': self.uncertainty,
+            'relative uncertainty':self.relativeUncertainty}
+        for _ in args:
+            try: _ = _.lower()
+            except TypeError as err: print(err)
+            if _ in parameters: del parameters[_]
+        return parameters
+    def strPara(self, inDict):
+        '''I strongly suggest you to use getPara() as input'''
+        order = ['value', 'delta', 'c', 'sum', 'average', 'biggest', 'smallest', 
+                 'uncertainty a', 'uncertainty b', 'uncertainty', 'relative uncertainty']
+        outStr = ''
+        for item in inDict.items():
+            if item[0] in order:
+                order[order.index(item[0])] = '{}{}:{}\n'.format(item[0],
+                    ' '*((15 - len(item[0])) if len(item[0])<15 else 0), item[1])
+        for _ in order:
+            if ':' not in _: del order[order.index(_)]
+            else: outStr += _
+        print(outStr)
+            
+#=======================================================================        
+'''=================================================================='''  
 class dataPlot():
-    def __init__(self, inputX = [0], inputY = [0]):
+    def __init__(self, inputX = [], inputY = []):
         self.ovaScale = 1
         self._xData = inputX
         self._yData = inputY
         self.xLim = [0, 10]
         self.yLim = [0, 10]
-        self.limBorder = True
+        self.limBorder = False
         self.xLabel = 'X'
         self.yLabel = 'Y'
         self.plotTitle = None
@@ -68,7 +107,7 @@ class dataPlot():
     @property
     def xData(self):
         return np.squeeze(self._xData)
-    @property
+    @property 
     def yData(self):
         return np.squeeze(self._yData)
 
@@ -95,6 +134,7 @@ class dataPlot():
             self.ax.plot(self.xData, self.yData, *args)
 
     def addGrid(self, autoFit = True, xIntense = 1, yIntense = 1, lineWidthMult = 1):
+        '''add grid to the background'''
         def getDiv(inList):
             listRange = max(inList) - min(inList)
             print(listRange)#=============================
@@ -111,6 +151,7 @@ class dataPlot():
             return listRange * 10 ** (counter - 1)
             
         if autoFit:
+            if len(self.xData) == 0: self._xData = [0, 10]; self._yData = [0, 10]
             self.xStripMaj = getDiv(self.xData) * xIntense
             self.xStripMin = self.xStripMaj / 10
             self.yStripMaj = getDiv(self.yData) * yIntense
@@ -189,7 +230,7 @@ class dataPlot():
             self.ax.plot(xRange, yValue, c = color, linewidth = lineWidth)
         return slope, intercept
 
-    def addRefLine(self, start=0, end=10, paraAxis = 'x', value = 0, thick = 1.5, color = 'r',
+    def addRefLine(self, value, start=0, end=10, paraAxis = 'x', thick = 1.5, color = 'r',
                    showDigit = True, zDepth = 1, Label = 'ref'):
         dataOne = [value, value]; 
         dataTwo = [start, end]
@@ -215,13 +256,14 @@ class dataPlot():
                      fontsize = Size * self.ovaScale)
         
     def generatePlot(self):
+        tickFontSizeScaler = 0.75
         if self.plotTitle != None:
             plt.title(self.plotTitle, fontsize = self.labelFontSize*1.25*self.ovaScale)
         if self.figureSize != None:
             plt.rcParams["figure.figsize"] = (self.figureSize[0]*self.ovaScale,
                 self.figureSize[1]*self.ovaScale)
-        plt.yticks(fontsize = self.labelFontSize*0.55*self.ovaScale)
-        plt.yticks(fontsize = self.labelFontSize*0.6*self.ovaScale)
+        plt.xticks(fontsize = self.labelFontSize * tickFontSizeScaler * self.ovaScale)
+        plt.yticks(fontsize = self.labelFontSize * tickFontSizeScaler * self.ovaScale)
         plt.xlabel(self.xLabel, fontsize = self.labelFontSize*self.ovaScale)
         plt.ylabel(self.yLabel, fontsize = self.labelFontSize*self.ovaScale)
         if self.limBorder:
@@ -236,11 +278,9 @@ class dataPlot():
 #=======================================================================        
 '''=================================================================='''  
 
-def trial():
+def helloWorld():
     pass
-
-#=======================================================================        
 '''=================================================================='''      
 
 if __name__ == '__main__':
-    trial()
+    helloWorld()
