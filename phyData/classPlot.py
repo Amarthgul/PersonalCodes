@@ -3,11 +3,12 @@ import numpy as np
 import math
 import re
 
+
 '''=================================================='''
 #=======================================================
 
 class phydata():
-    def __init__(self, value, delta = 0.01, C = 1.46):
+    def __init__(self, value, delta = 0.1, C = 1.46):
         self.value = np.array(value)
         self._delta = delta
         self._C = C
@@ -16,6 +17,7 @@ class phydata():
         self.biggest = np.max(self.value)
         self.smallest = np.min(self.value)
         self.length = len(self.value)
+        self.unity = 'cm'
 
     @property
     def C(self): return self._C
@@ -57,20 +59,31 @@ class phydata():
             except TypeError as err: print(err)
             if _ in parameters: del parameters[_]
         return parameters
-    def strPara(self, inDict):
+    def strPara(self, inDict, addUnity = True):
         '''I strongly suggest you to use getPara() as input'''
         order = ['value', 'delta', 'c', 'sum', 'average', 'biggest', 'smallest', 
                  'uncertainty a', 'uncertainty b', 'uncertainty', 'relative uncertainty']
+        unity = [self.unity, self.unity, '', self.unity,self.unity, self.unity, self.unity,
+                 self.unity, self.unity, self.unity, '%']
         outStr = ''
         for item in inDict.items():
             if item[0] in order:
-                order[order.index(item[0])] = '{}{}:{}\n'.format(item[0],
-                    ' '*((15 - len(item[0])) if len(item[0])<15 else 0), item[1])
+                order[order.index(item[0])] = '{}{}:{} {}\n'.format(item[0],
+                    ' '*((15 - len(item[0])) if len(item[0])<15 else 0), item[1],
+                    unity[order.index(item[0])] if addUnity else '')
         for _ in order:
             if ':' not in _: del order[order.index(_)]
             else: outStr += _
-        print(outStr)
-            
+        return outStr
+    def stdResult(self):
+        '''Unfinished'''
+        return '''
+\left\{\begin{matrix}
+{}
+\\ 
+{}
+\end{matrix}\right.
+        '''.format()        
 #=======================================================================        
 '''=================================================================='''  
 class dataPlot():
