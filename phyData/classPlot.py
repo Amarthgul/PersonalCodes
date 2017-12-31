@@ -124,6 +124,21 @@ class dataPlot():
     def yData(self):
         return np.squeeze(self._yData)
 
+    def _getDiv(self, inList):
+        listRange = max(inList) - min(inList)
+        #print(listRange)#=============================
+        counter = 0
+        while True:
+            if listRange > 10:
+                listRange /= 10.0; counter += 1
+            elif listRange <1:
+                listRange *= 10.0; counter -= 1
+            else: 
+                listRange = 10
+                break
+        listRange = round(listRange)
+        return listRange * 10 ** (counter - 1)
+
     def calGamma(self, x = [], y = []):
         '''Linear dependence of 2 sets'''
         if not len(x): x = self.xData 
@@ -132,44 +147,33 @@ class dataPlot():
         numerator = (x*y).mean() - x.mean() * y.mean()
         denominator = ((x**2).mean() - (x.mean())**2)
         denominator *= ((y**2).mean() - (y.mean())**2)
-        return numerator / np.sqrt(denominator)
-        
+        return numerator / np.sqrt(denominator)    
     def sciFormat(self, num, precision = 4, upperBound = 1000, lowerBound = 0.01):
         '''Convert to Scitific format if necessary'''
         sci = '{:.'+str(precision)+'e}'
         norm = '{:.'+str(precision)+'f}'
         if num > upperBound or num < lowerBound: return sci.format(num)
-        return norm.format(num)
-        
+        return norm.format(num)    
     def creatPlot(self, *args):
         '''Literally Useless'''
         if len(self.xData) and len(self.yData):
             self.ax.plot(self.xData, self.yData, *args)
 
     def addGrid(self, autoFit = True, xIntense = 1, yIntense = 1, lineWidthMult = 1):
-        '''add grid to the background'''
-        def getDiv(inList):
-            listRange = max(inList) - min(inList)
-            print(listRange)#=============================
-            counter = 0
-            while True:
-                if listRange > 10:
-                    listRange /= 10.0; counter += 1
-                elif listRange <1:
-                    listRange *= 10.0; counter -= 1
-                else: 
-                    listRange = 10
-                    break
-            listRange = round(listRange)
-            return listRange * 10 ** (counter - 1)
-            
+        '''add grid to the background
+        xIntense: scaler to modify how dense the grid is
+        yIntense: same as xIntense, but in y axis
+        '''   
         if autoFit:
             if len(self.xData) == 0: self._xData = [0, 10]; self._yData = [0, 10]
-            self.xStripMaj = getDiv(self.xData) * xIntense
+            self.xStripMaj = self._getDiv(self.xData) * xIntense
             self.xStripMin = self.xStripMaj / 10
-            self.yStripMaj = getDiv(self.yData) * yIntense
+            self.yStripMaj = self._getDiv(self.yData) * yIntense
             self.yStripMin = self.yStripMaj / 10
-        
+            #self.xLim = [min(self.xData) - self.xStripMaj/2, max(self.xData) + self.xStripMaj/2]
+            #self.yLim = [min(self.yData) - self.yStripMaj/2, max(self.yData) + self.yStripMaj/2]
+            #print(self.xLim, self.yLim)
+
         self.ax.xaxis.set_major_locator(plt.MultipleLocator(self.xStripMaj))
         self.ax.yaxis.set_major_locator(plt.MultipleLocator(self.yStripMaj))
         self.ax.grid(which='major', axis='x', zorder = self.gridLayer,
@@ -196,18 +200,23 @@ class dataPlot():
 
     def addScatterPoint(self, x = [], y = [], pointType = 'o', zDepth = 5,
                         faceColor = 'w', edgeColor = 'r', edgeWidth = 1.5,
-                        markerSize = 7.5, Label = 'DataPoints'):
+                        markerSize = 7.5, Label = 'DataPoints', connected = True):
         if not len(x): x = self.xData
         if not len(y): y = self.yData
-        self.ax.plot(x, y, pointType, markerfacecolor = faceColor, label = Label,
+        self.ax.plot(x, y, pointType, markerfacecolor = faceColor, 
                      markeredgecolor = edgeColor, markeredgewidth = edgeWidth,
-                     markersize = markerSize*self.ovaScale, zorder = zDepth)
+                     markersize = markerSize*self.ovaScale, zorder = zDepth,
+                     label = Label if not connected else None)
+        if connected:
+            self.ax.plot(x, y, '-', color = edgeColor, label = Label,
+                     linewidth = edgeWidth *self.ovaScale, zorder = zDepth - 1)
+
                      
     def calRegression(self, x = [], y = [], times = 1):
         if not x : x = self.xData
         if not y: y = self.yData
         return np.polyfit(x, y, times)
-        
+      
     def addRegressLine(self, para = [], start = None, end = None, division = 20, 
                        lineWidth = 1, lineType = 'r-', Label = 'regression', 
                        precision = 4):
@@ -228,7 +237,7 @@ class dataPlot():
         if sampleList: 
             startPoint = list(sampleList[samplePoint[0]])
             endPoint = list(sampleList[samplePoint[1]])
-            print(startPoint, endPoint)
+            #print(startPoint, endPoint)
         if startPoint == None or endPoint == None:
             self.ax.text((max(self.xData) + min(self.xData)) / 2, 
                          (max(self.yData) + min(self.yData)) / 2, 
@@ -269,6 +278,13 @@ class dataPlot():
                      fontsize = Size * self.ovaScale)
         
     def generatePlot(self):
+
+        if not self.limBorder:
+            self.xLim = [min(self.xData) - self._getDiv(self.xData)/2,
+                         max(self.xData) + self._getDiv(self.xData)/2]
+            self.yLim = [min(self.yData) - self._getDiv(self.yData)/2,
+                         max(self.yData) + self._getDiv(self.yData)/2]
+
         tickFontSizeScaler = 0.75
         if self.plotTitle != None:
             plt.title(self.plotTitle, fontsize = self.labelFontSize*1.25*self.ovaScale)
@@ -277,16 +293,17 @@ class dataPlot():
                 self.figureSize[1]*self.ovaScale)
         plt.xticks(fontsize = self.labelFontSize * tickFontSizeScaler * self.ovaScale)
         plt.yticks(fontsize = self.labelFontSize * tickFontSizeScaler * self.ovaScale)
-        plt.xlabel(self.xLabel, fontsize = self.labelFontSize*self.ovaScale)
-        plt.ylabel(self.yLabel, fontsize = self.labelFontSize*self.ovaScale)
-        if self.limBorder:
-            plt.xlim(self.xLim[0], self.xLim[1])
-            plt.ylim(self.yLim[0], self.yLim[1])
+        #if the label is None or False, not displayed
+        if self.xLabel: plt.xlabel(self.xLabel, fontsize = self.labelFontSize*self.ovaScale) 
+        if self.yLabel: plt.ylabel(self.yLabel, fontsize = self.labelFontSize*self.ovaScale)
+        plt.xlim(self.xLim[0], self.xLim[1])
+        plt.ylim(self.yLim[0], self.yLim[1])
             
     def showPlot(self):
         self.generatePlot()
         plt.show()
     def save(self, name = 'default.png', dpi = 256):
+        self.generatePlot()
         plt.savefig(name, dpi = dpi)
 #=======================================================================        
 '''=================================================================='''  
