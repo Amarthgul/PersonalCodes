@@ -254,6 +254,7 @@ class dataPlot():
 
     def addRefLine(self, value, start=0, end=10, paraAxis = 'x', thick = 1.5, color = 'r',
                    showDigit = True, zDepth = 1, Label = 'ref'):
+        '''Add Reference Line, needs modificaton'''
         dataOne = [value, value]; 
         dataTwo = [start, end]
         modifier = (self.xLim[1] - self.xLim[0]) / 20 if paraAxis == 'x' else (self.yLim[1] - self.yLim[0]) / 20
