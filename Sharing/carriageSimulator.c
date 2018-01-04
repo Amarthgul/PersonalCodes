@@ -215,9 +215,8 @@ void main() {
 	motorHalt();
 	second = 10;
 
-	//classMode();
+	classMode();
 	//demoMode();
-	demoMode();
 	//===============End=====================
 }
 
