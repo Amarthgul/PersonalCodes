@@ -1,8 +1,6 @@
 #include "reg52.h"
-//#include "desCtrl.h"
+#define UINTLIM 500
 #include <intrins.h>
-#define UINTLIM 65500
-
 #ifndef __cplusplus
 typedef enum { False = 0, True = !False } bool;
 #endif
@@ -12,7 +10,7 @@ typedef unsigned int u16; //Seriously I don't want to use these abbr
 typedef unsigned char u8;
 
 
-sbit motorFow = P1 ^ 0; //
+sbit motorFow = P1 ^ 0; //Pins that outputs signal for the motor
 sbit motorRev = P1 ^ 1;
 sbit LSA = P1 ^ 2; //Digital tube bit-wise selection
 sbit LSB = P1 ^ 3;
@@ -131,32 +129,41 @@ void motorHalt(){
 	motorDirection = 0;
 }
 
-//==================================================
-//==================================================
 void demoMode(){
-	//motorHalt();
-	unsigned int speed, step, upperBound,lowerBound;
-	speed = (int)(UINTLIM / 2); step = 100;
-	upperBound = UINTLIM; lowerBound = 100;
+	/* Testing */
+	unsigned int delayTime, step, upperBound,lowerBound;
+	delayTime = (int)(UINTLIM / 2); step = 50;
+	upperBound = UINTLIM; lowerBound = 10;
 	while (True){
 
 		if (scanButton(accelerateButton))
-			speed -= step;
+			delayTime -= step;
 		if (scanButton(decreaseButton))
-			speed += step;
-		if (scanButton(motorFowButton))
-			motorForward(True, speed);
-		if (scanButton(motorRevButton))
-			motorForward(False, speed);
+			delayTime += step;
+		if (scanButton(motorFowButton)) {
+			motorForward(True, delayTime);
+			motorDirection = 1;
+		}
+		if (scanButton(motorRevButton)) {
+			motorForward(False, delayTime);
+			motorDirection = -1;
+		}
 
-		delay(speed);
+		motorHalt();
+		delay(100);
+		if (motorDirection) {
+			motorForward(True, delayTime); }
+		else if (motorDirection == -1){
+			motorForward(False, delayTime);}
 
-		if (speed > upperBound) speed = upperBound;
-		if (speed < lowerBound) speed = lowerBound;
+
+		if (delayTime > upperBound) delayTime = upperBound;
+		if (delayTime < lowerBound) delayTime = lowerBound;
 	}
 }
 
 void classMode(){
+	/* As the assignment asked */
 	while(! scanButton(startButton))
 		digDisplay(shapeHalt, 10);
 	while(! scanButton(buttonSQ2)){
@@ -202,12 +209,15 @@ void classMode(){
 
 void main() {
 	//==============Start====================
+	int i;
 	TUBE = 0x00;
 	timerInit();
 	motorHalt();
 	second = 10;
 
-	classMode();
+	//classMode();
+	//demoMode();
+	demoMode();
 	//===============End=====================
 }
 
