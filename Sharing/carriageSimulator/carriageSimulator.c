@@ -3,7 +3,6 @@
 #ifndef __cplusplus
 typedef enum { False = 0, True = !False } bool;
 #endif
-#define UINTLIM 500
 #define TUBE P0
 
 typedef unsigned int u16; //Seriously I don't want to use these abbr
@@ -149,8 +148,7 @@ void classMode(){
 	//==============startButton Pressed, waiting buttonSQ2==========
 	while(! scanButton(buttonSQ2)) {
 		memcpy(digDup, shapeFow, sizeof(shapeFow));
-		digDup[4] = digit[5]; digDup[6] = digit[2];
-		digDup[5] = digDup[7] = 0;
+		digDup[4] = digit[5]; digDup[6] = digit[2]; digDup[5] = digDup[7] = 0;
 		motorForward(True, 65500);
 		if (second <= 9) {
 			digForwarding();
@@ -162,8 +160,7 @@ void classMode(){
 	//==============buttonSQ2 Pressed, waiting buttonSQ1==========
 	while(! scanButton(buttonSQ1)) {
 		memcpy(digDup, shapeRev, sizeof(shapeRev));
-		digDup[4] = digDup[7] = 0;
-		digDup[5] = digit[1]; digDup[6] = digit[2];
+		digDup[4] = digDup[7] = 0; digDup[5] = digit[1]; digDup[6] = digit[2];
 		motorForward(False, 65500);
 		if (second <= 9) {
 			digbackwarding();
@@ -180,8 +177,7 @@ void classMode(){
 	}
 	while(! scanButton(buttonSQ3)){
 		memcpy(digDup, shapeFow, sizeof(shapeFow));
-		digDup[4] = digDup[6] = 0;
-		digDup[5] = digit[1]; digDup[7] = digit[3];
+		digDup[4] = digDup[6] = 0; digDup[5] = digit[1]; digDup[7] = digit[3];
 		motorForward(True, 65500);
 		if (second <= 9) {
 			digForwarding();
@@ -202,6 +198,7 @@ void classMode(){
 		else {digDup[5] = digit[1]; }
 		digDisplay(digDup, 1);
 	}
+	//Ended, RIP
 	motorHalt();
 	while(! scanButton(startButton)){
 		digDisplay(shapeHalt, 1);
@@ -217,7 +214,6 @@ void main() {
 	second = 10;
 
 	classMode();
-	//demoMode();
 	//===============End=====================
 }
 
