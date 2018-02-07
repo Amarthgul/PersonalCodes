@@ -36,7 +36,7 @@ def DFS_Loop(graph, order = []):
     global finishingTime
     leaders = []; nodesProcessed = 0
     for index in order:
-        if index not in explored: pass
+        if index not in explored: continue
         if not explored[index]:
             leaders.append(DFS(graph, index))
     return leaders
