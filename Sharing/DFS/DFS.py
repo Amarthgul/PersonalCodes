@@ -13,29 +13,21 @@ def creatMarkDict(numberOfNodes, initValue = False):
     return markerDict
 
 def DFS(graph, startNode = 0):
-    print('\ndealing node {}'.format(startNode))
+    print('\nProcessing node {}'.format(startNode))
     global nodesProcessed
     global explored
     global finishingTime
     explored[startNode] = True
     currentLeader = startNode
 
-    #if startNode in graph:
-    #    for neighbor in graph[startNode]:
-    #        print('{}: {}'.format(neighbor, explored[neighbor]), end = '--')
-    #print('')
-
     if startNode in graph:
         for neighbor in graph[startNode]:
             if not explored[neighbor]:
-                print('Node {} of {}'.format(neighbor, startNode))
                 DFS(graph, neighbor)
-                print('finished {}'.format(neighbor))
     else: return currentLeader
     
     nodesProcessed += 1
     finishingTime[startNode] = nodesProcessed
-    print('Return checkpoint')
     return currentLeader
 
 def DFS_Loop(graph, order = []):
@@ -59,7 +51,7 @@ print('Reading file...')
 with open('graphRev', 'rb') as f:
     graphRev = pickle.load(f)
 numberOfNodes = 875714 #already know that
-print('File read: {}\n{} Nodes'.format(graphRev, numberOfNodes))
+#print('File read: {}\n{} Nodes'.format(graphRev, numberOfNodes))
 
 
 
