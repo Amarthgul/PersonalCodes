@@ -51,9 +51,14 @@ def detectEdgeImg(img, lowerBound = 30, upperBound = 100,
 def constructLines(binaryImgMatrix, valueForTrue = 255):
 
     locX, locY = np.where(binaryImgMatrix == valueForTrue)
-    pointList = np.ones((len(locX), len(locY))) * np.inf 
+    print(locX)
+    pointList = np.ones((len(binaryImgMatrix), len(binaryImgMatrix[0]))) * np.inf 
+    print('Shape of image: {}'.format(pointList.shape))
     for x, y in zip(locX, locY):
         pointList[x][y] = 1
+
+    print('Finished Shape of image: {}'.format(pointList.shape))
+    exploredMarker = pointList.copy() - 1
 
     exploredMarker = pointList.copy() - 1
 
