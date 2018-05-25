@@ -2,7 +2,7 @@
 The goal is to creat a script that read a video file
 Play it and allow users to capture and save certain frames
 
-Current progress: |############        | 56% filling details
+Current progress: |##################  | 90% Never Ending Story
 '''
 
 
