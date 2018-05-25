@@ -9,30 +9,16 @@ Current progress: |############        | 56% filling details
 import cv2
 import numpy as np
 
-#clickLoc = [0, 0]
+index = 0
 
-#height, width, channels = 0, 0, 0
+def inspectAndCap(fileName, grayScale = False):  
 
-#def selectZone(event, x, y, flags, param):
-#    if event == cv2.EVENT_LBUTTONDOWN:
-#        global clickLoc
-
-#        global height, width, channels
-#        clickLoc = [x, y]
-#        index = int(totalFrame * (clickLoc[0] / width))
-
-
-def inspectAndCap(fileName, grayScale = False):
-
-    #global clickLoc
-    #global index
-    #global height, width, channels
     cap = cv2.VideoCapture(fileName)
     totalFrame = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     cv2.namedWindow("frame", cv2.WINDOW_NORMAL)
     #print(totalFrame)
     
-    index = 0
+    global index
     showInstructions = False
     recording = False
     ret, sample = cap.read()
@@ -45,13 +31,24 @@ def inspectAndCap(fileName, grayScale = False):
                     'S: Start Recording Frames',
                     'R: Record Current Frame',
                     'Q: Quit']
+
+    def selectZone(event, x, y, flags, param):
+        global index
+        if event == cv2.EVENT_LBUTTONDOWN:
+            clickLoc = [x, y]
+            index = int(totalFrame * (clickLoc[0] / width))
+            cap.set(1, index)
+            ret, frame = cap.read() 
+            current = frame
+            cv2.imshow('frame', current)
+
     while(True):
         
         cap.set(1, index)
         ret, frame = cap.read()
         current = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY) if grayScale else frame
 
-
+        
 
         #Left: 2424832 Up: 2490368 Right: 2555904 Down: 2621440
         key = cv2.waitKeyEx(0)
@@ -80,8 +77,9 @@ def inspectAndCap(fileName, grayScale = False):
         cv2.line(current, (currentProgressPixel, int(height*0.91)),
                  (currentProgressPixel, int(height*0.89)), (255, 255, 255), 25)
 
-
         cv2.imshow('frame', current)
+
+        cv2.setMouseCallback('frame', selectZone)
 
     cap.release()
     cv2.destroyAllWindows()
