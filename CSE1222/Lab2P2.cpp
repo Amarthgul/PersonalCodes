@@ -1,5 +1,5 @@
-// File: fallMars.cpp
-// Created by: Guoping CHen (chen.8759)
+// File: projectileDist.cpp
+// Created by: Anon
 // Created on: 9 Sept, 2018
 
 /* my comment here */
@@ -15,16 +15,7 @@ int main(){
 	double initVelocity;
 	double horizonDist;
 
-	//get user input
-	cout << "Enter the initial velocity (meter/second): ";
-	cin >> initVelocity;
-
-	//calculate
-	horizonDist = (initVelocity * initVelocity) / G;
-
-	//output result
-	cout << "Horizontal distance travelled is ";
-	cout << horizonDist << " meters." << endl;;
+	/* code deleted */
 
 	return(0);
 }
