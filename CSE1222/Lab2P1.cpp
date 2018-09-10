@@ -17,19 +17,7 @@ int main(){
 	double velocity;
 	double distance;
 
-	//get user input
-	cout << "Enter the time: ";
-	cin >> t;
-
-	//compute
-	velocity = G * t;
-	distance = (1 / 2.0) * velocity * t;
-
-	//output result
-	cout << "After " << t << " seconds, ";
-	cout << "the velocity on mars is " << velocity << " meters per second." << endl;
-	cout << "After " << t << " seconds, ";
-	cout << "the falling distance on mars is " << distance << " meters." << endl;
+	/* code deleted */
 	
-	return(0);
+	return (0);
 }
