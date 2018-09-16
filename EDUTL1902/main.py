@@ -6,11 +6,11 @@ xlsPath = r'C:\Amarth\Documents\OSU Assignments\EDUTL 1902\Data.xls'
 possibleType = ["wyvern", "european", "asian", "multiple", 
                 "other", "mixture", "drake", "amphiptere"]
 categDict = {"wyvern":      ["wyvern"],
-                "european":    ["european"],
-                "asian":       ["asian", "serpentine"],
-                "other":       ["multiple", "other", "mixture"],
-                "drake":       ["drake"],
-                "amphiptere" : ["amphiptere"]}
+             "european":    ["european"],
+             "asian":       ["asian", "serpentine"],
+             "other":       ["multiple", "other", "mixture"],
+             "drake":       ["drake"],
+             "amphiptere" : ["amphiptere"]}
 dataSet = pd.read_excel(xlsPath, encoding = "ISO-8859-1")
 
 def cleanType(dragonType, combineMultOth = True):
