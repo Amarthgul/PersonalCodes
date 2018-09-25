@@ -61,7 +61,6 @@ def plotTypeWithYear():
     plt.show()
 
     return 0
-
 def plotTypeWithYearMean():
     df = pd.DataFrame(typeWithYear())
     print(df)
@@ -71,9 +70,85 @@ def plotTypeWithYearMean():
     plt.show()
     return 0
     
+def intelWithYear(plot = False):
+    relation = {}
+    for rowIndex in range(len(dataSet)):
+
+        currentWork = dataSet["TitleOfFilm"][rowIndex]
+        voiceActor = str(dataSet["VoiceActor"][rowIndex]).lower()
+        transform = str(dataSet["TransformsIfSoFromWhat"][rowIndex]).lower()
+        currentDragonType = cleanType(dataSet["DragonType"][rowIndex])
+        currentItemReleaseYear = dataSet["YearReleased"][rowIndex] - dataSet["YearReleased"][rowIndex]%5
+
+        if np.isnan(currentItemReleaseYear):
+            continue
+        if currentItemReleaseYear not in relation:
+            relation[int(currentItemReleaseYear)] = {}
+        #print(rowIndex, end = '  ') #====================
+        
+        intelligent = True if ((voiceActor != "nan") or (transform != "no")) else False
+        #print(currentWork, ": ", voiceActor, transform, intelligent) #====================
+
+        if intelligent and currentDragonType not in relation[int(currentItemReleaseYear)]:
+            relation[int(currentItemReleaseYear)][currentDragonType] = 1
+        elif intelligent:
+            relation[int(currentItemReleaseYear)][currentDragonType] += 1
+        
+        #print(relation) #====================
+
+    #print(relation)
+    df = pd.DataFrame(relation)
+    df = df.T
+    #print(df) #====================
+    
+    if plot:
+        plt.style.use(u'ggplot')
+        df.fillna(df).astype(df.dtypes).plot.bar(stacked=True)
+        plt.show()
+
+    return df
+
+def friendlyWithYear(plot = False, countingMix = False):
+    relation = {}
+    for rowIndex in range(len(dataSet)):
+
+        currentWork = dataSet["TitleOfFilm"][rowIndex]
+        friendly = str(dataSet["HumanFriendly"][rowIndex]).lower()
+        currentDragonType = cleanType(dataSet["DragonType"][rowIndex])
+        currentItemReleaseYear = dataSet["YearReleased"][rowIndex] - dataSet["YearReleased"][rowIndex]%5
+
+        if np.isnan(currentItemReleaseYear):
+            continue
+        if currentItemReleaseYear not in relation:
+            relation[int(currentItemReleaseYear)] = {}
+
+        print(friendly) #====================
+        if ((friendly == "yes") and (currentDragonType not in relation[int(currentItemReleaseYear)])):
+            relation[int(currentItemReleaseYear)][currentDragonType] = 1.0
+        elif friendly == "yes":
+            relation[int(currentItemReleaseYear)][currentDragonType] += 1.0
+        if countingMix:
+            if (friendly == "mixture" and (currentDragonType not in relation[int(currentItemReleaseYear)])):
+                relation[int(currentItemReleaseYear)][currentDragonType] = 0.5
+            elif friendly == "mixture":
+                relation[int(currentItemReleaseYear)][currentDragonType] += 0.5
+        
+        #print(relation) #====================
+
+    #print(relation)
+    df = pd.DataFrame(relation)
+    df = df.T
+    #print(df) #====================
+    
+    if plot:
+        plt.style.use(u'ggplot')
+        df.fillna(df).astype(df.dtypes).plot.bar(stacked=True)
+        plt.show()
+
+    return relation
 
 def main():
-    plotTypeWithYearMean()
+    friendlyWithYear(plot = True)
 
 if __name__ == '__main__':
     main()
