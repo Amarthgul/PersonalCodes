@@ -1,6 +1,6 @@
 /*
-File:          vector2D.cpp
-Created by:    Guoping Chen (chen.8759)
+File:  vector2D.cpp
+Created by:  Anon
 Creation Date:
 Synopsis: ??
 */
@@ -16,22 +16,8 @@ const double EPSILON(1e-12);
 
 // function prototypes
 
-// ENTER FUNCTION PROTOTYPE FOR read_vector HERE.
-void read_vector(const string & prompt, double & x, double & y);
-// ENTER FUNCTION PROTOTYPE FOR vector_length HERE.
-double vector_length(double x, double y);
-// ENTER FUNCTION PROTOTYPE FOR write_vector HERE.
-void write_vector(const string & prompt, double x, double y);
-// ENTER FUNCTION PROTOTYPE FOR vector_add HERE.
-void vector_add(double x1, double y1, double x2, double y2, double & x3, double & y3);
-// ENTER FUNCTION PROTOTYPE FOR vector_subtract HERE.
-void vector_subtract(double x1, double y1, double x2, double y2, double & x3, double & y3);
-// ENTER FUNCTION PROTOTYPE FOR scalar_mult HERE.
-void scalar_mult(double x1, double y1, double s, double & x2, double & y2);
-// ENTER FUNCTION PROTOTYPE FOR normalize HERE.
-void normalize(double & x, double & y);
-// ENTER FUNCTION PROTOTYPE FOR perpendicular HERE.
-void perpendicular(double x1, double y1, double x2, double y2);
+// code deleted
+
 // *** DO NOT CHANGE ANY CODE IN THE MAIN FUNCTION.
 int main()
 {
@@ -70,62 +56,4 @@ int main()
 	return(0);
 }
 
-// DEFINE FUNCTION read_vector HERE.
-void read_vector(const string & prompt, double & x, double & y) {
-	// read user input
-	cout << prompt;
-	cin >> x >> y;
-}
-// DEFINE FUNCTION vector_length HERE.
-double vector_length(double x, double y) {
-	// compuate the length of the vector
-	return sqrt(x * x + y * y);
-}
-// DEFINE FUNCTION write_vector HERE.
-void write_vector(const string & prompt, double x, double y) {
-	// display a 2D vector and it's length
-	cout << prompt << "(" << x << ", " << y << ") has length "
-		<< vector_length(x, y) << endl;
-}
-// DEFINE FUNCTION vector_add HERE.
-void vector_add(double x1, double y1, double x2, double y2, double & x3, double & y3) {
-	// add 2 2D vectors and results in a new 2D vector
-	x3 = x1 + x2;
-	y3 = y1 + y2;
-}
-// DEFINE FUNCTION vector_subtract HERE.
-void vector_subtract(double x1, double y1, double x2, double y2, double & x3, double & y3) {
-	// subtract 2 2D vectors and results in a new 2D vector
-	x3 = x1 - x2;
-	y3 = y1 - y2;
-}
-// DEFINE FUNCTION scalar_mult HERE.
-void scalar_mult(double x1, double y1, double s, double & x2, double & y2) {
-	// apply scalar multiplication to a 2D vector and results in a new 2D vector
-	x2 = s * x1;
-	y2 = s * y1;
-}
-// DEFINE FUNCTION normalize HERE.
-void normalize(double & x, double & y) {
-	// normalize a 2D vector
-	double length = vector_length(x, y);
-	x = (abs(length) >= EPSILON) ? (x / length) : 0;
-	y = (abs(length) >= EPSILON) ? (y / length) : 0;
-}
-// DEFINE FUNCTION perpendicular HERE.
-void perpendicular(double x1, double y1, double x2, double y2) {
-	// judging if 2 2D vectors are perpendicular
-	double prpX1, prpY1, prpX2, prpY2;
-
-	normalize(x1, y1);
-	normalize(x2, y2);
-	prpX1 = -y1; prpY1 = x1;
-	prpX2 = -prpX1; prpY2 = -prpY1;
-
-	cout << "Vectors are ";
-	if (((abs(prpX1 - x2) <= EPSILON) && (abs(prpY1 - y2) <= EPSILON)) ||
-		((abs(prpX2 - x2) <= EPSILON) && (abs(prpY2 - y2) <= EPSILON)))
-		cout << "PERPENDICULAR";
-	else
-		cout << "NOT PERPENDICULAR";
-}
+// code deleted
