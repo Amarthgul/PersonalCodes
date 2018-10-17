@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import urllib.request
 import pandas as pd
+import numpy as np
 import timeit
 import pickle
 import time
@@ -42,12 +43,15 @@ def matchVotes(html):
                    ["favourites", "upvotes", "downvotes", "comments", "tagName"]):
         result[name] = re.findall(pattern, html)
     for name in ["favourites", "upvotes", "downvotes", "comments"]:
-        result[name] = int(result[name][0])
+        try:
+            result[name] = int(result[name][0])
+        except:
+            result[name] = 0
 
     return result  
 
 def runCase(readSampleFile = False, recordThreshold = 50,
-            start = 1, stop = 250, step = 10):
+            start = 1400000, stop = 1858666, step = 15):
     tagPopularity = {}
     ''' DateStructure example:
     {
@@ -105,18 +109,19 @@ def runCase(readSampleFile = False, recordThreshold = 50,
     return tagPopularity
 
 def visualization(targetVote = 'upvotes', topLimit = 15,
-                  showPlot = False, savePlotName = 'default.svg'):
+                  showPlot = False, savePlotName = 'default.svg', 
+                  wipeOffList = [], stackedPlot = False):
     '''targetVote: "favourites", "upvotes", "downvotes", "comments"
 topLimit: up to which to stop
     '''
-    tagPopularity = pickleOpearte(save = False, fileName = 'tagPopularity.pckl')
-    tagPopularity = pd.DataFrame(tagPopularity)
+    tagPopularityOrigin = pickleOpearte(save = False, fileName = 'tagPopularity.pckl')
+    tagPopularity = pd.DataFrame(tagPopularityOrigin)
     
     currentVote = tagPopularity.loc[targetVote].sort_values(ascending = False)[:topLimit]
     
     currentVote = currentVote.iloc[::-1] # largest on top
+    fontSize = 15
     if showPlot:
-        fontSize = 15
         plt.style.use(u'ggplot')
         plt.title('Popularity by ' + targetVote.capitalize(), 
                   fontsize = fontSize * 1.5, y = 1.02, color='dimgrey')
@@ -124,9 +129,21 @@ topLimit: up to which to stop
             color = 'coral', fontsize = fontSize, alpha = 0.9)
         for i, num in zip(ax.patches, range(len(ax.patches))):
             ax.text(i.get_width()+100, i.get_y() + 0.165, str(currentVote[num]), 
-                    fontsize=15, color='dimgrey')
+                    fontsize = fontSize, color='dimgrey')
         plt.show()
+        print(currentVote.index)
         
+    if stackedPlot:
+        sortedTagPopu = np.sqrt(tagPopularity.copy().T)
+        sortedTagPopu = sortedTagPopu.sort_values(by = "upvotes", ascending = False)
+        sortedTagPopu = sortedTagPopu[:topLimit].iloc[::-1]
+        
+        plt.style.use(u'ggplot')
+        ax = sortedTagPopu.fillna(sortedTagPopu).astype(sortedTagPopu.dtypes).plot.barh(
+            fontsize = fontSize, alpha = 0.9)
+        plt.title("General Overview (Rooted, Sort By Upvotes)", fontsize = fontSize * 1.5, y = 1.02, color='dimgrey')
+        plt.show()
+
     return True;
 
 def test():
@@ -145,11 +162,22 @@ def Main():
         start = timeit.default_timer()
 
         #runCase()
-        visualization(showPlot = True, topLimit = 20)
+        visualization(targetVote = "downvotes", showPlot = False, topLimit = 20)
 
         end = timeit.default_timer(); print('Time costed:',end - start)
     except Exception as err:
         print('Error!',err);
 
 if __name__ == '__main__':
-    Main()
+    visualization(targetVote = "comments", showPlot = False, 
+                  topLimit = 20, stackedPlot = True)
+
+'''
+Documentation:
+
+1st run at 16 Oct, 2018: 
+    image index:      1400000  -  1858666, step 15
+    image uploaded:  Mar 2017  -  Oct 2018
+
+
+'''
