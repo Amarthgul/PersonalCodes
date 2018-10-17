@@ -158,19 +158,18 @@ def test():
 #====================================================
 '''==============================================='''
 def Main():  
-    try:
-        start = timeit.default_timer()
+    
+    start = timeit.default_timer()
+    #====================================================
 
-        #runCase()
-        visualization(targetVote = "downvotes", showPlot = False, topLimit = 20)
+    visualization(targetVote = "comments", showPlot = False, 
+                topLimit = 20, stackedPlot = True)
 
-        end = timeit.default_timer(); print('Time costed:',end - start)
-    except Exception as err:
-        print('Error!',err);
+    #====================================================
+    end = timeit.default_timer(); print('Time costed:',end - start)
 
 if __name__ == '__main__':
-    visualization(targetVote = "comments", showPlot = False, 
-                  topLimit = 20, stackedPlot = True)
+    Main()
 
 '''
 Documentation:
