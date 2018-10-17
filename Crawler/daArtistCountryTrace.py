@@ -1,4 +1,7 @@
-'''Use to trace the nationality of artists on deviantArt'''
+'''
+Use to trace the nationality of artists on deviantArt
+May not be available as the URL pattern of deviant art has changed 
+'''
 
 
 import urllib.request
