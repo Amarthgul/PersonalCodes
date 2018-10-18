@@ -51,7 +51,7 @@ def matchVotes(html):
     return result  
 
 def runCase(readSampleFile = False, recordThreshold = 50,
-            start = 1400000, stop = 1858666, step = 15):
+            start = 1, stop = 458670, step = 15):
     tagPopularity = {}
     ''' DateStructure example:
     {
@@ -123,10 +123,11 @@ topLimit: up to which to stop
     fontSize = 15
     if showPlot:
         plt.style.use(u'ggplot')
-        plt.title('Popularity by ' + targetVote.capitalize(), 
+        plt.title('2012 -2013 Popularity by ' + targetVote.capitalize(), 
                   fontsize = fontSize * 1.5, y = 1.02, color='dimgrey')
         ax = currentVote.fillna(currentVote).astype(currentVote.dtypes).plot.barh(
-            color = 'coral', fontsize = fontSize, alpha = 0.9)
+            color = 'violet', fontsize = fontSize, alpha = 0.9)
+        plt.xlim(0, 770000)
         for i, num in zip(ax.patches, range(len(ax.patches))):
             ax.text(i.get_width()+100, i.get_y() + 0.165, str(currentVote[num]), 
                     fontsize = fontSize, color='dimgrey')
@@ -166,8 +167,9 @@ def Main():
     start = timeit.default_timer()
     #====================================================
 
-    visualization(targetVote = "comments", showPlot = False, 
-                topLimit = 20, stackedPlot = False)
+    #runCase()
+    visualization(targetVote = "favourites", showPlot = False, 
+                topLimit = 20, stackedPlot = True)
 
     #====================================================
     end = timeit.default_timer(); print('Time costed:',end - start)
@@ -177,10 +179,17 @@ if __name__ == '__main__':
 
 '''
 Documentation:
+"favourites", "upvotes", "downvotes", "comments"
 
 1st run at 16 Oct, 2018: 
-    image index:      1400000  -  1858666, step 15
+    image index:      1400000  -  1858666
     image uploaded:  Mar 2017  -  Oct 2018
+    image step:       15
+    image total:      30577
 
-
+1st run at 18 Oct, 2018: 
+    image index:      1     -     458656
+    image uploaded:  Jan 2012  -  Oct 2013
+    image step:       15
+    image total:      30577
 '''
