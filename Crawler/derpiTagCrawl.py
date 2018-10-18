@@ -131,7 +131,11 @@ topLimit: up to which to stop
             ax.text(i.get_width()+100, i.get_y() + 0.165, str(currentVote[num]), 
                     fontsize = fontSize, color='dimgrey')
         plt.show()
-        print(currentVote.index)
+
+
+    names = list(currentVote.index)
+    for name, index in zip(names, range(len(names))):
+        print("{}{}{}{}".format(name, "^", index + 1, " || "), end = "")
         
     if stackedPlot:
         sortedTagPopu = np.sqrt(tagPopularity.copy().T)
@@ -163,7 +167,7 @@ def Main():
     #====================================================
 
     visualization(targetVote = "comments", showPlot = False, 
-                topLimit = 20, stackedPlot = True)
+                topLimit = 20, stackedPlot = False)
 
     #====================================================
     end = timeit.default_timer(); print('Time costed:',end - start)
