@@ -12,10 +12,10 @@ Synopsis:      Given radius and polar angle,
 using namespace std;
 
 // FUNCTION PROTOTYPE FOR degrees2radians
-double degrees2radians(double);
+/* code deleted */
 
 // FUNCTION PROTOTYPE FOR compute_coord
-void compute_coord(double, double, double &, double &);
+/* code deleted */
 
 // DO NOT MODIFY THE MAIN ROUTINE IN ANY WAY
 int main()
@@ -44,25 +44,10 @@ int main()
 }
 
 // DEFINE FUNCTION degrees2radians here:
-double degrees2radians(double degree) {
-	/* Convert degree to radians.
-	degree: degree (what else could I explain);
-	*/
 
-	return degree * 3.14159265358979323846 / 180;
-}
+/* code deleted */
 
 // DEFINE FUNCTION compute_coord here:
-void compute_coord(double radius, double angleRadians,
-	double & coordX, double & coordY) {
-	/* Compute coordiantes based on radius and angle radians 
-	radius: the polar radius of the point;
-	angleRadians: the polar angle in radians of the point;
-	coordX: the x-coordinate of the point;
-	coordY: the y-coordinate of the point;
-	*/
 
-	coordX = radius * cos(angleRadians);
-	coordY = radius * sin(angleRadians);
-}
+/* code deleted */
 
