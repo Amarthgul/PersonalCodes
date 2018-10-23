@@ -11,10 +11,10 @@ Synopsis:      find prime number in a given range
 using namespace std;
 
 // FUNCTION PROTOTYPE FOR read_range
-void read_range(int &, int &);
+/* code deleted */
 
 // FUNCTION PROTOTYPE FOR is_prime
-bool is_prime(int);
+/* code deleted */
 
 // DO NOT MODIFY THE MAIN ROUTINE IN ANY WAY
 int main()
@@ -38,32 +38,7 @@ int main()
 }
 
 // DEFINE FUNCTION read_range() HERE:
-void read_range(int & iMin, int & iMax) {
-	/* Read and verify input 
-	iMin: input min;
-	iMax: input max (Lol iMax);
-	*/
-	
-	while (true) {
-		cout << "Enter minimum and maximum: ";
-		cin >> iMin >> iMax;
-		if (iMin < 2 || iMax < 2)
-			cout << "Error. Minimum and maximum must be at least 2." << endl;
-		else if (iMin >= iMax)
-			cout << "Error. Minimum must be less than maximum." << endl;
-		else
-			break;
-	}
-}
+/* code deleted */
 
 // DEFINE FUNCTION is_prime() HERE:
-bool is_prime(int inNum) {
-	/* Judge if inNum is prime number */
-
-	bool isPrime = true;
-	for (int i = 2; i < inNum; i++) {
-		if (inNum % i == 0)
-			isPrime = false;
-	}
-	return isPrime;
-}
+/* code deleted */
