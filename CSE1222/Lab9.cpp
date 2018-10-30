@@ -23,6 +23,10 @@ int main()
 	int smallest;    //the smallest element
 
 	read_list(thisIsAnArray, numElements, LAB9_SPECIAL_DIGIT);
+	if (thisIsAnArray[0] == 0) {
+		cout << endl << "The list is empty" << endl;
+		return 0;
+	}
 
 	cout << "Before list: (" << numElements << " numbers): " << endl;
 	print_array(thisIsAnArray, numElements);
@@ -52,6 +56,7 @@ void read_list(int * inputArray, int & numElements, const int maxSize) {
 		if (temp > 0)
 			inputArray[i] = temp;
 		else if (temp == 0) {
+			inputArray[i] = temp;
 			numElements = i;
 			break;
 		}
