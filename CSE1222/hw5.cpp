@@ -6,9 +6,11 @@ Synopsis:      Play a complex game
 */
 
 /* I tried first to follow the comment instruction,
-   but what came out was incredibly ugly with toms of bugs.
+   but what came out was incredibly ugly with tons of bugs.
    So I gave up and started using another implentation, 
-   as what you are about to see
+   as what you are about to see.
+   PLZ, think of the fact that it is shorter and bit more clear,
+   could you plz give me some points as bonus :3
 */
 
 #include <iostream>
@@ -16,9 +18,9 @@ Synopsis:      Play a complex game
 #include <vector>
 #include <numeric>
 #include <string>
+#include <cstdlib>
 
 using namespace std;
-
 
 // FUNCTION PROTOTYPES GO HERE:
 void drawPercentage(const vector<int> &);
@@ -29,13 +31,14 @@ void playerOperation(vector<int> &, bool &);
 int main()
 {
 	// Define variables and constants here
-	int numRod;
-	vector<int> stoneInRod;
-	bool playerOne = true;
-	bool refresh = true;
+	int numRod;             //number of rods
+	vector<int> stoneInRod; // the rods of stones
+	bool playerOne = true;  // record who's turn
+	bool refresh = true;    // do you want to refresh the console
+	const char * WINDOWS = "cls";   // use this if you're Windows
+	const char * LINUX = "clear";   // use this if you're Linux
 
 	// Algorithm:
-
 	// Prompt and read number of rods
 	cout << "How many rods are in this game? ";
 	while (true) {
@@ -46,6 +49,7 @@ int main()
 	}
 
 	// Prompt and read the number of objects in each rod
+	cout << endl;
 	for (int i = 0; i < numRod; i++) {
 		int temp;
 		while (true) {
@@ -66,10 +70,11 @@ int main()
 	statDisplay(stoneInRod);
 
 	// WHILE some rod is NOT empty DO
+	cout << endl;
 	playerOperation(stoneInRod, playerOne);
 	while (!isEmpty(stoneInRod)) {
 		if (refresh)
-			std::system("cls");
+			std::system(WINDOWS);
 		// Prompt and read the next player's move
 		// Remove the specified number of objects from the specified rod
 		// IF all the heaps are empty, THEN
@@ -114,17 +119,23 @@ void statDisplay(const vector<int> & varVector) {
 	/* Display statistics;
 	varVector: vector to display;
 	*/
-	int smallestIndex(0), biggestIndex(0);
+	int smallestIndex(0), biggestIndex(0), nonZero(0);
 
 	for (int i = 0; i < varVector.size(); i++) {
 		if (varVector[i] > varVector[biggestIndex]) biggestIndex = i;
 		if (varVector[i] < varVector[smallestIndex]) smallestIndex = i;
+		if (varVector[i] != 0) nonZero++;
 	}
 
 	cout << "Rod " << smallestIndex + 1 << " has the smallest number of stones with "
 		<< varVector[smallestIndex] << " object(s)." << endl;
 	cout << "Rod " << biggestIndex + 1 << " has the largest number of stones with "
 		<< varVector[biggestIndex] << " object(s)." << endl;
+
+	cout << "The average number of stones per rod (i.e., rods with stones) is "
+		<< std::fixed << setprecision(2) 
+		<< accumulate(varVector.begin(), varVector.end(), 0) / double(nonZero)
+		<<" stones." << endl;
 }
 
 bool isEmpty(const vector<int> & varVector) {
