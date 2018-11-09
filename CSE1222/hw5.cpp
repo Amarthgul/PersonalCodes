@@ -34,9 +34,12 @@ int main()
 	int numRod;             //number of rods
 	vector<int> stoneInRod; // the rods of stones
 	bool playerOne = true;  // record who's turn
-	bool refresh = true;    // do you want to refresh the console
+	
 	const char * WINDOWS = "cls";   // use this if you're Windows
 	const char * LINUX = "clear";   // use this if you're Linux
+	bool refresh = true;    // do you want to refresh the console
+	// For a game, don't refresh console is really a pain;
+	// `system` is a bit dangerous (_stackoverflow_), but ik it's fine here
 
 	// Algorithm:
 	// Prompt and read number of rods
