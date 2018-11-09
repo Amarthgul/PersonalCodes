@@ -15,7 +15,6 @@ void playerOperation(vector<int> &, bool &);
 
 int main()
 {
-	// Define variables and constants here
 	int numRod;             //number of rods
 	vector<int> stoneInRod; // the rods of stones
 	bool playerOne = true;  // record who's turn
@@ -26,8 +25,6 @@ int main()
 	// For a game, don't refresh console is really a pain;
 	// `system` is a bit dangerous (_stackoverflow_), but ik it's fine here
 
-	// Algorithm:
-	// Prompt and read number of rods
 	cout << "How many rods are in this game? ";
 	while (true) {
 		cin >> numRod;
@@ -36,7 +33,6 @@ int main()
 			<< endl << "Enter number of rods again : ";
 	}
 
-	// Prompt and read the number of objects in each rod
 	cout << endl;
 	for (int i = 0; i < numRod; i++) {
 		int temp;
@@ -49,43 +45,29 @@ int main()
 		stoneInRod.push_back(temp);
 	}
 
-	// Draw the rods with percentages
 	cout << endl;
 	drawPercentage(stoneInRod);
 
-	// Display statistics
 	cout << endl;
 	statDisplay(stoneInRod);
 
-	// WHILE some rod is NOT empty DO
 	cout << endl;
 	playerOperation(stoneInRod, playerOne);
 	while (!isEmpty(stoneInRod)) {
 		if (refresh)
 			std::system(WINDOWS);
-		// Prompt and read the next player's move
-		// Remove the specified number of objects from the specified rod
-		// IF all the heaps are empty, THEN
-		// Print a message congratulating the winning player.
-		// ELSE
-		// Redraw the rods with percentages
 		cout << endl;
 		drawPercentage(stoneInRod);
-		// Display statistics
+		
 		cout << endl;
 		statDisplay(stoneInRod);
 
-		// Change to the other player
 		cout << endl;
 		playerOperation(stoneInRod, playerOne);
-
-		// END IF
-		// END WHILE
 	}
 
 	cout << endl << "Congratulations! Player " 
 		<< (playerOne ? 2 : 1) << " wins." << endl;
-
 	return 0;
 }
 
@@ -160,7 +142,6 @@ void playerOperation(vector<int> & varVector, bool & isPlayerOne) {
 			<< " object(s). Please try again." << endl;
 		else break;
 	}
-
 	varVector[numRodToOp - 1] -= numStoneToRm;
 	isPlayerOne = !isPlayerOne;
 }
