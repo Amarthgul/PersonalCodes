@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import matplotlib.pylab as pylab
 import pandas as pd
 import numpy as np
 
@@ -13,64 +14,57 @@ categDict = {"wyvern":      ["wyvern"],
              "amphiptere" : ["amphiptere"]}
 dataSet = pd.read_excel(xlsPath, encoding = "ISO-8859-1")
 
-def cleanType(dragonType, combineMultOth = True):
+def cleanType(dragonType, showProcess = False):
 
     dragonType = str(dragonType).lower()
-    #print(dragonType, end = " ")
+    if showProcess: print(dragonType, end = " ") #====================
     for mainTag in categDict:
         
         for subTag in categDict[mainTag]:
             if subTag in dragonType:
-                #print("classified as ", mainTag)
+                if showProcess: print("classified as ", mainTag) #====================
                 return mainTag
     
 
-def typeWithYear():
+def typeWithYear(plot = False, saveFile = False):
     ''' Type of dragon in every year film 
     data structure: {1999:{wyvern:1, europen:2}, 
                      2001:{european:1, asian:1}}
     '''
     relation = {}
     for rowIndex in range(len(dataSet)):
-        currentItemReleaseYear = dataSet["YearReleased"][rowIndex] - dataSet["YearReleased"][rowIndex]%5
-        if np.isnan(currentItemReleaseYear):
+        #print(dataSet["YearReleased"][rowIndex])
+        if np.isnan(dataSet["YearReleased"][rowIndex]):
             continue
+        currentItemReleaseYear = dataSet["YearReleased"][rowIndex] - dataSet["YearReleased"][rowIndex]%5
         if currentItemReleaseYear not in relation:
             relation[int(currentItemReleaseYear)] = {}
         #print(rowIndex, end = '  ')
         currentDragonType = cleanType(dataSet["DragonType"][rowIndex])
         if currentDragonType not in relation[int(currentItemReleaseYear)]:
-            relation[int(currentItemReleaseYear)][currentDragonType] = 1
+            relation[int(currentItemReleaseYear)][currentDragonType] = 1.0
         else:
-            relation[int(currentItemReleaseYear)][currentDragonType] += 1
+            relation[int(currentItemReleaseYear)][currentDragonType] += 1.0
 
     for year in relation: #unify
         for instance in categDict:
             if instance not in relation[year]:
                 relation[year][instance] = 0
 
-    
-    return relation
-def plotTypeWithYear():
-    df = pd.DataFrame(typeWithYear())
+    df = pd.DataFrame(relation)
     df = df.T
-    print(df)
+    #print(df)
     
-    plt.style.use(u'ggplot')
-    df.fillna(df).astype(df.dtypes).plot.bar(stacked=True)
-    plt.show()
-
-    return 0
-def plotTypeWithYearMean():
-    df = pd.DataFrame(typeWithYear())
-    print(df)
+    if plot:
+        plt.style.use(u'ggplot')
+        df.fillna(df).astype(df.dtypes).plot.bar(stacked=True)
+        plt.show()
+    if saveFile:
+        df.to_excel("dragonTypeWithYear.xls")
     
-    plt.style.use(u'ggplot')
-    df.fillna(df).astype(df.dtypes).plot.bar(stacked=True)
-    plt.show()
-    return 0
-    
-def intelWithYear(plot = False):
+    return relation 
+     
+def intelWithYear(plot = False, saveFile = False):
     relation = {}
     for rowIndex in range(len(dataSet)):
 
@@ -78,10 +72,11 @@ def intelWithYear(plot = False):
         voiceActor = str(dataSet["VoiceActor"][rowIndex]).lower()
         transform = str(dataSet["TransformsIfSoFromWhat"][rowIndex]).lower()
         currentDragonType = cleanType(dataSet["DragonType"][rowIndex])
-        currentItemReleaseYear = dataSet["YearReleased"][rowIndex] - dataSet["YearReleased"][rowIndex]%5
 
-        if np.isnan(currentItemReleaseYear):
+        if np.isnan(dataSet["YearReleased"][rowIndex]):
             continue
+        currentItemReleaseYear = dataSet["YearReleased"][rowIndex] - dataSet["YearReleased"][rowIndex]%5
+      
         if currentItemReleaseYear not in relation:
             relation[int(currentItemReleaseYear)] = {}
         #print(rowIndex, end = '  ') #====================
@@ -94,7 +89,10 @@ def intelWithYear(plot = False):
         elif intelligent:
             relation[int(currentItemReleaseYear)][currentDragonType] += 1
         
-        #print(relation) #====================
+    for year in relation: #unify
+        for instance in categDict:
+            if instance not in relation[year]:
+                relation[year][instance] = 0
 
     #print(relation)
     df = pd.DataFrame(relation)
@@ -105,24 +103,26 @@ def intelWithYear(plot = False):
         plt.style.use(u'ggplot')
         df.fillna(df).astype(df.dtypes).plot.bar(stacked=True)
         plt.show()
+    if saveFile:
+        df.to_excel("dragonIntelWithYear.xls")
 
-    return df
+    return relation
 
-def friendlyWithYear(plot = False, countingMix = False):
+def friendlyWithYear(plot = False, countingMix = False, saveFile = False):
     relation = {}
     for rowIndex in range(len(dataSet)):
 
         currentWork = dataSet["TitleOfFilm"][rowIndex]
         friendly = str(dataSet["HumanFriendly"][rowIndex]).lower()
         currentDragonType = cleanType(dataSet["DragonType"][rowIndex])
-        currentItemReleaseYear = dataSet["YearReleased"][rowIndex] - dataSet["YearReleased"][rowIndex]%5
 
-        if np.isnan(currentItemReleaseYear):
+        if np.isnan(dataSet["YearReleased"][rowIndex]):
             continue
+        currentItemReleaseYear = dataSet["YearReleased"][rowIndex] - dataSet["YearReleased"][rowIndex]%5
         if currentItemReleaseYear not in relation:
             relation[int(currentItemReleaseYear)] = {}
-
-        print(friendly) #====================
+            
+        #print(friendly) #====================
         if ((friendly == "yes") and (currentDragonType not in relation[int(currentItemReleaseYear)])):
             relation[int(currentItemReleaseYear)][currentDragonType] = 1.0
         elif friendly == "yes":
@@ -130,25 +130,54 @@ def friendlyWithYear(plot = False, countingMix = False):
         if countingMix:
             if (friendly == "mixture" and (currentDragonType not in relation[int(currentItemReleaseYear)])):
                 relation[int(currentItemReleaseYear)][currentDragonType] = 0.5
-            elif friendly == "mixture":
+            elif friendly == "mixture":  
                 relation[int(currentItemReleaseYear)][currentDragonType] += 0.5
         
-        #print(relation) #====================
+    for year in relation: #unify
+        for instance in categDict:
+            if instance not in relation[year]:
+                relation[year][instance] = 0
 
-    #print(relation)
-    df = pd.DataFrame(relation)
-    df = df.T
-    #print(df) #====================
-    
-    if plot:
+    #print(relation) 
+    df = pd.DataFrame(relation) 
+    df = df.T 
+    #print(df)  #====================
+     
+    if plot: 
         plt.style.use(u'ggplot')
         df.fillna(df).astype(df.dtypes).plot.bar(stacked=True)
         plt.show()
+    if saveFile:
+        df.to_excel("dragonFriendlyWithYear.xls")
 
     return relation
 
+def ratioWithType(plotTitle = "General Friendliness"):
+    typeWithY = pd.DataFrame(typeWithYear())
+    intelWithY = pd.DataFrame(intelWithYear())
+    friendlyWithY = pd.DataFrame(friendlyWithYear())
+    yearIndex = np.array(list(typeWithY.columns.values))
+
+    currentByco = friendlyWithY
+    ratioTypes = ["wyvern", "european", "asian", "other", "drake"]
+
+    plt.style.use(u'ggplot')
+    for type in ratioTypes:
+        tar = np.array(list(currentByco.loc[type, :])) / np.array(list(typeWithY.loc[type, :]))
+        nanS = np.isnan(tar); tar[nanS] = 0
+        p1 = np.poly1d(np.polyfit(yearIndex, tar, 1))
+        print(type, tar)
+        plt.plot(yearIndex, p1(yearIndex), label = type, linewidth = 3)
+        plt.legend(loc = 'best')
+
+    plt.title(plotTitle)
+    plt.show()
+
 def main():
-    friendlyWithYear(plot = True)
+    #typeWithYear(saveFile = True, plot = True)
+    #intelWithYear(saveFile = True, plot = True)
+    #friendlyWithYear(saveFile = True, plot = True)
+    ratioWithType()
 
 if __name__ == '__main__':
     main()
