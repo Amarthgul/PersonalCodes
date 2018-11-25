@@ -2,7 +2,8 @@
   File:           triangles.cpp
   Created by:     Guoping Chen (chen.8759)
   Creation Date:  25 Nov 2018 (I gotta be honest)
-  Synopsis:
+  Synopsis:       calculate and display the attributes of 
+                  a right triangle
 */
 
 #include <iostream>
@@ -198,7 +199,8 @@ void Triangle::display() const
 }
 
 void read_triangle(Triangle & tri)
-{/*   Read Triangle; */
+{/*  Read Triangle; 
+	 tri: target triangle */
 	double temp;
 	cout << "Enter bottom left x coordinate: ";
 	cin >> temp;
@@ -212,5 +214,4 @@ void read_triangle(Triangle & tri)
 	cout << "Enter height: ";
 	cin >> temp;
 	tri.setHeight(temp);
-
 }
