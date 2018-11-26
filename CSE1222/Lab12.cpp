@@ -1,9 +1,8 @@
 /*
   File:           triangles.cpp
-  Created by:     Guoping Chen (chen.8759)
-  Creation Date:  25 Nov 2018 (I gotta be honest)
-  Synopsis:       calculate and display the attributes of 
-                  a right triangle
+  Created by:     Anon
+  Creation Date:  
+  Synopsis:       
 */
 
 #include <iostream>
@@ -108,110 +107,61 @@ double Point::getY() const
 }
 
 void Triangle::setBottomLeftX(const double x)
-{/*  Set Bottom Left X;
-     x: Bottom Left X  */
-	blPoint.setX(x);
+{/* code deleted */
 }
 
 void Triangle::setBottomLeftY(const double y)
-{/*  Set Bottom Left Y;
-     y: Bottom Left Y  */
-	blPoint.setY(y);
+{/* code deleted */
 }
 
 void Triangle::setLength(const double inLength)
-{/*  Set Length;
-     x: length  */
-	length = inLength;
+{/* code deleted */
 }
 
 void Triangle::setHeight(const double inHeight)
-{/*  Set Height;
-     x: height  */
-	height = inHeight;
+{/* code deleted */
 }
 
 Point Triangle::getBottomLeft() const
-{/*   Get Bottom Left Point Coordinates; */
-	return blPoint;
+{/* code deleted */
 }
 
 Point Triangle::getBottomRight() const
-{/*   Get Bottom Right Point Coordinates; */
-	Point brp; // Bottom Right Point
-	brp.setX(blPoint.getX() + length);
-	brp.setY(blPoint.getY());
-	return brp;
+{/* code deleted */
 }
 
 Point Triangle::getTopLeft() const
-{/*   Get Top Left Point Coordinates; */
-	Point tlp; // Top Left Point
-	tlp.setX(blPoint.getX());
-	tlp.setY(blPoint.getY() + height);
-	return tlp;
+{/* code deleted */
 }
 
 double Triangle::getLength() const
-{ /*   Get Length; */
-	return length;
+{/* code deleted */
 }
 
 double Triangle::getHeight() const
-{/*    Get Height; */
-	return height;
+{/* code deleted */
 }
 
 double Triangle::hypotenuse() const
-{/*   Get hypotenuse; */
-	return sqrt(length * length + height * height);
+{/* code deleted */
 }
 
 double Triangle::perimeter() const
-{/*    Get perimeter; */
-	return hypotenuse() + height + length;
+{/* code deleted */
 }
 
 void Triangle::scaleLength(const double scalefact)
-{/*  Scale Length;
-	 scalefact: Scale Factor */
-	setLength(getLength() * scalefact);
+{/* code deleted */
 }
 
 void Triangle::scaleHeight(const double scalefact)
-{/*  Scale Height;
-	 scalefact: Scale Factor */
-	setHeight(getHeight() * scalefact);
+{/* code deleted */
 }
 
 void Triangle::display() const
-{/*  Display attributes; */
-	cout << endl << std::string(40, '-') << endl;
-	cout << "Lower Left Vertex ("<< getBottomLeft().getX() <<", " <<
-	  getBottomLeft().getY() << ")" << endl;
-	cout << "Top Left Vertex (" << getTopLeft().getX() << ", " <<
-	  getTopLeft().getY() << ")" << endl;
-	cout << "Bottom Right Vertex (" << getBottomRight().getX() << ", " <<
-  	  getBottomRight().getY() << ")" << endl;
-	cout << "Hypotenuse = " << hypotenuse() << endl;
-	cout << "Perimeter = " << perimeter() << endl;
-	cout << std::string(40, '-') << endl << endl;
+{/* code deleted */
 }
 
 void read_triangle(Triangle & tri)
-{/*  Read Triangle; 
-	 tri: target triangle */
-	double temp;
-	cout << "Enter bottom left x coordinate: ";
-	cin >> temp;
-	tri.setBottomLeftX(temp);
-	cout << "Enter bottom left y coordinate: ";
-	cin >> temp;
-	tri.setBottomLeftY(temp);
-	cout << "Enter length: ";
-	cin >> temp;
-	tri.setLength(temp);
-	cout << "Enter height: ";
-	cin >> temp;
-	tri.setHeight(temp);
+{/* code deleted */
 }
