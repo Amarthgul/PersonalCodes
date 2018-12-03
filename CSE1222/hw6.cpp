@@ -1,8 +1,8 @@
 /*
 File:          polys.cpp
-Created by:    Guoping Chen (chen.8759)
+Created by:    Anon
 Creation Date: 2 Dec 2018
-Synopsis:      A game about polynomial that nobody would actually play
+Synopsis:      ?
 */
 
 #include <iostream>
@@ -100,213 +100,94 @@ int main()
 
 // CLASS TERM MEMBER FUNCTIONS
 int Term::getCoeff() const
-{/* returns the coecoefficient */
-	return coeff;
+{/* code deleted */
 }
 
 int Term::getExp() const
-{/* returns the exponent  */
-	return exp;
+{/* code deleted */
 }
 
 void Term::setCoeff(const int coefficient)
-{/* set the coefficient  */
-	coeff = coefficient;
+{/* code deleted */
 }
 
 void Term::setExp(const int exponent)
-{/* set the exponent */
-	exp = exponent;
+{/* code deleted */
 }
 
 double Term::eval(const double x) const
-{ /* returns the evaluation of the term given an input valuex;
-	x: user input; */
-	return getCoeff() * pow(x, getExp());
+{/* code deleted */
 }
 
 Term Term::derivative() const
-{/* returns a new term that is the derivative of the term thefunction is called on */
-	Term daenerysTargaryen; // resulting term; Mother of Terms
-	daenerysTargaryen.setCoeff(getCoeff() * getExp());
-	daenerysTargaryen.setExp(getExp() == 0? 0 : getExp() - 1);
-	return daenerysTargaryen;
-} // I have to find way to make the comments not useless, sorry to troll the var name
+{/* code deleted */
+} 
 
 Term Term::multiply(const Term & term) const
-{/* returns a new term that is the multiplication of terms;
-	term: THE term; */
-	Term archon; // resulting term; Merged by 2 Dark Templar or High Templar
-	archon.setCoeff(term.getCoeff() * getCoeff());
-	archon.setExp(term.getExp() + getExp());
-	return archon ;
+{/* code deleted */
 }
 
 void Term::displayFirst() const
-{/* displays a term to the screen formatted as the  rstterm in a polynomial */
-	cout << coeff;
-	if (exp != 0) cout << "x";
-	if (exp > 1) cout << "^" << exp;
+{/* code deleted */
 }
 void Term::displayNext() const
-{/* displays a term to the screen formatted as a termafter the  rst term in a polynomial; */
-	if (coeff < 0) cout << " - ";
-	else cout << " + ";
-	cout << abs(coeff);
-	if (exp != 0) cout << "x";
-	if (exp > 1) cout << "^" << exp;
+{/* code deleted */
 }
 
 // CLASS POLY MEMBER FUNCTIONS
 Term Poly::getTerm(const int index) const
-{/* returns the term in the instancel
-	index: index */
-	return terms[index];
+{/* code deleted */
 }
 
 int Poly::degree() const
-{/* returns the largest exponent in the list; */
-	return terms[0].getExp();
+{/* code deleted */
 }
 
 int Poly::termCount() const
-{/* returns the number of terms in the polynomial; */
-	int unicorn; // counter; dancing on rainbow
-	for (unicorn = 0; terms[unicorn].getExp() != 0; unicorn++);
-	return unicorn + 1;
+{/* code deleted */
 }
 
 void Poly::addTerm(const int coeff, const int exp)
-{/* adds a term to the listterms */
-	Term tracer; //term to add; The cavalry’s here!
-	tracer.setCoeff(coeff);
-	tracer.setExp(exp);
-	terms.push_back(tracer);
+{/* code deleted */
 }
 
 void Poly::scale(const int fact)
-{/* changes the polynomial by multiplying each term with a scalefactor;
-	fact: factor to multiply; */
-	for (int i = 0; i < termCount(); i++)
-		terms[i].setCoeff(terms[i].getCoeff() * fact);
-}// exp is not affected by multiplying, why the hw6 req asks to use `setExp()`?
+{/* code deleted */
+}
 
 double Poly::eval(const double x) const
-{/* evaluates the polynomial given an input value for variablex;
-	x: given input; */
-	double recorder(0); // record sum
-	for (int i = 0; i < termCount(); i++)
-		recorder += (terms[i].getCoeff() * pow(x, terms[i].getExp()));
-	return recorder;
+{/* code deleted */
 }
 
 Poly Poly::derivative() const
-{/* returns a polynomial that is the derivative of the polyonmialit is called on */
-	Poly theBornKing; //resulting Poly; Legend of Sword
-	for (int i = 0; i < termCount(); i++)
-		theBornKing.addTerm(terms[i].derivative().getCoeff(),
-			terms[i].derivative().getExp());
-	return theBornKing;
+{/* code deleted */
 }
 
 void Poly::display(const string & label) const
-{/* prints a label and then prints the polynomial to the screen;
-	label: label to print; */
-	cout << label;
-	terms[0].displayFirst();
-	//for (int i = 1; i < termCount(); i++)		cout << terms[i].getCoeff() << " " << terms[i].getExp() << " , ";
-	for (int i = 1; i < termCount(); i++)
-		if(terms[i].getCoeff() != 0)
-			terms[i].displayNext(); 
+{/* code deleted */
 }
 
 void Poly::displayMultiply(const Poly & poly, const string & label) const
-{/* prints a label and then printsthe terms needed to calculate a multiplication of the polynomial;
-	poly: polynomial to multiply;
-	label: label to print; */
-	Poly archons; //resulting Ploy; that, my friend, is many `archon` 
-	for (int i = 0; i < termCount(); i++)
-		for (int j = 0; j < poly.termCount(); j++)
-			archons.addTerm(terms[i].multiply(poly.getTerm(j)).getCoeff(), 
-				terms[i].multiply(poly.getTerm(j)).getExp());
-	archons.display(label + " : ");
-	cout << endl;
+{/* code deleted */
 }
 
 // NON-MEMBER FUNCTIONS
 void display_banner() {
-/* prints the welcome banner. */
-	cout << "Welcome to fun with polynomials!" << endl;
-	cout << "You will enter two polynomials." << endl;
-	cout << "Please follow all instructions below." << endl << endl;
+/* code deleted */
 }
 
 Poly read_poly(const int label)
-{/* prompts and then reads a polynomial from the user one termper line;
-	label: which poly to record; */
-
-	bool iDontGiveAShitMode = true; //Whether to quit when encountering invalid input
-	Poly weasley; // the main polynomial; cause Weasley Is Our King
-	int temp[2], indicator(0); //temp for record, indicator for indexing
-
-	cout << "Enter poly #" << label << ":" << endl;
-	while (true) {
-		cin >> temp[0] >> temp[1];
-		if (!temp[0]) continue;
-		if (indicator >= 1 && weasley.getTerm(indicator - 1).getExp() < temp[1]) {
-			if (iDontGiveAShitMode) {
-				cerr << "Invalid Term. Bye!" << endl;
-				exit(1);
-			}
-			else {
-				cout << "That's not right, darling~ \nTry again: " << endl;
-				continue;
-			}
-		}
-		weasley.addTerm(temp[0], temp[1]);
-		if (!temp[1]) break;
-		indicator++;
-	}
-	return weasley;
+{/* code deleted */
 }
 
 void display_stats(const Poly & poly, const string & label)
-{/* displays information for a polynomial;
-	poly: polynomial to display;
-	label: label to display; */
-	poly.display("You entered polynomial " + label + ": ");
-	cout << endl << "The polynomial has degree " << poly.degree() << endl;
-	cout << "The polynomial has " << poly.termCount() << " term(s)." << endl;
-	cout << "The derivative is: ";
-	poly.derivative().display("");
-	cout << endl << endl;
+{/* code deleted */
 }
 
 void evaluate_poly(const Poly & poly)
-{/* prompts the user to enter how many values to evaluate;
-	poly: polynomial to be evaluated; */
-	int time;
-	double value;
-
-	cout << "How many times would you like to evaluate polynomial #1? ";
-	while (true) {
-		cin >> time;
-		if (time >= 0) break;
-		cout << " Try again. Enter a number greater than or equal to zero: ";
-	}
-	
-	for (int i = 0; i < time; i++) {
-		cout << "Enter value to evaluate: ";
-		cin >> value;
-		cout << "    When x = " << value << " the polynomial evaluates to "
-			<< poly.eval(value) << endl;
-	}
+{/* code deleted */
 }
 
 void goodbye_banner()
-{/* prints a goodbye message */
-	cout << "Thank you for playing!" << endl;
+{/* code deleted */
 }
-
-// I can only imagine how pain it would be to read 20 codes like this...
-// Thank you :D
