@@ -1,8 +1,8 @@
 /*
 File:          temps.cpp
-Created by:    Guoping Chen (chen.8759)
+Created by:    Anon
 Creation Date: 3 Dec 2018
-Synopsis:      Record time onto a file
+Synopsis:      WTF 
 */
 
 #include <iostream>
@@ -86,38 +86,23 @@ int main()
 // CLASS MEMBER FUNCTION DEFINITINOS GO HERE:
 
 int MilTime::getHour() const
-{/* Get Hour; */
-	return hour;
+{/* code deleted */
 }
 
 int MilTime::getMin() const
-{/* Get Minutes; */
-	return minutes;
+{/* code deleted */
 }
 
 void MilTime::setHour(const int h)
-{/* Set hour; */
-	hour = h;
+{/* code deleted */
 }
 
 void MilTime::setMin(const int m)
-{/* Set minutes; */
-	minutes = m;
+{/* code deleted */
 }
 
 void MilTime::write_out(ofstream & fout)
-{/* Writes the military time; */
-/* Assumption unsafe, the solution has no minutes protection at all,
-   You can have more than 60 min in 1 military-time-hour...*/
-	bool autoCorrection = true;
-	int mod;
-	if (autoCorrection) {
-		mod = getMin() / 60;
-		setHour(getHour() + mod);
-		setMin(getMin() - 60 * mod);
-	}
-	fout << ((getHour() < 10) ? "0" : "") << getHour() 
-		<< ":" << ((getMin() < 10)? "0" : "") << getMin();
+{/* code deleted */
 }
 
 double Fahrenheit::getTemp() const
@@ -126,114 +111,45 @@ double Fahrenheit::getTemp() const
 }
 
 MilTime Fahrenheit::getTime() const
-{/* Get time; */
-	return time;
+{/* code deleted */
 }
 
 double Fahrenheit::getCelsius() const
-{/* Get Celsius degree; */
-	return (degree - 32) * (5.0 / 9);
+{/* code deleted */
 }
 
 void Fahrenheit::setTemp(const double temp)
-{/* Set temperature; */
-	degree = temp;
+{/* code deleted */
 }
 
 void Fahrenheit::setTime(const int h, const int m)
-{/* Set time; */
-	time.setHour(h);
-	time.setMin(m);
+{/* code deleted */
 }
 
 string read_filename(const string prompt)
-{/* Read file name;
-	prompt: prompt; */
-	string kimiNoNaWa; //file name (actually a good movie)
-	cout << prompt;
-	cin >> kimiNoNaWa;
-	return kimiNoNaWa;
+{/* code deleted */
 }
 
 int read_num_samples(const string prompt)
-{/* Read number of samples;
-	prompt: prompt; */
-	int piper; // number of samples;
-	cout << prompt;
-	cin >> piper;
-	return piper;
+{/* code deleted */
 }
 
 Fahrenheit read_sample()
-{/* Read samples */
-	double temp[2]; //record varibales
-	Fahrenheit thisIsAFahrenheitInstance; // the instance 
-	cout << "Enter degrees(Fahrenheit): ";
-	cin >> temp[0];
-	thisIsAFahrenheitInstance.setTemp(temp[0]);
-
-	cout << "Enter hours (Military time): ";
-	cin >> temp[0];
-	cout << "Enter minutes (Military time):";
-	cin >> temp[1];
-	thisIsAFahrenheitInstance.setTime(int(temp[0]), int(temp[1]));
-
-	return thisIsAFahrenheitInstance;
+{/* code deleted */
 }
 
 void write_to_file(const string filename, const vector<Fahrenheit> & samples)
-{/* write to file;
-	filename: file name;
-	samples: sample instances;*/
-	ofstream fart;
-	fart.open(filename, ios::out);
-	if (!fart.is_open()) {
-		cerr << "You wouldn't have guessed what just happened, " << std::string('w', 200) 
-			<< " the file couldn't be opened!" << endl;
-		exit(1);
-	}
-
-	fart << endl;
-	fart << std::string(73, '-') << endl;
-	for (int i = 0; i < samples.size(); i++) {
-		fart << "Sample #" << i + 1 << ": " << samples[i].getTemp() 
-			<< " degrees F (or " << samples[i].getCelsius() 
-			<< " degrees C ) at ";
-		samples[i].getTime().write_out(fart);
-		fart << endl;
-	}
-	fart << std::string(73, '-') << endl;
-
-	fart << "The average temp is " << average_temp(samples) << " degrees F" << endl;
-	fart << "The coldest temp is " << coldest_temp(samples) << " degrees F" << endl;
-	fart << "The last sample was taken at time ";
-	last_sample(samples).write_out(fart);
-	fart << endl;
+{/* code deleted */
 }
 
 double average_temp(const vector<Fahrenheit> samples)
-{/* Average Temprature; 
-	samples: sample instances; */
-	double sum(0); //sum
-	for (int i = 0; i < samples.size(); i++) {
-		sum += samples[i].getTemp();
-	}
-	return sum / samples.size();
+{/* code deleted */
 }
 
 double coldest_temp(const vector<Fahrenheit> samples)
-{/* Coldest Temprature; 
-	samples: sample instances; */
-	double elsa = samples[0].getTemp(); //coldest temprature
-	for (int i = 0; i < samples.size(); i++) {
-		if (samples[i].getTemp() < elsa)
-			elsa = samples[i].getTemp();
-	}
-	return elsa;
+{/* code deleted */
 }
 
 MilTime last_sample(const vector<Fahrenheit> samples)
-{/* Last sample time; 
-	samples: sample instances; */
-	return samples[samples.size() - 1].getTime();
+{/* code deleted */
 }
