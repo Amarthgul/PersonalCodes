@@ -152,14 +152,14 @@ def friendlyWithYear(plot = False, countingMix = False, saveFile = False):
 
     return relation
 
-def ratioWithType(plotTitle = "General Friendliness"):
+def ratioWithType(plotTitle = "General Intelligence"):
     typeWithY = pd.DataFrame(typeWithYear())
     intelWithY = pd.DataFrame(intelWithYear())
     friendlyWithY = pd.DataFrame(friendlyWithYear())
     yearIndex = np.array(list(typeWithY.columns.values))
 
-    currentByco = friendlyWithY
-    ratioTypes = ["wyvern", "european", "asian", "other", "drake"]
+    currentByco = intelWithY
+    ratioTypes = ["wyvern", "european", "asian", "other"]
 
     plt.style.use(u'ggplot')
     for type in ratioTypes:
@@ -170,14 +170,18 @@ def ratioWithType(plotTitle = "General Friendliness"):
         plt.plot(yearIndex, p1(yearIndex), label = type, linewidth = 3)
         plt.legend(loc = 'best')
 
+    plt.gca().set_yticklabels(['{:.0f}%'.format(x*100) for x in plt.gca().get_yticks()])
+    plt.xlabel("Year")
     plt.title(plotTitle)
     plt.show()
+
 
 def main():
     #typeWithYear(saveFile = True, plot = True)
     #intelWithYear(saveFile = True, plot = True)
     #friendlyWithYear(saveFile = True, plot = True)
-    ratioWithType()
+    ratioWithType();
+
 
 if __name__ == '__main__':
     main()
