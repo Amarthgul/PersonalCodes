@@ -1,5 +1,6 @@
 package helloWorld;
-import java.math.*;
+import java.math.*; //import all in .math
+import java.util.Scanner;
 
 public class HelloWorld {
 	
@@ -14,13 +15,18 @@ public class HelloWorld {
 		final int MARK = 3; //constant 
 		
 		/* operating */
+		Scanner in = new Scanner(System.in);
+		System.out.print("Say some int f: "); //same as `cpp cout`
+		x = in.nextInt();
+		System.out.print("Say some flost f: ");
+		randList[0] = in.nextDouble();
+		System.out.printf("Int: %5d, float: %.2f", x, randList[0]); //format print
 
 		
 		// Dump
 		if (dump) {
 			x += MARK;
 			bigNum = bigNum.multiply(bigNum);
-			
 		}
 	}
 
