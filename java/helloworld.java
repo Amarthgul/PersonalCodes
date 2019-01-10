@@ -27,7 +27,9 @@ public class HelloWorld {
 		// Variable aStr would be "123456789"
 		final int CONST = Integer.parseInt(aStr); // `final` is the java keyword for constant;
 		// Variable CONST would be 123456789
-		double [] randList = new double [10]; //java array
+		double [] uncertainList = new double [10]; //java array
+		double [] certainList = {0.0, 0.1, 0.2, 0.3, 0.5}; // cannot be used as return value
+		double [] comboList = new double [] {0.0, 0.1, 0.2, 0.3, 0.5}; // can be used as return value
 		BigInteger bigNum = new BigInteger("1242423231");    //larger number
 		BigDecimal bigDec = new BigDecimal("3.14159265354"); //large float
 		
@@ -67,15 +69,15 @@ public class HelloWorld {
 		// Still output in console 
 	}
 
-	public static int basicBranchAndLoops() {
+	public static int basicBranchAndLoops(int iterator) { // argument `iterator` passed by value
 		Random rand = new Random(); // a random instance 
 		int n = rand.nextInt(50);   // generate a number between 0~49
-		while(n < 100) { // `do ... while` also applies
+		while(n < 100) { // `do {...} while(...);` also applies
 			System.out.println(n);
 			n = n > 60 ? n + 5 : n * 2; // conditional snetence
 		}
 		
-		for(int i = 1; i <= 5; i++) { //same `for` as c and c++
+		for(int i = 1; i <= iterator; i++) { //same `for` as c and c++
 			if (n > 101 && n < 1000) { /* operator `&&` and `||`,
 			Still obeys the Short Circuit rule */
 				n *= i;
@@ -93,7 +95,7 @@ public class HelloWorld {
 	}
 
  	public static void main(String[] args) {	
-		HelloWorld.basicBranchAndLoops();
+		HelloWorld.basicBranchAndLoops(5);
 	}
 }
 
