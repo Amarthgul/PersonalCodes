@@ -71,7 +71,7 @@ public class ABCDGuesser2 {
 		double mu;
 		double [] wxyz = new double[4];
 		int iterator = 0;
-		double [] chrm = {-5, -4, -3, -2, -1, -1/2, -1/3, -1/4, 0, 1/4, 1/3, 1/2, 1, 2, 3, 4, 5};
+		double [] chrm = {-5, -4, -3, -2, -1, -1/2.0, -1/3.0, -1/4.0, 0, 1/4.0, 1/3.0, 1/2.0, 1, 2, 3, 4, 5};
 		double [] abcd = new double[4];
 		double least = 0;
 
@@ -109,6 +109,7 @@ public class ABCDGuesser2 {
 		}System.out.println(" ");
 		
 		System.out.println(least);
+		System.out.println((mu - least) / mu);
 
 	}
 
