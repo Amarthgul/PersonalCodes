@@ -46,14 +46,14 @@ public class ABCDGuesser1 {
 	 */
 	private static double getPositiveDoubleNotOne(SimpleReader in, SimpleWriter out) {
 		String userInput = "Crap";
+		final double THRESHOLD = 0.00001;
 		double result = 0;
 		while(true) { 
 			out.print("Enter your number: ");
 			userInput = in.nextLine();
 			if (FormatChecker.canParseDouble(userInput)) {
 				result = Double.parseDouble(userInput);
-				if (result > 0) // the only difference...
-					//could have using only one method plus a boolean parameter
+				if (result > 0 && Math.abs(result - 1) > THRESHOLD) 
 					return result; 
 				else
 					out.print("Invalid! Need non-zero positive number! ");
