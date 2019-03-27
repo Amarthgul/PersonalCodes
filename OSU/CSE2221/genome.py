@@ -1,4 +1,7 @@
-
+'''
+If you don't have python on your device
+Go to (Wandbox)[https://wandbox.org/]
+'''
 
 class genome:
     def __init__(self, inStr):
@@ -20,8 +23,8 @@ class genomeSoup:
         
     def __deleteGen(self, inStr):
         for gen in self.genomes:
-            if gen.sequence == inStr:
-                self.genomes.remove(gen)
+            if gen.sequence == inStr: self.genomes.remove(gen)
+
     def __findBest(self, inGen, targeting = "head"):
         bestfit = "null";
         fitLength = 0;
@@ -30,22 +33,23 @@ class genomeSoup:
             else:
                 if targeting == "head":
                     for i in range(1, len(gen.sequence)):
-                        if inGen.lastN(i) == gen.firstN(i):
-                            if i > fitLength:
-                                fitLength = i;
-                                bestfit = gen.sequence;
+                        if inGen.lastN(i) == gen.firstN(i) and i > fitLength:
+                            fitLength = i;
+                            bestfit = gen.sequence;
                 elif targeting == "tail":
                     for i in range(1, len(gen.sequence)):
-                        if inGen.firstN(i) == gen.lastN(i):
-                            if i > fitLength:
-                                fitLength = i;
-                                bestfit = gen.sequence;
-        return [bestfit, fitLength];                        
+                        if inGen.firstN(i) == gen.lastN(i) and i > fitLength:
+                            fitLength = i;
+                            bestfit = gen.sequence;
+                else: Exception("wat")
+        return [bestfit, fitLength];        
+                    
     def __generate(self, inStrList):
         result = [];
         for gen in pool:
             result.append(genome(gen))
         return result
+
 
     def disp(self, printLine = True, additionalMessage = None):
         if printLine: print("============" 
@@ -53,6 +57,7 @@ class genomeSoup:
                             + "=============") 
         for gen in self.genomes : print(gen.sequence) 
         if printLine: print("=============================") 
+
     def combine(self):
         self.disp(additionalMessage = "before iteration")
         while (True):
@@ -71,8 +76,8 @@ class genomeSoup:
             self.disp(additionalMessage = "after iteration")
             if len(self.genomes) == 1 or bestGuess[0] == "null": break
             
-        
-        
+
+
 pool = ["TATACAT",
         "AGCTGTTTTCGTT",
         "CACTCCATTTTA",
