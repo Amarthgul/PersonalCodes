@@ -1,9 +1,4 @@
-pool = ["TATACAT",
-        "AGCTGTTTTCGTT",
-        "CACTCCATTTTA",
-        "CATTTTAGCTGTT",
-        "TTTCGTTATACAT",
-        "CTGTTTTCGTTA"]
+
 
 class genome:
     def __init__(self, inStr):
@@ -76,6 +71,14 @@ class genomeSoup:
             self.disp(additionalMessage = "after iteration")
             if len(self.genomes) == 1 or bestGuess[0] == "null": break
             
+        
+        
+pool = ["TATACAT",
+        "AGCTGTTTTCGTT",
+        "CACTCCATTTTA",
+        "CATTTTAGCTGTT",
+        "TTTCGTTATACAT",
+        "CTGTTTTCGTTA"]
             
 soup = genomeSoup(pool)
 soup.combine()
