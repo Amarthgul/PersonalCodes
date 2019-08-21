@@ -17,23 +17,29 @@ public class HelloWorld {
 	public static void basicDatatype() {
 		boolean typeBool = true;   // boolean datatype
 		Boolean classBool = false; // boolean class
+		
 		int anInteger = 0; //basic integer
 		long aLong = 123456789; // large number
-		byte aByte = (byte)anInteger;  //byte, range -128~127; (DATATYPE) is a way to cast
-		// Variable aByte would be 0
 		double aDouble = 3.14;  // basic float
+		byte aByte = (byte)anInteger;  //byte, range -128~127; (DATATYPE) is a way to cast
+		// Variable aByte would be initilized as 0
+			
 		char aChara = '1';  // basic char
 		String aStr = Long.toString(aLong); // string class cast a double to Sting
 		// Variable aStr would be "123456789"
+		
 		final int CONST = Integer.parseInt(aStr); // `final` is the java keyword for constant;
-		// Variable CONST would be 123456789
+		
 		double [] uncertainList = new double [10]; //java array
 		double [] certainList = {0.0, 0.1, 0.2, 0.3, 0.5}; // cannot be used as return value
 		double [] comboList = new double [] {0.0, 0.1, 0.2, 0.3, 0.5}; // can be used as return value
+		
 		BigInteger bigNum = new BigInteger("1242423231");    //larger number
 		BigDecimal bigDec = new BigDecimal("3.14159265354"); //large float
 		
 		System.out.println("Finished");
+		// In Eclipse, type `sysout` then hold Ctrl key and press Enter
+		// will autofill this long statement 
 	}
 	
 	public static void basicConsoleIO() {
