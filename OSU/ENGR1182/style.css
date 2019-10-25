@@ -1,23 +1,54 @@
 @import url('https://fonts.googleapis.com/css?family=Asap:400,500,700&display=swap');
 
+/*========================== General ==========================*/
 body {
     font-family: 'Asap', sans-serif;
     color: white;
-    background-image: url(resources/ENGR_design_2.20.png);
-    background-repeat: no-repeat;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5%;
+    background: repeating-linear-gradient( 45deg, #222, #222 10px, #333 10px, #333 20px );
     background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
 }
 
 h1 {
-    top: 20px;
-    bottom: 20px;
     padding: 0;
     font-size: 36px;
     color: white;
 }
 
+footer {
+    margin-top: 25%;
+    padding: 10px 20px;
+    background: #333;
+    color: #666;
+    padding-bottom: 2%
+}
+
+.footLine {
+    background-color: #666;
+    height: 1px;
+    border: 0;
+}
+.left {
+    display: inline-block
+}
+.right {
+    display: inline-block;
+    float: right
+}
+
+
+a {
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/*========================== Menu ==========================*/
 ul {
     list-style-type: none;
     margin: 0;
@@ -27,9 +58,9 @@ ul {
 }
 
 li {
+    list-style-type: none;
     float: left;
 }
-
     li a {
         display: block;
         color: white;
@@ -38,11 +69,157 @@ li {
         text-decoration: none;
         transition: 0.3s;
     }
-
+.active {
+    background-color: #BB0000;
+}
     li a:hover {
         background-color: #111;
     }
 
-mainContent {
-
+/*========================== Image ==========================*/
+.demoImg {
+    object-fit: contain;
+    position: relative;
+    text-align: center;
 }
+.p1Text {
+    position: absolute;
+    font-size: 200%;
+    color: #e0e0e0;
+    top: 10%;
+    left: 6%;
+}
+.hr1Line {
+    position: absolute;
+    color: #cbcbcb;
+    width: 15%;
+    top: 15%;
+    left: 6%;
+}
+.p2Text {
+    position: absolute;
+    font-size: 150%;
+    color: #cbcbcb;
+    top: 17%;
+    left: 6%;
+}
+
+
+/*========================== Task ==========================*/
+.task {
+    padding-top: 2%;
+    padding-bottom: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
+    background-color: #333;
+    margin-bottom: 0.5%;
+    text-align: center;
+    line-height: 2;
+}
+
+
+/*========================== Pain and Gain ==========================*/
+.PaG {
+    background-color: #333;
+}
+.liPag {
+    margin: 0 0 5% 0;
+}
+#pain, #gain {
+    padding-top: 1%;
+    padding-bottom: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
+    line-height: 2;
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    vertical-align: top;
+}
+#pain {
+    width: 38%;
+}
+#gain {
+    width: 39%;
+}
+
+/*========================== Subscribe ==========================*/
+.plans {
+    margin-top: 5%;
+    margin-left: 10%;
+}
+.plan {
+    margin: 5%;
+    border: 2px solid white;
+    width: 20%;
+    padding: 5%;
+    margin: auto;
+    overflow: hidden;
+}
+div#planA {
+    float: left;
+}
+.orderNow {
+    margin: auto;
+    color: white;
+    padding: 3%;
+    width: 50%;
+    text-align: center;
+    border: 2px solid #BB0000;
+    transition: 0.3s;
+}
+    .orderNow:hover {
+        background-color: #BB0000;
+    }
+
+/*========================== Support ==========================*/
+.noSup {
+    margin-top: 2%;
+    padding: 5%;
+    background-color: #333;
+    text-align: center;
+}
+.okay {
+    margin: auto;
+    padding: 2%;
+    width: 10%;
+    background-color: #333;
+    border: 2px solid #BB0000;
+    transition: 0.3s;
+    color: white;
+}
+    .okay:hover {
+        background-color: #BB0000;
+    }
+
+/*========================== About ==========================*/
+.tMembers {
+    margin: 5%;
+}
+.tMember {
+    margin-top:10%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 15%;
+    text-align: center;
+}
+.avatar {
+    clip-path: circle(60px at center);
+}
+
+
+/*========================== Life Plan ==========================*/
+.lifeSpan {
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2%;
+    width: 10%;
+    background-color: #333;
+    border: 2px solid #BB0000;
+    transition: 0.3s;
+    color: white;
+}
+    .lifeSpan:hover {
+        background-color: #BB0000;
+    }
