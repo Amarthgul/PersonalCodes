@@ -52,6 +52,12 @@ footer {
     display: inline-block;
     float: right
 }
+#OSU {
+    text-align: left;
+}
+#ENGR {
+    float: right;
+}
 
 .midHeader {
     margin-top: 5%;
@@ -268,7 +274,7 @@ li {
     margin: auto;
     overflow: hidden;
 }
-div#planA {
+#planA {
     float: left;
 }
 .orderNow {
@@ -340,3 +346,63 @@ div#planA {
     .lifeSpan:hover {
         background-color: #BB0000;
     }
+
+
+@media(max-width: 768px) {
+    li, .right,
+    .cameraShowcase,
+    .wheelShowcase,
+    #planA, #ENGR {
+        float: none;
+        text-align: center;
+        width: 100%;
+    }
+
+    #rightOverlay, #leftOverlay {
+        left: 0;
+        width: 100%;
+    }
+
+    .wheelShowcase, .cameraShowcase {
+        margin-top: 5%;
+        margin-bottom: 5%;
+        padding: 0;
+    }
+
+    .p1Text {
+        font-size: 150%;
+    }
+
+    .hr1Line {
+        width: 25%;
+        top: 17%;
+    }
+
+    .p2Text {
+        font-size: 110%;
+        top: 22%;
+    }
+
+    .plans {
+        margin-left: 10%;
+        margin-right: 20%;
+    }
+
+    .plan {
+        text-align: center;
+        margin: auto;
+        margin-top: 5%;
+        width: 100%;
+    }
+
+    .okay {
+        width: 50%;
+    }
+
+    .tMembers {
+        margin: 0;
+    }
+    .tMember {
+        max-width: 50%;
+    }
+}
