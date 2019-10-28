@@ -38,6 +38,11 @@ footer {
     float: right
 }
 
+.midHeader {
+    margin-top: 5%;
+    margin-bottom: 0;
+    text-align: center;
+}
 
 a {
     text-decoration: none;
@@ -143,7 +148,88 @@ li {
     width: 39%;
 }
 
+/*========================== Design ==========================*/
+.showcase {
+    background-color: #333;
+    margin-top: 5%;
+    position: relative;
+    display: block;
+    
+}
+.overlay {
+    position: absolute;
+    
+    opacity: 0;
+    transition: .3s ease;
+    background-color: #333;
+}
+#leftOverlay {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 95%;
+}
+#rightOverlay {
+    top: 0;
+    bottom: 0;
+    left: 5%;
+    right: 0;
+    height: 100%;
+    width: 95%;
+}
+
+.cameraShowcase {
+    text-align: center;
+    width: 47.5%;
+    padding-right: 2.5%;
+    float: left;
+    transition: transform .3s;
+}
+    .cameraShowcase:hover .overlay {
+        opacity: 0.75;
+    }
+    .cameraShowcase:hover {
+        transform: scale(1.1);
+    }
+.wheelShowcase {
+    text-align: center;
+    width: 47.5%;
+    padding-left: 2.5%;
+    float: left;
+    transition: transform .3s;
+}
+    .wheelShowcase:hover .overlay {
+        opacity: 0.75;
+    }
+    .wheelShowcase:hover {
+        transform: scale(1.1);
+    }
+
+.designIllus {
+    display: block;
+    padding-top: 10%;
+    padding-bottom: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+    line-height: 2;
+}
+
 /*========================== Subscribe ==========================*/
+.buisnessPlan {
+    padding-top: 2%;
+    padding-bottom: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
+    background-color: #333;
+    margin-top: 5%;
+    margin-bottom: 0.5%;
+    text-align: center;
+    line-height: 2;
+}
+
 .plans {
     margin-top: 5%;
     margin-left: 10%;
