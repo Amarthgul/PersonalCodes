@@ -9,7 +9,22 @@ body {
     margin-top: 5%;
     background: repeating-linear-gradient( 45deg, #222, #222 10px, #333 10px, #333 20px );
     background-attachment: fixed;
+    animation: fadeInAnimation ease .6s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
 }
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    35% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+} 
 
 h1 {
     padding: 0;
@@ -42,6 +57,9 @@ footer {
     margin-top: 5%;
     margin-bottom: 0;
     text-align: center;
+    padding-left: 5%;
+    padding-right: 5%;
+    line-height: 2;
 }
 
 a {
@@ -65,6 +83,7 @@ ul {
 li {
     list-style-type: none;
     float: left;
+    
 }
     li a {
         display: block;
@@ -86,6 +105,9 @@ li {
     object-fit: contain;
     position: relative;
     text-align: center;
+}
+#designAnno {
+    margin-top: 5%;
 }
 .p1Text {
     position: absolute;
@@ -148,17 +170,16 @@ li {
     width: 39%;
 }
 
+
 /*========================== Design ==========================*/
 .showcase {
-    background-color: #333;
     margin-top: 5%;
     position: relative;
     display: block;
-    
+    overflow: hidden;
 }
 .overlay {
     position: absolute;
-    
     opacity: 0;
     transition: .3s ease;
     background-color: #333;
@@ -178,6 +199,12 @@ li {
     right: 0;
     height: 100%;
     width: 95%;
+}
+.textContainer {
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 15%;
+    line-height: 2;
 }
 
 .cameraShowcase {
@@ -208,8 +235,7 @@ li {
     }
 
 .designIllus {
-    display: block;
-    padding-top: 10%;
+    padding-top: 5%;
     padding-bottom: 5%;
     padding-left: 5%;
     padding-right: 5%;
@@ -252,10 +278,11 @@ div#planA {
     width: 50%;
     text-align: center;
     border: 2px solid #BB0000;
-    transition: 0.3s;
+    transition: transform 0.3s;
 }
     .orderNow:hover {
         background-color: #BB0000;
+        transform: scale(1.1);
     }
 
 /*========================== Support ==========================*/
@@ -291,7 +318,11 @@ div#planA {
 }
 .avatar {
     clip-path: circle(60px at center);
+    transition: transform .3s;
 }
+    .avatar:hover {
+        transform: scale(1.1);
+    } 
 
 
 /*========================== Life Plan ==========================*/
