@@ -417,6 +417,18 @@ div.backToTop a{
         text-align: center;
         width: 100%;
     }
+    .p1Text {
+        position: static;
+        background-color: #333;
+    }
+    .p2Text {
+        position: static;
+        background-color: #333;
+        margin-bottom: 1%;
+    }
+    .hr1Line {
+        opacity: 0;
+    }
 
     #pain, #gain {
         text-align: center;
@@ -490,6 +502,12 @@ div.backToTop a{
 
     .smallAnno {
         padding-top: 2%;
+    }
+    .footerLinkOneLine {
+        line-height: 1.5;
+    }
+    .footerLinks ul li {
+        font-size: 100%;
     }
 
     .backToTop {

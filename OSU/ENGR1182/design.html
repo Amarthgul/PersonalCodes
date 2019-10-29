@@ -28,7 +28,11 @@
     </div>
 
     <div class="demoImg" id="designAnno">
-        <img src="resources/design.png" alt="design components" />
+        <picture>
+            <source media="(min-width: 768px)" srcset="resources/design.png">
+            <source media="(min-width: 600px)" srcset="resources/design_crp.png">
+            <img src="resources/design_crp.png" alt="design">
+        </picture>
     </div>
 
     <a name="designConceptSection"></a>
