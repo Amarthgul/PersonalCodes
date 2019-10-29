@@ -189,8 +189,10 @@ li {
 .cameraShowcase {
     width: 47.5%;
     padding-right: 2.5%;
-    float: left;
     transition: transform .3s;
+    position: relative;
+    display: inline-block;
+    float: left;
 }
     .cameraShowcase:hover .overlay {
         opacity: 0.75;
@@ -202,8 +204,10 @@ li {
 .wheelShowcase {
     width: 47.5%;
     padding-left: 2.5%;
-    float: left;
     transition: transform .3s;
+    position: relative;
+    display: inline-block;
+    float: left;
 }
     .wheelShowcase:hover .overlay {
         opacity: 0.75;
@@ -373,7 +377,11 @@ li {
 
     #rightOverlay, #leftOverlay {
         left: 0;
+        opacity: 0.75;
         width: 100%;
+    }
+    .textContainer {
+        padding-top: 0;
     }
 
     .wheelShowcase, .cameraShowcase {
