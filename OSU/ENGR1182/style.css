@@ -32,6 +32,36 @@ h1 {
     color: white;
 }
 
+
+.midHeader {
+    margin-top: 5%;
+    margin-bottom: 0;
+    text-align: center;
+    padding-left: 5%;
+    padding-right: 5%;
+    line-height: 2;
+}
+    .midHeader a{
+        color: white;
+        transition: 0.3s;
+    }
+        .midHeader a:hover {
+            color: #BB0000;
+            font-weight: bold;
+        }
+    
+a {
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+
+/*========================== Footer ==========================*/
+
 footer {
     margin-top: 25%;
     padding: 10px 20px;
@@ -52,6 +82,28 @@ footer {
     display: inline-block;
     float: right
 }
+.footerLinks {
+    display: block;
+    position: relative;
+    text-align: center;
+}
+.footerLinkOneLine {
+    line-height: 2;
+}
+.footerLinks ul li {
+    list-style-type: none;
+    position: relative;
+    width: 25%;
+    font-size: 75%;
+    float: left;
+}
+    .footerLinks ul li a {
+        color: #666;
+    }
+.smallAnno {
+    padding-top: 7%;
+    text-align: center;
+}
 #OSU {
     text-align: left;
 }
@@ -59,26 +111,25 @@ footer {
     float: right;
 }
 
-.midHeader {
-    margin-top: 5%;
-    margin-bottom: 0;
-    text-align: center;
-    padding-left: 5%;
-    padding-right: 5%;
-    line-height: 2;
-}
-
-a {
-    text-decoration: none;
-}
-
-img {
-    max-width: 100%;
-    max-height: 100%;
-}
-
 /*========================== Menu ==========================*/
-ul {
+div.backToTop {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 15%;
+    padding: 1%;
+    
+    text-align: center;
+}
+div.backToTop a{
+    color: #999;
+    transition: .3s;
+}
+    div.backToTop a:hover {
+        color: #fff;
+    }
+
+.menuBar ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -86,12 +137,11 @@ ul {
     background-color: #333;
 }
 
-li {
+.menuBar ul li {
     list-style-type: none;
     float: left;
-    
 }
-    li a {
+    .menuBar ul li a {
         display: block;
         color: white;
         text-align: center;
@@ -102,9 +152,10 @@ li {
 .active {
     background-color: #BB0000;
 }
-    li a:hover {
-        background-color: #111;
-    }
+.menuBar ul li a:hover {
+    background-color: #111;
+}
+
 
 /*========================== Image ==========================*/
 .demoImg {
@@ -241,6 +292,11 @@ li {
     line-height: 2;
 }
 
+#prototypeImg  {
+    text-align: center;
+    position: relative;
+    height: 35em;
+}
 
 .designIllus {
     padding-top: 5%;
@@ -252,7 +308,7 @@ li {
 }
 
 /*========================== Subscribe ==========================*/
-.buisnessPlan {
+.planBox {
     padding-top: 2%;
     padding-bottom: 5%;
     padding-left: 5%;
@@ -355,6 +411,7 @@ li {
     li, .right, #gain,
     .cameraShowcase,
     .wheelShowcase,
+    .footerLinks ul li,
     #planA, #ENGR {
         float: none;
         text-align: center;
@@ -429,5 +486,13 @@ li {
     }
     .tMember {
         max-width: 50%;
+    }
+
+    .smallAnno {
+        padding-top: 2%;
+    }
+
+    .backToTop {
+        opacity: 0;
     }
 }
