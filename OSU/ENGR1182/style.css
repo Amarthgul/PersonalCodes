@@ -235,8 +235,8 @@ li {
     left: 5%;
 }
 .textContainer {
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 20%;
+    padding-right: 20%;
     padding-top: 15%;
     line-height: 2;
 }
@@ -350,6 +350,7 @@ li {
     }
 
 
+/*========================== Mobile Devices ==========================*/
 @media(max-width: 768px) {
     li, .right, #gain,
     .cameraShowcase,
@@ -382,6 +383,8 @@ li {
     }
     .textContainer {
         padding-top: 0;
+        padding-left: 7%;
+        padding-right: 7%;
     }
 
     .wheelShowcase, .cameraShowcase {
@@ -413,6 +416,7 @@ li {
         text-align: center;
         margin: auto;
         margin-top: 5%;
+        margin-bottom: 5%;
         width: 100%;
     }
 
