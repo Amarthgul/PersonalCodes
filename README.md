@@ -5,23 +5,23 @@ Man that's lazy
 
 * __Get Repo__
 
- `git clone URL` (Substitute `URL` with repo URL)
+   `git clone URL` (Substitute `URL` with repo URL);
   
 * __Upload__
   
-  `git add FILENAME`
+  `git add FILENAME` or `git add .` for all;
   
-  `git commit` or `git commit -m'MESSAGE'`
+  `git commit` or `git commit -m'MESSAGE'`;
   
-  `git push`
+  `git push`;
   
 * __Sync__ 
 
-  `git pull`
+  `git pull`;
   
-  Or
+  Or, if local files have not yet been saved:
   
-  `git fetch --all` followed with `git reset --hard origin/master` / `git reset --hard origin/<branch_name>`
+  `git fetch --all` followed with `git reset --hard origin/master` / `git reset --hard origin/<branch_name>`;
 
 
   
