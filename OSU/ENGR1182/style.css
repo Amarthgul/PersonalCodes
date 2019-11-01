@@ -164,6 +164,8 @@ div.backToTop a{
     text-align: center;
 }
 #designAnno {
+    position: relative;
+    display: block;
     margin-top: 5%;
 }
 .p1Text {
@@ -229,12 +231,31 @@ div.backToTop a{
 
 
 /*========================== Design ==========================*/
+#topImg {
+    position: relative;
+    display: inline-block;
+    transition: .5s;
+}
+#designAnno:hover #topImg {
+    opacity: 0;
+}
+#designAnno:hover #bottomImg {
+    opacity: 1;
+}
+#bottomImg {
+    position: absolute;
+    transition: .5s;
+    opacity: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
 .showcase {
     margin-top: 5%;
     position: relative;
     display: block;
     overflow: hidden;
-    
 }
 
 .cameraShowcase {
