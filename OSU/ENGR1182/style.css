@@ -118,7 +118,6 @@ div.backToTop {
     right: 0;
     width: 15%;
     padding: 1%;
-    
     text-align: center;
 }
 div.backToTop a{
@@ -156,6 +155,9 @@ div.backToTop a{
     background-color: #111;
 }
 
+.container {
+    overflow: hidden;
+}
 
 /*========================== Image ==========================*/
 .demoImg {
@@ -168,6 +170,17 @@ div.backToTop a{
     display: block;
     margin-top: 5%;
 }
+
+#indexDemo {
+    object-fit: contain;
+    position: relative;
+    display: block;
+    transition: transform .3s;
+}
+#indexDemo:hover {
+    transform: scale(1.05);
+}
+
 .p1Text {
     position: absolute;
     font-size: 200%;
@@ -313,10 +326,30 @@ div.backToTop a{
     line-height: 2;
 }
 
-#prototypeImg  {
-    text-align: center;
+#prototypeShowcase {
     position: relative;
+    height: 40em;
+}
+    #prototypeShowcase:hover #prototypeImg {
+        transform: translate(-20%, 0);
+    }
+    #prototypeShowcase:hover #prototypeSideview {
+        opacity: 1;
+        transform: translate(-15%, 0);
+    }
+#prototypeImg {
+    position: absolute;
+    left: 12.5%;
     height: 35em;
+    transition: .3s;
+}
+#prototypeSideview {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transition: .3s;
+    height: 35em;
+    opacity: 0;
 }
 
 .designIllus {
@@ -342,6 +375,7 @@ div.backToTop a{
 }
 
 .plans {
+    height: 50%;
     margin-top: 5%;
     margin-left: 10%;
 }
@@ -466,6 +500,13 @@ div.backToTop a{
         vertical-align: unset;
     }
 
+    #designAnno:hover #topImg {
+        opacity: 1;
+    }
+    #designAnno:hover #bottomImg {
+        opacity: 0;
+    }
+
     #rightOverlay, #leftOverlay {
         left: 0;
         opacity: 0.75;
@@ -476,11 +517,18 @@ div.backToTop a{
         padding-left: 7%;
         padding-right: 7%;
     }
-
     .wheelShowcase, .cameraShowcase {
         margin-top: 5%;
         margin-bottom: 5%;
         padding: 0;
+    }
+    #prototypeShowcase:hover #prototypeImg {
+        transform: translate(0, 0);
+    }
+
+    #prototypeShowcase:hover #prototypeSideview {
+        opacity: 0;
+        transform: translate(0, 0);
     }
 
     .p1Text {
