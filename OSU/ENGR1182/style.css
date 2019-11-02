@@ -4,14 +4,15 @@
 body {
     font-family: 'Asap', sans-serif;
     color: white;
-    margin-left: 10%;
-    margin-right: 10%;
     margin-top: 5%;
     background: repeating-linear-gradient( 45deg, #222, #222 10px, #333 10px, #333 20px );
     background-attachment: fixed;
     animation: fadeInAnimation ease .6s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 @keyframes fadeInAnimation {
@@ -320,8 +321,9 @@ div.backToTop a{
     left: 5%;
 }
 .textContainer {
-    padding-left: 20%;
-    padding-right: 20%;
+    font-size: 1em;
+    padding-left: 15%;
+    padding-right: 15%;
     padding-top: 15%;
     line-height: 2;
 }
@@ -394,7 +396,7 @@ div.backToTop a{
     margin: auto;
     color: white;
     padding: 3%;
-    width: 50%;
+    width: 75%;
     text-align: center;
     border: 2px solid #BB0000;
     transition: transform 0.3s;
@@ -482,6 +484,9 @@ div.backToTop a{
         margin-bottom: 1%;
     }
     .hr1Line {
+        opacity: 0;
+    }
+    p.hiddenForMobile {
         opacity: 0;
     }
 
