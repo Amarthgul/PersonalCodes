@@ -5,102 +5,41 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width">
     <meta name="author" content="ENGR Group Q">
-    <title>Porting Porridge | About Us</title>
+    <title>Porting Porridge | Subscribe</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 
 <body>
-    <div class="loginContainer">
-        <div class="loginWin">
-            <p>
-                <a href="login.html">
-                    <span class="smallBox">Login</span>
-                </a>
-            </p>
-        </div>
-    </div>
-
     <div class="nameTitle">
         <a href="http://portingporridge.com/">
             <h1>Project Porting Porridge</h1>
         </a>
     </div>
-
-    <a name="topMenu"></a>
-
     <div class="menuBar">
-        <ul>
+        <ul class="ulMain">
             <li><a href="index.html">Home</a></li>
             <li><a href="design.html">Design</a></li>
             <li><a href="subscribe.html">Subscribe</a></li>
             <li><a href="support.html">Support</a></li>
-            <li style="float:right">
-                <a href="about.html" class="active">About Us</a>
-            </li>
+            <li style="float:right"><a href="about.html">About</a></li>
         </ul>
     </div>
 
-    <a name="teamIntroScetion"></a>
-
-    <div class="planBox">
-        <h2>Team introductions </h2>
-        <p>
-            Team Q from ENGR 1182.01 AU2019 (9987)
-            , The Ohio State University
-        </p>
-        <p>
-            Instructor:  John Schrock, P.E. 
-        </p>
-    </div>
-
-    <a name="teamMemberScetion"></a>
-
-    <div class="midHeader">
-        <h2>Team members</h2>
+    <div>
+        <div id="loginContainer">
+            <h2>User login</h2>
+            <form>
+                <input type="text" name="username"
+                       placeholder="UserName"><br>
+                <input type="password" name="password" 
+                       maxlength="12" placeholder="Password"><br>
+                <input type="submit" value="Login">
+            </form>
+            <p class="darkText">Don't have an account yet? <a href="#">Sign up here!</a></p>
+        </div>
     </div>
     
-
-    <div class="tMembers">
-        <div class="tMember">
-            <a href="https://osu.instructure.com/groups/150950/users/529060">
-                <img src="resources/luke.jpg" alt="Luke Malonis" class="avatar" />
-            </a>
-            <h3>Luke Malonis</h3>
-            <hr />
-            <p>Project manager</p>
-        </div>
-
-        <div class="tMember">
-            <a href="https://osu.instructure.com/groups/150950/users/259285">
-                <img src="resources/victor.jpg" alt="Victor Tran" class="avatar" />
-            </a>
-            <h3>Victor Tran</h3>
-            <hr />
-            <p>R&D</p>
-            <p>Documentation</p>
-        </div>
-
-        <div class="tMember">
-            <a href="https://osu.instructure.com/groups/150950/users/262498">
-                <img src="resources/jake.jpg" alt="Jake Ervin" class="avatar" />
-            </a>
-            <h3>Jake Ervin</h3>
-            <hr />
-            <p>Secondary Research</p>
-            <p>Data analyst</p>
-        </div>
-
-        <div class="tMember">
-            <a href="https://osu.instructure.com/groups/150950/users/358824">
-                <img src="resources/amarth.jpg" alt="Amarth Chen" class="avatar" />
-            </a>
-            <h3>Amarth Chen</h3>
-            <hr />
-            <p>Graphic Design</p>
-            <p>Marketing</p>
-        </div>
-    </div>
 
     <div class="backToTop">
         <a href="#topMenu">Go back to top</a>
@@ -128,7 +67,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="index.html#targetAudienceSection">
+                        <a href="#targetAudienceSection">
                             Target Audience
                         </a>
                     </li>
