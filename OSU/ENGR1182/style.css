@@ -413,16 +413,33 @@ div.backToTop a{
 .plan {
     margin: 5%;
     border: 2px solid white;
-    width: 20%;
-    padding: 5%;
+    width: 35%;
     margin: auto;
     overflow: hidden;
 }
-#planA {
+#planA, #prePlanA {
     float: left;
 }
+.innerContainer {
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-bottom: 10%;
+    padding-top: 3%;
+}
+
+.preMark {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    text-align: center;
+    position: relative;
+    background-color: #BB0000;
+    top: 0;
+}
+
 .orderNow {
-    margin: auto;
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
     color: white;
     padding: 3%;
     width: 75%;
@@ -432,6 +449,7 @@ div.backToTop a{
 }
     .orderNow:hover {
         background-color: #BB0000;
+        border-radius: 4px;
         transform: scale(1.1);
     }
 
@@ -499,10 +517,10 @@ div.backToTop a{
     padding-top: 3%;
     padding-bottom: 5%;
 }
-#loginContainer a{
-    color: #999;
-    transition: .3s;
-}
+    #loginContainer a {
+        color: #999;
+        transition: .3s;
+    }
     #loginContainer a:hover {
         color: white;
     }
@@ -524,12 +542,13 @@ input[type=submit] {
     margin: 8px 0;
     border: 2px solid #BB0000;
     cursor: pointer;
-    transition: 0.3s;
+    transition: transform 0.3s;
 }
-input[type=submit]:hover {
-    background-color: #BB0000;
-
-}
+    input[type=submit]:hover {
+        border-radius: 4px;
+        background-color: #BB0000;
+        transform: scale(1.1);
+    }
 
 /*========================== Mobile Devices ==========================*/
 @media(max-width: 768px) {
