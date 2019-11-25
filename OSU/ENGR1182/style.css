@@ -56,7 +56,11 @@ img {
     .loginWin a {
         color: #999999;
     }
-.nameTitle{
+.mobileLogin {
+    display: none;
+}
+
+.nameTitle {
     margin-top: 2.5%;
     margin-bottom: 2.5%;
 }
@@ -572,7 +576,21 @@ input[type=submit] {
     p.hiddenForMobile {
         opacity: 0;
     }
-
+    .nameTitle {
+        text-align: center;
+    }
+    .loginContainer{
+        display: none;
+    }
+    .mobileLogin {
+        text-align: center;
+        padding-bottom: 2%;
+        display: inherit;
+    }
+        .mobileLogin a{
+            color: #999999;
+        }
+        
     #pain, #gain {
         text-align: center;
         padding-bottom: 0;
@@ -580,6 +598,9 @@ input[type=submit] {
         padding-right: 0;
         width: 100%;
     }
+        #pain ul li, #gain ul li {
+            list-style-type: none;
+        }
     #pain {
         padding-top: 5%;
     }
@@ -620,7 +641,9 @@ input[type=submit] {
     }
 
     .p1Text {
+        padding-top: 2%;
         font-size: 150%;
+        text-align: center;
     }
 
     .hr1Line {
@@ -631,6 +654,8 @@ input[type=submit] {
     .p2Text {
         font-size: 110%;
         top: 22%;
+        padding-bottom: 2%;
+        text-align: center;
     }
 
     .plans {
@@ -656,7 +681,16 @@ input[type=submit] {
     .tMember {
         max-width: 50%;
     }
-
+    input[type=text], input[type=password] {
+        width: 75%;
+        text-align: center;
+    }
+    input[type=submit] {
+        width: 75%;
+        border-radius: 4px;
+        background-color: #BB0000
+    }
+    
     .smallAnno {
         padding-top: 2%;
     }
@@ -666,7 +700,9 @@ input[type=submit] {
     .footerLinks ul li {
         font-size: 100%;
     }
-
+    .placeholder {
+        display: none;
+    }
     .backToTop {
         opacity: 0;
     }
