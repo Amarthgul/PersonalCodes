@@ -8,7 +8,7 @@
 body {
     font-family: 'Asap', sans-serif;
     color: white;
-    background: repeating-linear-gradient( 45deg, #222, #222 10px, #333 10px, #333 20px );
+    background: url("resources/background.png");
     background-attachment: fixed;
     animation: fadeInAnimation ease .6s;
     animation-iteration-count: 1;
@@ -66,6 +66,7 @@ img {
 .loginContainer {
     height: 5%;
     position: relative;
+    line-height: 2;
 }
 .loginWin {
     position: absolute;
