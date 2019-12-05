@@ -17,6 +17,21 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
+body:before {
+    content: "";
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+    background: url("resources/background.png") no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
 
 @keyframes fadeInAnimation {
     0% {
@@ -417,7 +432,13 @@ div.backToTop a{
     text-align: center;
     line-height: 2;
 }
-
+.designIllus a{
+    color: white;
+    transition: 0.3s;
+}
+    .designIllus a:hover {
+        color: #BB0000;
+    }
 /*========================== Subscribe ==========================*/
 .planBox {
     padding-top: 2%;
@@ -427,15 +448,23 @@ div.backToTop a{
     background-color: #333;
     margin-top: 5%;
     margin-bottom: 0.5%;
-    text-align: center;
     line-height: 2;
 }
+    .planBox h2{
+        text-align: center;
+    }
+    .planBox p {
+        color: #AAA;
+    }
+    .planBox b {
+        color: white;
+    }
 
-.plans {
-    height: 50%;
-    margin-top: 5%;
-    margin-left: 10%;
-}
+    .plans {
+        height: 50%;
+        margin-top: 5%;
+        margin-left: 10%;
+    }
 .plan {
     margin: 5%;
     border: 2px solid white;
@@ -504,6 +533,14 @@ div.backToTop a{
     }
 
 /*========================== About ==========================*/
+#teamIntro {
+    margin: 2% 0;
+    padding: 5%;
+    background-color: #333;
+    margin-bottom: 0.5%;
+    text-align: center;
+    line-height: 2;
+}
 .tMembers {
     margin: 5%;
 }
@@ -585,6 +622,25 @@ input[type=submit] {
         transform: scale(1.1);
     }
 
+/*========================== code displays ==========================*/
+#CodeMobile, #codeDesktop {
+    width: 70%;
+    margin: auto;
+    margin-top: 2%;
+    white-space: pre-wrap;
+}
+#CodeMobile {
+    display: none;
+}
+.codeKeyWd {
+    color: #3992ff;
+}
+.codeComment {
+    color: #7bd95f;
+}
+.codeDigit {
+    color: #da8aff
+}
 /*========================== Mobile Devices ==========================*/
 @media(max-width: 768px) {
     li, .right, #gain, .cameraShowcase, .wheelShowcase, .footerLinks ul li, #planA, #ENGR {
@@ -606,6 +662,17 @@ input[type=submit] {
     }
     p.hiddenForMobile {
         opacity: 0;
+    }
+    pre {
+        width: 100%;
+        white-space: pre;
+    }
+    #CodeMobile {
+        width: auto;
+        display: initial;
+    }
+    #codeDesktop {
+        display: none;
     }
     .nameTitle {
         text-align: center;

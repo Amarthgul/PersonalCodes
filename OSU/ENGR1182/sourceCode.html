@@ -1,0 +1,315 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta name="author" content="ENGR Group Q">
+    <title>Porting Porridge | Ssource Code</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+    
+<body>
+    <div class="loginContainer">
+        <div class="loginWin">
+            <p>
+                <a href="login.html">
+                    <span class="smallBox">Login</span>
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <div class="nameTitle">
+        <a href="http://portingporridge.com/">
+            <h1>Project Porting Porridge</h1>
+        </a>
+    </div>
+
+    <div class="mobileLogin">
+        <a href="login.html">
+            Login
+        </a>
+    </div>
+
+    <a name="topMenu"></a>
+
+    <div class="menuBar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="design.html">Design</a></li>
+            <li><a href="subscribe.html">Subscribe</a></li>
+            <li><a href="support.html">Support</a></li>
+            <li style="float:right"><a href="about.html">About Us</a></li>
+        </ul>
+    </div>
+
+    <div class="midHeader">
+        <h2>Source Code (Arduino)</h2>
+    </div>
+
+    <pre id="codeDesktop">
+    <code>
+        <span class="codeKeyWd">void </span>circularTest() {
+            <span class="codeComment">//Test #1: Circular</span>
+            <span class="codeKeyWd">int </span>cartDirection  = <span class="codeDigit">-1</span>;
+            <span class="codeKeyWd">int </span>power = cartDirection * <span class="codeDigit">40</span> * powerAdjust();
+            <span class="codeKeyWd">int </span>counts(<span class="codeDigit">568</span>);
+            motorSpeed(<span class="codeDigit">4</span>, power);
+            <span class="codeKeyWd">int </span>currentCount = <span class="codeDigit">0</span>;
+
+            <span class="codeKeyWd">while </span>(currentCount < counts) {
+                currentCount = getBackwardCounts();
+            }
+
+            power = <span class="codeDigit">-</span> cartDirection * <span class="codeDigit">40</span> * powerAdjust();
+            motorSpeed(<span class="codeDigit">4</span>, <span class="codeDigit">0</span>);
+            pauseFor(<span class="codeDigit">1.5</span>);
+            motorSpeed(<span class="codeDigit">4</span>, <span class="codeDigit">50</span>);
+            pauseFor(<span class="codeDigit">1.5</span>);
+            motorSpeed(<span class="codeDigit">4</span>, <span class="codeDigit">0</span>);
+        }
+
+        <span class="codeKeyWd">void </span>gateTest() {
+            <span class="codeComment">//Test #2: Gate</span>
+            <span class="codeKeyWd">int </span>cartDirection = <span class="codeDigit">-1</span>;
+            <span class="codeKeyWd">int </span>power = cartDirection * <span class="codeDigit">40</span>  * powerAdjust();
+            <span class="codeKeyWd">int </span>counts(<span class="codeDigit">242</span>);
+            motorSpeed(<span class="codeDigit">4</span>, power);
+            <span class="codeKeyWd">int </span>currentCount = getBackwardCounts();
+
+            <span class="codeKeyWd">while </span>(currentCount < counts) {
+                currentCount = getBackwardCounts();
+            }
+
+            power = <span class="codeDigit">-</span> cartDirection * <span class="codeDigit">40</span> * powerAdjust();
+            motorSpeed(<span class="codeDigit">4</span>, power);
+            pauseFor(<span class="codeDigit">2</span>);
+            motorSpeed(<span class="codeDigit">4</span>, <span class="codeDigit">0</span>);
+            pauseFor(<span class="codeDigit">9</span>);
+            counts = <span class="codeDigit">435</span>;
+            power = cartDirection * <span class="codeDigit">40</span>  * powerAdjust();
+            motorSpeed(<span class="codeDigit">4</span>, power);
+
+            <span class="codeKeyWd">while </span>(currentCount < counts) {
+                currentCount = getBackwardCounts();
+            }
+
+            power = <span class="codeDigit">-</span> cartDirection * <span class="codeDigit">50</span> * powerAdjust();
+            motorSpeed(<span class="codeDigit">4</span>, <span class="codeDigit">0</span>);
+            pauseFor(<span class="codeDigit">3</span>);
+            motorSpeed(<span class="codeDigit">4</span> , power);
+            pauseFor(<span class="codeDigit">1.5</span>);
+            motorSpeed(<span class="codeDigit">4</span>, <span class="codeDigit">0</span>);
+        }
+
+        <span class="codeKeyWd">void </span>hillTest() {
+            <span class="codeComment">//Test #3: Hill</span>
+            <span class="codeKeyWd">int </span>cartDirection = <span class="codeDigit">-1</span>;
+            <span class="codeKeyWd">int </span>power = cartDirection * <span class="codeDigit">30</span>  * powerAdjust();
+            <span class="codeKeyWd">int </span>counts(<span class="codeDigit">672</span>);
+            motorSpeed(<span class="codeDigit">4</span>, power);
+            <span class="codeKeyWd">int </span>currentCount = getBackwardCounts();
+
+            <span class="codeKeyWd">while </span>(currentCount < counts) {
+                currentCount = getBackwardCounts();
+            }
+
+            power = <span class="codeDigit">-</span> cartDirection * <span class="codeDigit">40</span> * powerAdjust();
+            motorSpeed(<span class="codeDigit">4</span>, power);
+            pauseFor(<span class="codeDigit">2</span>);
+            motorSpeed(<span class="codeDigit">4</span>, <span class="codeDigit">0</span>);
+        }
+
+        <span class="codeKeyWd">void </span>myCode() {
+            <span class="codeComment">// Reflective Motor Testr</span>
+            <span class="codeComment">//reflectanceSensorTest();</span>
+
+            circularTest();
+
+            <span class="codeComment">//gateTest();</span>
+            <span class="codeComment">// hillTest();</span>
+        }
+
+
+
+        </code>
+    </pre>
+
+        <pre id="CodeMobile">
+    <code>
+<span class="codeKeyWd">void </span>circularTest() {
+    <span class="codeComment">//Test #1: Circular</span>
+    <span class="codeKeyWd">int </span>cartDirection  = <span class="codeDigit">-1</span>;
+    <span class="codeKeyWd">int </span>power = cartDirection * <span class="codeDigit">40</span> * powerAdjust();
+    <span class="codeKeyWd">int </span>counts(<span class="codeDigit">568</span>);
+    motorSpeed(<span class="codeDigit">4</span>, power);
+    <span class="codeKeyWd">int </span>currentCount = <span class="codeDigit">0</span>;
+
+    <span class="codeKeyWd">while </span>(currentCount < counts) {
+        currentCount = getBackwardCounts();
+    }
+
+    power = <span class="codeDigit">-</span> cartDirection * <span class="codeDigit">40</span> * powerAdjust();
+    motorSpeed(<span class="codeDigit">4</span>, <span class="codeDigit">0</span>);
+    pauseFor(<span class="codeDigit">1.5</span>);
+    motorSpeed(<span class="codeDigit">4</span>, <span class="codeDigit">50</span>);
+    pauseFor(<span class="codeDigit">1.5</span>);
+    motorSpeed(<span class="codeDigit">4</span>, <span class="codeDigit">0</span>);
+}
+
+<span class="codeKeyWd">void </span>gateTest() {
+    <span class="codeComment">//Test #2: Gate</span>
+    <span class="codeKeyWd">int </span>cartDirection = <span class="codeDigit">-1</span>;
+    <span class="codeKeyWd">int </span>power = cartDirection * <span class="codeDigit">40</span>  * powerAdjust();
+    <span class="codeKeyWd">int </span>counts(<span class="codeDigit">242</span>);
+    motorSpeed(<span class="codeDigit">4</span>, power);
+    <span class="codeKeyWd">int </span>currentCount = getBackwardCounts();
+
+    <span class="codeKeyWd">while </span>(currentCount < counts) {
+        currentCount = getBackwardCounts();
+    }
+
+    power = <span class="codeDigit">-</span> cartDirection * <span class="codeDigit">40</span> * powerAdjust();
+    motorSpeed(<span class="codeDigit">4</span>, power);
+    pauseFor(<span class="codeDigit">2</span>);
+    motorSpeed(<span class="codeDigit">4</span>, <span class="codeDigit">0</span>);
+    pauseFor(<span class="codeDigit">9</span>);
+    counts = <span class="codeDigit">435</span>;
+    power = cartDirection * <span class="codeDigit">40</span>  * powerAdjust();
+    motorSpeed(<span class="codeDigit">4</span>, power);
+
+    <span class="codeKeyWd">while </span>(currentCount < counts) {
+        currentCount = getBackwardCounts();
+    }
+
+    power = <span class="codeDigit">-</span> cartDirection * <span class="codeDigit">50</span> * powerAdjust();
+    motorSpeed(<span class="codeDigit">4</span>, <span class="codeDigit">0</span>);
+    pauseFor(<span class="codeDigit">3</span>);
+    motorSpeed(<span class="codeDigit">4</span> , power);
+    pauseFor(<span class="codeDigit">1.5</span>);
+    motorSpeed(<span class="codeDigit">4</span>, <span class="codeDigit">0</span>);
+}
+
+<span class="codeKeyWd">void </span>hillTest() {
+    <span class="codeComment">//Test #3: Hill</span>
+    <span class="codeKeyWd">int </span>cartDirection = <span class="codeDigit">-1</span>;
+    <span class="codeKeyWd">int </span>power = cartDirection * <span class="codeDigit">30</span>  * powerAdjust();
+    <span class="codeKeyWd">int </span>counts(<span class="codeDigit">672</span>);
+    motorSpeed(<span class="codeDigit">4</span>, power);
+    <span class="codeKeyWd">int </span>currentCount = getBackwardCounts();
+
+    <span class="codeKeyWd">while </span>(currentCount < counts) {
+        currentCount = getBackwardCounts();
+    }
+
+    power = <span class="codeDigit">-</span> cartDirection * <span class="codeDigit">40</span> * powerAdjust();
+    motorSpeed(<span class="codeDigit">4</span>, power);
+    pauseFor(<span class="codeDigit">2</span>);
+    motorSpeed(<span class="codeDigit">4</span>, <span class="codeDigit">0</span>);
+}
+
+<span class="codeKeyWd">void </span>myCode() {
+    <span class="codeComment">// Reflective Motor Testr</span>
+    <span class="codeComment">//reflectanceSensorTest();</span>
+
+    circularTest();
+
+    <span class="codeComment">//gateTest();</span>
+    <span class="codeComment">// hillTest();</span>
+}
+        </code>
+    </pre>
+
+    <footer>
+        <h3 id="OSU">
+            THE Ohio State University
+            <span id="ENGR">
+                ENGR 1182.01 AU2019 (9987) Group Q
+            </span>
+        </h3>
+        <hr class="footLine" />
+        <div class="footerLinks">
+            <div class="footerLinkOneLine">
+                <ul>
+                    <li>
+                        <a href="about.html#teamIntroScetion">
+                            Team Introductions
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.html#taskSection">
+                            Mission Statement
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#targetAudienceSection">
+                            Target Audience
+                        </a>
+                    </li>
+                    <li>
+                        <a href="design.html#designConceptSection">
+                            Design Concept
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footerLinkOneLine">
+                <ul>
+                    <li>
+                        <a href="about.html#teamMemberScetion">
+                            Team members
+                        </a>
+                    </li>
+                    <li>
+                        <a href="subscribe.html#businessModelSection">
+                            Business Model
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="index.html#painAndGainSection">
+                            Pains and Gains
+                        </a>
+                    </li>
+                    <li>
+                        <a href="design.html#prototypeSection">
+                            Prototype
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footerLinkOneLine">
+                <ul>
+                    <li class="placeholder">
+                        &nbsp;
+                    </li>
+                    <li>
+                        <a href="index.html#socialImpact">
+                            Social Impact
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="index.html#economicImpact">
+                            Economic Impact
+                        </a>
+                    </li>
+                    <li>
+                        &nbsp;
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="smallAnno">
+            <small>
+                If you have trouble accessing this page and need
+                to request an alternate format, do not contact u@osu.edu
+            </small>
+        </div>
+    </footer>
+
+</body>
+</html>
