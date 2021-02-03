@@ -1,4 +1,5 @@
-start = problem.getStartState()
+
+    start = problem.getStartState()
     
     nextLayer = []
     visited = []
@@ -6,21 +7,24 @@ start = problem.getStartState()
     nodeWithPath = [(start, [], 0)] 
 
     while nodeWithPath:
-        print("-------------------------> current mdoes ", nodeWithPath)
+        #print("-------------------------> current layer ", nodeWithPath, len(nodeWithPath))
         for (currentNode, path, layer) in nodeWithPath:
+            print("-------------------------> current node ", currentNode)
             if problem.isGoalState(currentNode):
-                print("-------------------------> result: ", path)
+                print("-------------------------> found it : ")
                 return path
             
             for (child, action, cost) in problem.getSuccessors(currentNode):
-                print("-------------------------> get succ ", child, action, cost)
+                print("-------------------------> ---- get Successors ", child)
                 if child not in visited:
                     nextLayer.append((child, path + [action], layer + 1))
 
-            visited.append(nodeWithPath.pop()[0])
+            visited.append(currentNode)
+            nodeWithPath.remove((currentNode, path, layer))
+            
         
             
         for (child, action, layer) in nextLayer:
-            print("-------------------------> translate to nextLayer ", child, action, cost)
+            #print("-------------------------> ---- translate to nextLayer ", child, action, cost)
             nodeWithPath.append((child, action, layer))
         nextLayer = []
