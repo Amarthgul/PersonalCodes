@@ -1,6 +1,6 @@
 {
     "name": "US",
-    "Children": [
+    "children": [
         {
             "name": "Midwest",
             "children": [
