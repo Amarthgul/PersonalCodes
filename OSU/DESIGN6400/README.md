@@ -4,12 +4,22 @@ Journal for DESIGN 6400 AU24 (Prof. Maria Palazzi).
 
 ## How to Navigate: 
 
-- This page is in constant update as per course update.
-- Old versions can be traced back throught the GitHub version history. 
+- Use the table of content to quickly jump to different chapters. 
 - The most recent update according to the submitted assignment is linked below. 
 
-In-page link to the most recent update: [here](#general)
+In-page link to **the most recent update**: [here](#sufrace-iteration). 
 
+Please note that the same chapter may be modified over time with the project progresses. To inspect the older versions, use the GitHub version history feature. 
+
+#### Table of content:
+
+- [General](#general) 
+- [Wavelength Reconstruction](#wavelength-reconstruction)
+  - [Selecting the Distribution](#selecting-the-distribution)
+- [Ray Propagation](#ray-propagation)
+  - [Explore Ray Transfer Matrix](#explore-ray-transfer-matrix)
+  - [Sufrace Iteration](#sufrace-iteration)
+- [Imager](#imager)
 ------------------ 
 
 ## General 
@@ -33,4 +43,38 @@ $$G = \lambda _{d} = 587.56 \mu m$$
 
 $$B = \lambda _{F} = 486.13 \mu m$$
 
+### Selecting the Distribution 
+
+Placeholder
+
+## Ray Propagation 
+
+With the color of the ray fixed, the refraction index will also become determinsitic. Now it is possible to propagate rays through different surfaces. 
+
+### Explore Ray Transfer Matrix
+
+In geometric optics, under the paraxial approximation, a ray can be described by:
+
+$$\binom{h_2}{\gamma _2}$$
+
+$$h_2$$ is the height of the light, and $$\gamma _2$$ its angle. As such, the ray propagatiion can be expressed as a matrix operation: 
+
+$$\binom{h_2}{\gamma _2}=\begin{bmatrix}
+ \mathbb{A}& \mathbb{B} \\
+\mathbb{C} & \mathbb{D} \\
+\end{bmatrix}\cdot \binom{h_1}{\gamma _1}$$
+
+Where the different components of the matrix can be configured differently to represent translation and refraction. Typically, the translation matrix will be denoted as $$\mathbf{T}$$ and refration matrix as $$\mathbf{R}$$. Then, a ray going through a lens can be represented as: 
+
+
+$$\binom{h_3}{\gamma _3}= \mathbf{M} _L \binom{h_1}{\gamma _1} \quad with \quad \mathbf{M} _L= \mathbf{R} _2 \mathbf{T} _{12} \mathbf{R} _1$$
+
+
+### Sufrace Iteration 
+
+Placeholder 
+
+## Imager
+
+Placeholder 
 
