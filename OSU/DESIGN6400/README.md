@@ -19,6 +19,8 @@ Please note that the same chapter may be modified over time with the project pro
 - [3 - Ray Propagation](#3---ray-propagation)
   - [3.1 - Explore Ray Transfer Matrix](#31---explore-ray-transfer-matrix)
   - [3.2 - Sufrace Iteration](#32---sufrace-iteration)
+  - [3.3 - Aspherical Surface](#33---aspherical-surface)
+  - [3.4 - Aperture Stop](#34---aperture-stop)
 - [4 - Imager](#4---imager)
 ------------------ 
 
@@ -71,6 +73,14 @@ $$\binom{h_3}{\gamma _3}= \mathbf{M} _L \binom{h_1}{\gamma _1} \quad with \quad 
 
 
 ### 3.2 - Sufrace Iteration 
+
+Placeholder 
+
+### 3.3 - Aspherical Surface 
+
+Placeholder 
+
+### 3.4 - Aperture Stop 
 
 Placeholder 
 
