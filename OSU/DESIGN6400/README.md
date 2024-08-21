@@ -7,7 +7,7 @@ Journal for DESIGN 6400 AU24 (Prof. Maria Palazzi).
 - Use the table of content to quickly jump to different chapters. 
 - The most recent update according to the submitted assignment is linked below. 
 
-In-page link to **the most recent update**: [here](#sufrace-iteration). 
+In-page link to **the most recent update**: [here](#32---sufrace-iteration). 
 
 Please note that the same chapter may be modified over time with the project progresses. To inspect the older versions, use the GitHub version history feature. 
 
@@ -20,8 +20,16 @@ Please note that the same chapter may be modified over time with the project pro
   - [3.1 - Explore Ray Transfer Matrix](#31---explore-ray-transfer-matrix)
   - [3.2 - Sufrace Iteration](#32---sufrace-iteration)
   - [3.3 - Aspherical Surface](#33---aspherical-surface)
+    - [3.3.1 - Even Aspheric](#331---even-aspheric)
+    - [3.3.2 - Cylindrical](#332---cylindrical)
   - [3.4 - Aperture Stop](#34---aperture-stop)
 - [4 - Imager](#4---imager)
+  - [4.1 - Tilt and Shift](#41---tilt-and-shift)
+  - [4.2 - OLPF and UVIR Cut](#42---olpf-and-uvir-cut)
+  - [4.3 - Film](#43---film)
+- [References](#references)
+
+
 ------------------ 
 
 ## 1 - General 
@@ -80,6 +88,14 @@ Placeholder
 
 Placeholder 
 
+#### 3.3.1 - Even Aspheric 
+
+Standard ASPH elements, which can be seen as early as the FD 55mm f/1.2 Asph. 
+
+#### 3.3.2 - Cylindrical 
+
+For anamorphic lenses. 
+
 ### 3.4 - Aperture Stop 
 
 Placeholder 
@@ -88,3 +104,18 @@ Placeholder
 
 Placeholder 
 
+### 4.1 - Tilt and Shift
+
+Placeholder 
+
+### 4.2 - OLPF and UVIR Cut 
+
+Placeholder 
+
+### 4.3 - Film
+
+Placeholder 
+
+## References 
+
+Placeholder 
