@@ -13,16 +13,16 @@ Please note that the same chapter may be modified over time with the project pro
 
 #### Table of content:
 
-- [General](#general) 
-- [Wavelength Reconstruction](#wavelength-reconstruction)
+- [1 - General](#1---general) 
+- [2 - Wavelength Reconstruction](#wavelength-reconstruction)
   - [Selecting the Distribution](#selecting-the-distribution)
-- [Ray Propagation](#ray-propagation)
+- [3 - Ray Propagation](#ray-propagation)
   - [Explore Ray Transfer Matrix](#explore-ray-transfer-matrix)
   - [Sufrace Iteration](#sufrace-iteration)
-- [Imager](#imager)
+- [4 - Imager](#4---imager)
 ------------------ 
 
-## General 
+## 1 - General 
 
 Placeholder
 
@@ -74,7 +74,7 @@ $$\binom{h_3}{\gamma _3}= \mathbf{M} _L \binom{h_1}{\gamma _1} \quad with \quad 
 
 Placeholder 
 
-## Imager
+## 4 - Imager
 
 Placeholder 
 
