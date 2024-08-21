@@ -14,11 +14,11 @@ Please note that the same chapter may be modified over time with the project pro
 #### Table of content:
 
 - [1 - General](#1---general) 
-- [2 - Wavelength Reconstruction](#wavelength-reconstruction)
-  - [Selecting the Distribution](#selecting-the-distribution)
-- [3 - Ray Propagation](#ray-propagation)
-  - [Explore Ray Transfer Matrix](#explore-ray-transfer-matrix)
-  - [Sufrace Iteration](#sufrace-iteration)
+- [2 - Wavelength Reconstruction](#2---wavelength-reconstruction)
+  - [2.1 - Selecting the Distribution](#21---selecting-the-distribution)
+- [3 - Ray Propagation](#3---ray-propagation)
+  - [3.1 - Explore Ray Transfer Matrix](#31---explore-ray-transfer-matrix)
+  - [3.2 - Sufrace Iteration](#32---sufrace-iteration)
 - [4 - Imager](#4---imager)
 ------------------ 
 
@@ -26,7 +26,7 @@ Please note that the same chapter may be modified over time with the project pro
 
 Placeholder
 
-## Wavelength Reconstruction 
+## 2 - Wavelength Reconstruction 
 
 For each pixel or point in a 3D scene, it emits a light. 
 
@@ -43,15 +43,15 @@ $$G = \lambda _{d} = 587.56 \mu m$$
 
 $$B = \lambda _{F} = 486.13 \mu m$$
 
-### Selecting the Distribution 
+### 2.1 - Selecting the Distribution 
 
 Placeholder
 
-## Ray Propagation 
+## 3 - Ray Propagation 
 
 With the color of the ray fixed, the refraction index will also become determinsitic. Now it is possible to propagate rays through different surfaces. 
 
-### Explore Ray Transfer Matrix
+### 3.1 - Explore Ray Transfer Matrix
 
 In geometric optics, under the paraxial approximation, a ray can be described by:
 
@@ -70,7 +70,7 @@ Where the different components of the matrix can be configured differently to re
 $$\binom{h_3}{\gamma _3}= \mathbf{M} _L \binom{h_1}{\gamma _1} \quad with \quad \mathbf{M} _L= \mathbf{R} _2 \mathbf{T} _{12} \mathbf{R} _1$$
 
 
-### Sufrace Iteration 
+### 3.2 - Sufrace Iteration 
 
 Placeholder 
 
