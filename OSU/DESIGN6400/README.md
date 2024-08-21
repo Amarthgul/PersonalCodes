@@ -1,15 +1,14 @@
-# DESIGN 6400 Journal 
+# DESIGN 6400 Journal & Documentation 
 
 Journal for DESIGN 6400 AU24 (Prof. Maria Palazzi). 
 
 ## How to Navigate: 
 
-- Use the table of content to quickly jump to different chapters. 
-- The most recent update according to the submitted assignment is linked below. 
+- Use the table of content to quickly jump to different chapters.
+- **The journal that summarizes each week's progress can be found at the end** [(**or click here**)](#journals). 
+- Use `History` on top right to inspect past versions or make comparasions. 
 
-In-page link to **the most recent update**: [here](#32---sufrace-iteration). 
-
-Please note that the same chapter may be modified over time with the project progresses. To inspect the older versions, use the GitHub version history feature. 
+The most recent updated section can be found [here](#32---sufrace-iteration). Note that this is the section that received the most amount of progress project-wise, and may not be the exact same as the journal content of that week. 
 
 #### Table of content:
 
@@ -27,6 +26,8 @@ Please note that the same chapter may be modified over time with the project pro
   - [4.1 - Tilt and Shift](#41---tilt-and-shift)
   - [4.2 - OLPF and UVIR Cut](#42---olpf-and-uvir-cut)
   - [4.3 - Film](#43---film)
+- [5 - Diffraction](#5---diffraction)
+- [Journals](#journals)
 - [References](#references)
 
 
@@ -115,6 +116,23 @@ Placeholder
 ### 4.3 - Film
 
 Placeholder 
+
+## Journals
+
+- [Week 2 (Aug 26th)](#week-2)
+- [Week 1 (Aug 19th)](#week-1)
+
+### Week 2
+
+(Week of Aug 26th)
+
+### Week 1
+
+(Week of Aug 19th)
+
+## 5 - Diffraction 
+
+Up till this point, the project has been operating under the realm of geometric optics, i.e., treating lights as beams and particles. However, geometric optics cannot replicate one of the most famous optical artifacts used in movies, TVs, and video games: **flares**. 
 
 ## References 
 
