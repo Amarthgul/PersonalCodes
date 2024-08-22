@@ -117,6 +117,10 @@ Placeholder
 
 Placeholder 
 
+## 5 - Diffraction 
+
+Up till this point, the project has been operating under the realm of geometric optics, i.e., treating lights as beams and particles. However, geometric optics cannot replicate one of the most famous optical artifacts used in movies, TVs, and video games: **flares**. 
+
 ## Journals
 
 - [Week 2 (Aug 26th)](#week-2)
@@ -130,9 +134,6 @@ Placeholder
 
 (Week of Aug 19th)
 
-## 5 - Diffraction 
-
-Up till this point, the project has been operating under the realm of geometric optics, i.e., treating lights as beams and particles. However, geometric optics cannot replicate one of the most famous optical artifacts used in movies, TVs, and video games: **flares**. 
 
 ## References 
 
