@@ -8,11 +8,13 @@ Journal for DESIGN 6400 AU24 (Prof. Maria Palazzi).
 - **The journal that summarizes each week's progress can be found at the end** [(**or click here**)](#journals). 
 - Use `History` on top right to inspect past versions or make comparasions. 
 
-The most recent updated section can be found [here](#32---sufrace-iteration). Note that this is the section that received the most amount of progress project-wise, and may not be the exact same as the journal content of that week. 
+The most recent updated section can be found [here](#32---sufrace-iteration). Note that this is the section that received the most amount of progress with respect to the project, not the course. As such, this may not be the same as the journal content of the corresponding week. 
 
 #### Table of content:
 
-- [1 - General](#1---general) 
+- [1 - General](#1---general)
+  - [1.1 - Back Focal Distance and Telecentricity](#11---back-focal-distance-and-telecentricity)
+  - [1.2 - Eesurgence in Film and Vintage Lenses](#12---resurgence-in-film-and-vintage-lenses)
 - [2 - Wavelength Reconstruction](#2---wavelength-reconstruction)
   - [2.1 - Selecting the Distribution](#21---selecting-the-distribution)
 - [3 - Ray Propagation](#3---ray-propagation)
@@ -35,7 +37,18 @@ The most recent updated section can be found [here](#32---sufrace-iteration). No
 
 ## 1 - General 
 
-Placeholder
+### 1.1 - Back Focal Distance and Telecentricity  
+
+In optics, the distance between the last surface of the lens and the image plane is referred to as the `Back Focal Distance` (BFD for short, sometimes it is also referred to interchangeably as `Back Focal Length`). 
+
+While BFD may seem to be a free space in the image above, in many cases it is rather constrained. During the single lens reflex (SLR) camera era, the mirror is placed between the lens and the image plane, which means the BFD must be long enough to accommodate the mirror and the shutter mechanism in between. This is the direct reason why SLR all have a flange distance of about 40mm. 
+
+However, with the advancement of technology, there are less and less reasons to keep the mirror for digital cameras. Eventually the mirror was removed and digital imaging fully embraced mirrorless cameras. For mirrorless cameras, there is nothing in between the lens and the image plane (aside from some filter glasses like OLPF and UV IR cut). This literate BFD in lens design, allowing lens designers to come up with lenses that fully utilizes this space. 
+
+
+### 1.2 - Resurgence in Film and Vintage Lenses 
+
+Placeholder 
 
 ## 2 - Wavelength Reconstruction 
 
@@ -133,6 +146,10 @@ Up till this point, the project has been operating under the realm of geometric 
 ### Week 1
 
 (Week of Aug 19th)
+
+This week was mostly spent on setting up this markdown document and some initialization work for the course. The table of content was drafted according to my estimation and will hopefully provide a directional guide in the rest of the semester. In this documentation I have been working on the first several chapters, particularly the first introductory chapter, preparing it for the next research proposal assignment.  
+
+For now, I intend to spend the first 5 weeks on the math part, establishing a theoretical foundation for the later implementation (paper prototype, one can say). Although some degree of implementation may be attempted. 
 
 
 ## References 
