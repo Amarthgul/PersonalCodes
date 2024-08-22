@@ -41,10 +41,36 @@ The most recent updated section can be found [here](#32---sufrace-iteration). No
 
 In optics, the distance between the last surface of the lens and the image plane is referred to as the `Back Focal Distance` (BFD for short, sometimes it is also referred to interchangeably as `Back Focal Length`). 
 
-While BFD may seem to be a free space in the image above, in many cases it is rather constrained. During the single lens reflex (SLR) camera era, the mirror is placed between the lens and the image plane, which means the BFD must be long enough to accommodate the mirror and the shutter mechanism in between. This is the direct reason why SLR all have a flange distance of about 40mm. 
+While BFD may seem to be a free space in the image above, in many cases it is rather constrained. For a single lens reflex (SLR) camera, a mirror is placed between the lens and the image plane, reflecting the light up into the prism and then into the viewfinder. This means the BFD must be long enough to accommodate the mirror chamber and the shutter mechanism in front of the image plane. This is the direct reason why SLR all have a flange distance of about 40mm. 
 
-However, with the advancement of technology, there are less and less reasons to keep the mirror for digital cameras. Eventually the mirror was removed and digital imaging fully embraced mirrorless cameras. For mirrorless cameras, there is nothing in between the lens and the image plane (aside from some filter glasses like OLPF and UV IR cut). This literate BFD in lens design, allowing lens designers to come up with lenses that fully utilizes this space. 
+For lens design, BFD indriectly ties in with telecentricity. Below is the layout/crossection of the lens Jupiter-12 35mm f/2.8, it has a very shoty BFD and the rays exit lens at a large angle: 
 
+<p align="center">
+	<img src="resources/Jupiter 12 Layout_inf.png" width="512">
+  <p align="center">Figure 1.1 Jupiter-12 35mm f/2.8</p>
+</p>
+
+In comparison, longer BFD tend to force the exiting rays to be more telecentric, as demonstrated below: 
+
+<p align="center">
+	<img src="resources/Canon 85 Layout_Inf.png" width="512">
+  <p align="center">Figure 1.2 Canon 85mm f/1.2</p>
+</p>
+
+Note that for the Canon lens in figure 1.2, the exiting ray at the top have a smaller oblique angle compare to the Jupiter lens. For a pure telecentirc lens, all the exiting rays will be parallel to the optical axis. 
+
+While high telecentricity can be very desirable for some scenarios, such as industrial applications, it also adds difficulty to lens design, especially wide angle lenses with a relatively large image circle. This makes designing wide angle lenses for SLR cameras rather difficult, designers have to resort to the inverse telephoto paradigm, straightening the existing ray for them to reach the image plane. For this reason, most wide angle lenses in the SLR era are bigger and heavier. 
+
+In comparison, rangefinder lenses can have their elements “sink” into the camera and get really close to the image plane, such as the Jupiter-12 example in figure 1.1. More extreme examples can be seen at Zeiss Hologon 16mm f/8, which achieved 16mm wide angle with an astonishingly small body, also with highly non-telecentric design. For those lenses, even if the camera flange distance allows adaptation, the protruding rear element may also be in the way and prevents the camera from taking a picture. 
+
+With the advancement of technology, there are less and less reasons to keep the mirror for digital cameras. Eventually the mirror was removed and digital imaging fully embraced mirrorless cameras. For mirrorless cameras, there is nothing in between the lens and the image plane (aside from some filter glasses like OLPF and UV IR cut). This literated BFD in lens design, allowing lens designers to come up with optics that fully utilizes this space. 
+
+<p align="center">
+	<img src="resources/FlangeChart.png" width="960">
+  <p align="center">Figure 1.3 Flange distance for different camera mounts</p>
+</p>
+
+The liberation of BFD also means that older lenses designed for rangefinder cameras, which tend to have a short BFD and consequently shorter flange distance, can now also be adapted and mounted onto mirrorless cameras. Due to the lack of mirror, even if a lens was originally designed for a system with even shorter flange distance, it can still be adapted onto new mirrorless cameras, such as putting an M42 lens onto a PL mount camera. From the technical aspect, this ensured that a vintage lens can be adapted onto almost any modern camera and is one of the driving forces for the resurgence. 
 
 ### 1.2 - Resurgence in Film and Vintage Lenses 
 
