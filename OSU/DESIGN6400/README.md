@@ -103,11 +103,11 @@ With the color of the ray fixed, the refraction index will also become determins
 
 ### 3.1 - Explore Ray Transfer Matrix
 
-In geometric optics, under the paraxial approximation, a ray can be described by:
+In geometric optics, a ray can be described by:
 
 $$\binom{h_2}{\gamma _2}$$
 
-$$h_2$$ is the height of the light, and $$\gamma _2$$ its angle. As such, the ray propagatiion can be expressed as a matrix operation: 
+$$h_2$$ is the height of the light (from the optical axis), and $$\gamma _2$$ its angle. As such, the ray propagatiion can be expressed as a matrix operation: 
 
 $$\binom{h_2}{\gamma _2}=\begin{bmatrix}
  \mathbb{A}& \mathbb{B} \\
@@ -118,13 +118,32 @@ Where the different components of the matrix can be configured differently to re
 
 $$n_1 \sin \theta _1 = n_2 \sin \theta _2$$
 
-Typically, the translation matrix will be denoted as $$\mathbf{T}$$ and refration matrix as $$\mathbf{R}$$. Then, a ray going through a lens can be represented as: 
+Typically, the translation matrix will be denoted as $$\mathbf{T}$$ and refration matrix as $$\mathbf{R}$$. Under the paraxial assumption, it can be derived that: 
+
+$$\mathbf{T}=\begin{bmatrix}
+1 & -l \\
+0 & 1 \\
+\end{bmatrix}$$
+
+$$\mathbf{R}=\begin{bmatrix}
+1 & 0 \\
+\frac{n_2 - n_1}{n_2 \cdot r} & \frac{n_1}{n_2} \\
+\end{bmatrix}$$
+
+Where $$l$$ is the traveled length, $$r$$ is the surface radius, $$n_1$$ and $$n_2$$ are the RI of each medium. 
+Then, a ray going through a lens can be represented as: 
 
 $$\binom{h_3}{\gamma _3}= \mathbf{M} _L \binom{h_1}{\gamma _1} \quad with \quad \mathbf{M} _L= \mathbf{R} _2 \mathbf{T} _{12} \mathbf{R} _1$$
 
-For 3D, representing an angle in degrees or radians can be difficult, as Euler angles are susceptible to gimbal lock. Quaternions are free from these sufferings but are rather questionable to be used to calculate reflections and refractions, as it needs to be translated into Euler angle, perform reflection and refractions, then translate back to quaternions again. 
+The translation and refraction matrix can then be pre-multiplied and thus represent the lens with one single matrix. For a lens with multiple elements, this process is still applicable, allowing the ray transfer to be condensed into simple matrix multiplications. 
 
-One way to work around that might be to use vectors to represent the ray direction, this also avoids the gimbal lock and rotation hierarchy problem. With 3D vectors, it can be proved that when the incident vector $$\mathbf{I}$$ in a medium with RI $$n_1$$ enters a different medium with RI $$n_2$$, given the normal at the point of incident to be $$\mathbf{N}$$, then: 
+This approach, however, does not fit here. On one hand, the ray transfer matrix is established under paraxial approximation, which assumes the oblique angle of the incident light $$\theta$$ to be small enough that it equals $$\sin \theta$$. On the other hand, the ray transfer applies only on a 2D plane or an axisymmetric lens, which is not the case here. Additionally, the ray transfer matrix is also sequential, as it ignores reflection at each surface and the scattering during ray propagation. 
+
+For this application, the lens can be non-axisymmetric due to the inclusion of cylindrical and conical elements. And to emulate veiling glares and some types of flares, reflection also needs to be modeled, which makes this process non-sequential. To put it simply, it is closer to a 3D ray tracer application. 
+
+For 3D, representing an angle in degrees or radians can be difficult, as Euler angles are susceptible to gimbal lock. Quaternions are free from these sufferings but are rather questionable to be used to calculate reflections and refractions, due to the need of being translated into Euler angle, perform reflection and refractions, then translate back to quaternions again. 
+
+One way to work around that might be to use vectors to represent the ray direction, this also avoids the gimbal lock and rotation hierarchy problem. With 3D vectors, it can be proved that when the incident vector $$\mathbf{I}$$ in a medium with RI $$n_1$$ enters a different medium with RI $$n_2$$, given the normal at the point of incident to be $$\mathbf{N}$$, then the refracted vector $$\mathbf{R}$$ can be expressed as:  
 
 $$ \mathbf{R}=\frac{n_1}{n_2}\left ( \mathbf{I} - \left ( \mathbf{I} \cdot \mathbf{N} \right ) \mathbf{N} \right ) - \mathbf{N} \sqrt{ 1 - \left ( \frac{n_1}{n_2} \right ) ^{2} \left ( 1 -  \left( \mathbf{I} \cdot \mathbf{N} \right )^{2} \right ) }$$
 
