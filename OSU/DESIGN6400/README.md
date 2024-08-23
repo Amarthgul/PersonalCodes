@@ -114,10 +114,19 @@ $$\binom{h_2}{\gamma _2}=\begin{bmatrix}
 \mathbb{C} & \mathbb{D} \\
 \end{bmatrix}\cdot \binom{h_1}{\gamma _1}$$
 
-Where the different components of the matrix can be configured differently to represent translation and refraction. Typically, the translation matrix will be denoted as $$\mathbf{T}$$ and refration matrix as $$\mathbf{R}$$. Then, a ray going through a lens can be represented as: 
+Where the different components of the matrix can be configured differently to represent translation and refraction. This is very similar to 2D transformation matrix, the only difference is that $$\gamma$$ represents the radian and thus the "rotation" is based on the Snell's law, as defnied by: 
 
+$$n_1 \sin \theta _1 = n_2 \sin \theta _2$$
+
+Typically, the translation matrix will be denoted as $$\mathbf{T}$$ and refration matrix as $$\mathbf{R}$$. Then, a ray going through a lens can be represented as: 
 
 $$\binom{h_3}{\gamma _3}= \mathbf{M} _L \binom{h_1}{\gamma _1} \quad with \quad \mathbf{M} _L= \mathbf{R} _2 \mathbf{T} _{12} \mathbf{R} _1$$
+
+For 3D, representing an angle in degrees or radians can be difficult, as Euler angles are susceptible to gimbal lock. Quaternions are free from these sufferings but are rather questionable to be used to calculate reflections and refractions, as it needs to be translated into Euler angle, perform reflection and refractions, then translate back to quaternions again. 
+
+One way to work around that might be to use vectors to represent the ray direction, this also avoids the gimbal lock and rotation hierarchy problem. With 3D vectors, it can be proved that when the incident vector $$\mathbf{I}$$ in a medium with RI $$n_1$$ enters a different medium with RI $$n_2$$, given the normal at the point of incident to be $$\mathbf{N}$$, then: 
+
+$$ \mathbf{R}=\frac{n_1}{n_2}\left ( \mathbf{I} - \left ( \mathbf{I} \cdot \mathbf{N} \right ) \mathbf{N} \right ) - \mathbf{N} \sqrt{ 1 - \left ( \frac{n_1}{n_2} \right ) ^{2} \left ( 1 -  \left( \mathbf{I} \cdot \mathbf{N} \right )^{2} \right ) }$$
 
 
 ### 3.2 - Sufrace Iteration 
