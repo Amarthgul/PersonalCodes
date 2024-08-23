@@ -37,9 +37,14 @@ The most recent updated section can be found [here](#32---sufrace-iteration). No
 
 ## 1 - General 
 
+This project aims to establish a way with which a physical lens can be digitized and used in virtual productions, such as for digital animations and TV/movies post VFX, to emulate the optical characteristics of the physical optics in a virtual setting. 
+
+Vintage lenses are (by definition) no longer in production, there will be a day when those lenses become inaccessible for the people that wish to use them. This project thus holds a certain level of time sensitivity and will need to reach some degree of completion before vintage lenses become antique and eventually history. 
+
+
 ### 1.1 - Back Focal Distance and Telecentricity  
 
-In optics, the distance between the last surface of the lens and the image plane is referred to as the `Back Focal Distance` (BFD for short, sometimes it is also referred to interchangeably as `Back Focal Length`). 
+In optics, the distance between the last surface of the lens and the image plane is referred to as the `Back Focal Distance` (**BFD** for short, sometimes it is also referred to interchangeably as `Back Focal Length`). 
 
 While BFD may seem to be a free space in the image above, in many cases it is rather constrained. For a single lens reflex (SLR) camera, a mirror is placed between the lens and the image plane, reflecting the light up into the prism and then into the viewfinder. This means the BFD must be long enough to accommodate the mirror chamber and the shutter mechanism in front of the image plane. This is the direct reason why SLR all have a flange distance of about 40mm. 
 
@@ -57,13 +62,13 @@ In comparison, longer BFD tend to force the exiting rays to be more telecentric,
   <p align="center">Figure 1.2 Canon 85mm f/1.2</p>
 </p>
 
-Note that for the Canon lens in figure 1.2, the exiting ray at the top have a smaller oblique angle compare to the Jupiter lens. For a pure telecentirc lens, all the exiting rays will be parallel to the optical axis. 
+Note that for the Canon lens in figure 1.2, the last surface is relatively far away from the image plane (long BFD), and the exiting ray at the top have a smaller oblique angle compare to the Jupiter lens. For a pure telecentirc lens, all the exiting rays will be parallel to the optical axis. 
 
 While high telecentricity can be very desirable for some scenarios, such as industrial applications, it also adds difficulty to lens design, especially wide angle lenses with a relatively large image circle. This makes designing wide angle lenses for SLR cameras rather difficult, designers have to resort to the inverse telephoto paradigm, straightening the existing ray for them to reach the image plane. For this reason, most wide angle lenses in the SLR era are bigger and heavier. 
 
 In comparison, rangefinder lenses can have their elements “sink” into the camera and get really close to the image plane, such as the Jupiter-12 example in figure 1.1. More extreme examples can be seen at Zeiss Hologon 16mm f/8, which achieved 16mm wide angle with an astonishingly small body, also with highly non-telecentric design. For those lenses, even if the camera flange distance allows adaptation, the protruding rear element may also be in the way and prevents the camera from taking a picture. 
 
-With the advancement of technology, there are less and less reasons to keep the mirror for digital cameras. Eventually the mirror was removed and digital imaging fully embraced mirrorless cameras. For mirrorless cameras, there is nothing in between the lens and the image plane (aside from some filter glasses like OLPF and UV IR cut). This literated BFD in lens design, allowing lens designers to come up with optics that fully utilizes this space. 
+With the advancement of technology, there are less and less reasons to keep the mirror for digital cameras. Eventually the mirror was removed and digital imaging fully embraced mirrorless cameras. For mirrorless cameras, there is nothing in between the lens and the image plane (aside from some filter glasses like OLPF and UV IR cut, see [chapter 4.2](#42---olpf-and-uvir-cut)). This literated BFD in lens design, allowing lens designers to come up with optics that fully utilizes this space. 
 
 <p align="center">
 	<img src="resources/FlangeChart.png" width="960">
@@ -84,7 +89,7 @@ In virtually all software the color of the pixel or the color of the point on th
 
 For some colors, they have no direct correlation with certain wavelength, i.e., can be achieved by mixing different wavelengths with different weight. This in itself deserves a short paper and will be discussed in later chapters. 
 
-For now, the RGB can be treated as 3 Gaussian distributions representing the 3 channels. With the RGB value on each channel representing the intensity of the peak wavelength, acting as a scale factor for the entire distribution. Integrating over all 3 distributions will then yield a spectral representation of the given RGB color, and the same process can be used to translate the wavelength distribution into RGB value. 
+RGB can be treated as 3 Gaussian distributions representing the 3 channels. With the RGB value on each channel representing the intensity of the peak wavelength, acting as a scale factor for the entire distribution. Integrating over all 3 distributions will then yield a spectral representation of the given RGB color, and the same process can be used to translate the wavelength distribution into RGB value. 
 For ease of calculation (especially later with Abbe number), it may be fitting to choose the peak wavelength of RGB as: 
 
 $$R = \lambda _{C} = 656.27 \mu m$$
@@ -95,7 +100,18 @@ $$B = \lambda _{F} = 486.13 \mu m$$
 
 ### 2.1 - Selecting the Distribution 
 
-Placeholder
+Although integrating the 3 Gaussian distribution can be more accurate in calculating the color shift and tint in an optical system, it faces some challenges at the end of the system. Consider the case of an orthochromatic film:
+
+<p align="center">
+	<img src="resources/OrthoPlusSp.png" width="360">
+  <p align="center">Figure 2.1 Ilford Ortho Plus Spectral Sensitivity</p>
+</p>
+
+The image above showed the spectral sensitivity of [Ilford Ortho Plus](https://www.ilfordphoto.com/amfile/file/download/file/1948/product/1658) film. As can be seen, this type of film is sensitive to blue and green but not to red, red objects will appear black when shot on this film. 
+
+The integrated spectral distribution will be clipped by the spectral sensitivity of the orthochromatic film, and the red side of the spectrum will become zero. In this situation, it could be hard to find the RGB color using 3 Guassian distributions whose $$\mu$$ is still the same as the original. 
+
+Another significant influencer is **Metamerism**, while two colors may be perceived the same, the actual composition of wavelengths and their intensities may be different. This is particularly true for colors that look warm due to the large overlapping wavelength for human green and red cod cells. On the flip side, blue rod cells caps at around 470 nm, making wavelengths shorter than that rather deterministic (also the reason why wavelengths at the shorter end in the CIE 1931 chart are located on a near straight line). 
 
 ## 3 - Ray Propagation 
 
