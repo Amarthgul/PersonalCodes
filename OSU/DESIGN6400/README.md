@@ -46,7 +46,7 @@ Vintage lenses are (by definition) no longer in production, there will be a day 
 
 In optics, the distance between the last surface of the lens and the image plane is referred to as the `Back Focal Distance` (**BFD** for short, sometimes it is also referred to interchangeably as `Back Focal Length`). 
 
-While BFD may seem to be a free space in the image above, in many cases it is rather constrained. For a single lens reflex (SLR) camera, a mirror is placed between the lens and the image plane, reflecting the light up into the prism and then into the viewfinder. This means the BFD must be long enough to accommodate the mirror chamber and the shutter mechanism in front of the image plane. This is the direct reason why SLR all have a flange distance of about 40mm. 
+While BFD may seem to be a free space, in many cases it is rather constrained. For a single lens reflex (SLR) camera, the mirror is placed between the lens and the image plane, reflecting the light up into the prism and then into the viewfinder. This means the BFD must be long enough to accommodate the mirror chamber and the shutter mechanism in front of the image plane. This is the direct reason why 135 format SLRs all have a flange distance of about 40mm. 
 
 For lens design, BFD indriectly ties in with telecentricity. Below is the layout/crossection of the lens Jupiter-12 35mm f/2.8, it has a very shoty BFD and the rays exit lens at a large angle: 
 
@@ -83,13 +83,11 @@ Placeholder
 
 ## 2 - Wavelength Reconstruction 
 
-For each pixel or point in a 3D scene, it emits a light. 
+For this application, a pixel on an image or a point in a 3D scene can both be viewed as a light source emiting light.  
 
-In virtually all software the color of the pixel or the color of the point on the 3D object is expressed by RGB value. However, in reality, the color of the light is determined by the distribution of the wavelength. This is important because refraction is dependent on wavelength, as light of different wavelength will be bent differently when entering another material. 
+In virtually all software the color of the pixel or the color of the point on the 3D object is expressed by RGB value (although underlaying implementations may vary). However, in reality, the color of the light is determined by the distribution and the intensity of every wavelength. This is important because refraction is dependent on wavelength, as light of different wavelength will be bent differently when entering another material with a different refraction index. 
 
-For some colors, they have no direct correlation with certain wavelength, i.e., can be achieved by mixing different wavelengths with different weight. This in itself deserves a short paper and will be discussed in later chapters. 
-
-RGB can be treated as 3 Gaussian distributions representing the 3 channels. With the RGB value on each channel representing the intensity of the peak wavelength, acting as a scale factor for the entire distribution. Integrating over all 3 distributions will then yield a spectral representation of the given RGB color, and the same process can be used to translate the wavelength distribution into RGB value. 
+RGB can be treated as 3 Gaussian distributions of wavelengths. With the RGB value on each channel representing the intensity of the peak wavelength, acting as a scale factor for the entire distribution. Integrating over all 3 distributions will then yield a spectral representation of the given RGB color, and the same process can be used to translate the wavelength distribution into RGB value. 
 For ease of calculation (especially later with Abbe number), it may be fitting to choose the peak wavelength of RGB as: 
 
 $$R = \lambda _{C} = 656.27 \mu m$$
