@@ -161,6 +161,53 @@ One way to work around that might be to use vectors to represent the ray directi
 
 $$ \mathbf{R}=\frac{n_1}{n_2}\left ( \mathbf{I} - \left ( \mathbf{I} \cdot \mathbf{N} \right ) \mathbf{N} \right ) - \mathbf{N} \sqrt{ 1 - \left ( \frac{n_1}{n_2} \right ) ^{2} \left ( 1 -  \left( \mathbf{I} \cdot \mathbf{N} \right )^{2} \right ) }$$
 
+To use this vector refraction formula in the same way as the ray transfer matrix, there need to be a matrix $$\mathbf{M}$$ such that: 
+
+$$\mathbf{R} = \mathbf{M} \cdot \mathbf{I}$$
+
+Use $$\sigma = \frac{n_ 1}{n_ 2}$$ to substitute the corresponding terms, and disassemble the vectors as:
+
+$$\mathbf{R} = \begin{pmatrix} 
+R_x \\
+R_y \\   
+R_z \\
+\end{pmatrix}$$
+
+$$\mathbf{N} = \begin{pmatrix} 
+N_x \\
+N_y \\   
+N_z \\
+\end{pmatrix}$$
+
+$$\mathbf{I} = \begin{pmatrix} 
+I_x \\
+I_y \\   
+I_z \\
+\end{pmatrix}$$
+
+The vector refraction formula can then be written as: 
+
+$$\mathbf{R} = \begin{pmatrix}  
+R_x \\ 
+R_y \\  
+R_z \\
+\end{pmatrix}=\begin{pmatrix}  
+I_x \left( \sigma - \sigma N_x^2\right) - I_y \left( \sigma N_y N_x \right) - I_z \left( \sigma N_z N_x \right) \\ 
+I_y \left( \sigma N_x N_y \right) - I_y \left( \sigma - \sigma N_y^2 \right) - I_z \left( \sigma N_z N_y \right) \\  
+I_z \left( \sigma N_x N_z \right) - I_y \left( \sigma N_y N_z \right) - I_z \left( \sigma - \sigma N_Z^2 \right) \\
+\end{pmatrix} - \begin{pmatrix} 
+N_x \\
+N_y \\   
+N_z \\
+\end{pmatrix} S
+$$
+
+Where $$S$$ is a scalar defined by $$\mathbf{I}$$ and $$\mathbf{N}$$:
+
+$$S = \sqrt{ 1 - \sigma^2 + \sigma^2 I_x^2 N_x^2 + \sigma^2 I_y^2 N_y^2 + \sigma^2 I_z^2 N_z^2 + 2 \sigma ^2 I_x I_y N_x N_y + 2 \sigma ^2 I_x I_y N_x N_y +2 \sigma ^2 I_z I_x N_z N_x }$$
+
+This turned out to be troublesome, terms like $$\sigma ^2 I_x I_y N_x N_y$$ makes it very hard to rearrange $$S$$ such that there exists a matrix $$M$$ that satisfies $$\mathbf{R} = \mathbf{M} \cdot \mathbf{I}$$. This also indicates that the different terms in the incident vector in 3D are not independent from each other upon refraction, which makes sense. To summarize, **in a 3D setting without the paraxial approximation, the ray transfer matrix may not work**. 
+
 
 ### 3.2 - Sufrace Iteration 
 
