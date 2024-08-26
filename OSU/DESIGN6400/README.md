@@ -20,6 +20,9 @@ The most recent updated section can be found [here](#32---sufrace-iteration). No
 - [3 - Ray Propagation](#3---ray-propagation)
   - [3.1 - Explore Ray Transfer Matrix](#31---explore-ray-transfer-matrix)
   - [3.2 - Sufrace Iteration](#32---sufrace-iteration)
+    - [3.2.1 - Object to 1st Surface](#321---object-to-1st-surface)
+    - [3.2.2 - Internal Surfaces](322---internal-surfaces)
+    - [3.2.3 - Image Plane](#323---image-plane)
   - [3.3 - Aspherical Surface](#33---aspherical-surface)
     - [3.3.1 - Even Aspheric](#331---even-aspheric)
     - [3.3.2 - Cylindrical](#332---cylindrical)
@@ -161,11 +164,15 @@ One way to work around that might be to use vectors to represent the ray directi
 
 $$ \mathbf{R}=\frac{n_1}{n_2}\left ( \mathbf{I} - \left ( \mathbf{I} \cdot \mathbf{N} \right ) \mathbf{N} \right ) - \mathbf{N} \sqrt{ 1 - \left ( \frac{n_1}{n_2} \right ) ^{2} \left ( 1 -  \left( \mathbf{I} \cdot \mathbf{N} \right )^{2} \right ) }$$
 
-To use this vector refraction formula in the same way as the ray transfer matrix, there need to be a matrix $$\mathbf{M}$$ such that: 
+In a similar way, the reflection vector can be defined as: 
+
+$$\mathbf{R}=\mathbf{I}-2 \left ( \mathbf{I} \cdot \mathbf{N} \right ) \mathbf{N}$$
+
+To use these vector equations in the same way as the ray transfer matrix, there need to be a matrix $$\mathbf{M}$$ such that: 
 
 $$\mathbf{R} = \mathbf{M} \cdot \mathbf{I}$$
 
-Use $$\sigma = \frac{n_ 1}{n_ 2}$$ to substitute the corresponding terms, and disassemble the vectors as:
+Take the refraction equation as an example. Use $$\sigma = \frac{n_ 1}{n_ 2}$$ to substitute the corresponding terms, and disassemble the vectors as:
 
 $$\mathbf{R} = \begin{pmatrix} 
 R_x \\
@@ -208,10 +215,20 @@ $$S = \sqrt{ 1 - \sigma^2 + \sigma^2 I_x^2 N_x^2 + \sigma^2 I_y^2 N_y^2 + \sigma
 
 This turned out to be troublesome, terms like $$\sigma ^2 I_x I_y N_x N_y$$ makes it very hard to rearrange $$S$$ such that there exists a matrix $$M$$ that satisfies $$\mathbf{R} = \mathbf{M} \cdot \mathbf{I}$$. This also indicates that the different terms in the incident vector in 3D are not independent from each other upon refraction, which makes sense. To summarize, **in a 3D setting without the paraxial approximation, the ray transfer matrix may not work**. 
 
+Luckily, this is not the end of the story. Not being able to obtain a matrix multiplication form of refraction simply means that the program may have to iterate through every surface instead of aggregate all the surfaces together, it will take more time, but still doable. 
+
 
 ### 3.2 - Sufrace Iteration 
 
 Placeholder 
+
+#### 3.2.1 - Object to 1st Surface 
+
+
+
+#### 3.2.2 - Internal Surfaces
+
+#### 3.2.3 - Image Plane 
 
 ### 3.3 - Aspherical Surface 
 
@@ -231,7 +248,7 @@ Placeholder
 
 ## 4 - Imager
 
-Placeholder 
+In [chapter 3.2.3](#323---image-plane) it is already discussed how to intersect a simple imager with rays, this chapter will focus on the more complex effects of the imager, such as tilt shift, halation, and spectral response. 
 
 ### 4.1 - Tilt and Shift
 
