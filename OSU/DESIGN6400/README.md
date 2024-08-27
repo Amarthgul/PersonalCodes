@@ -44,7 +44,6 @@ This project aims to establish a way with which a physical lens can be digitized
 
 Vintage lenses are (by definition) no longer in production, there will be a day when those lenses become inaccessible for the people that wish to use them. This project thus holds a certain level of time sensitivity and will need to reach some degree of completion before vintage lenses become antique and eventually history. 
 
-
 ### 1.1 - Back Focal Distance and Telecentricity  
 
 In optics, the distance between the last surface of the lens and the image plane is referred to as the `Back Focal Distance` (**BFD** for short, sometimes it is also referred to interchangeably as `Back Focal Length`). 
@@ -53,17 +52,17 @@ While BFD may seem to be a free space, in many cases it is rather constrained. F
 
 For lens design, BFD indriectly ties in with telecentricity. Below is the layout/crossection of the lens Jupiter-12 35mm f/2.8, it has a very shoty BFD and the rays exit lens at a large angle: 
 
-<p align="center">
-	<img src="resources/Jupiter 12 Layout_inf.png" width="512">
-  <p align="center">Figure 1.1 Jupiter-12 35mm f/2.8</p>
-</p>
+<div align="center">
+	<img src="resources/Jupiter_12_Layout_inf.png" width="512">
+  <p align="center">Figure 1.1. Jupiter-12 35mm f/2.8</p>
+</div>
 
 In comparison, longer BFD tend to force the exiting rays to be more telecentric, as demonstrated below: 
 
-<p align="center">
-	<img src="resources/Canon 85 Layout_Inf.png" width="512">
-  <p align="center">Figure 1.2 Canon 85mm f/1.2</p>
-</p>
+<div align="center">
+	<img src="resources/Canon_85_Layout_Inf.png" width="512">
+  <p align="center">Figure 1.2. Canon 85mm f/1.2</p>
+</div>
 
 Note that for the Canon lens in figure 1.2, the last surface is relatively far away from the image plane (long BFD), and the exiting ray at the top have a smaller oblique angle compare to the Jupiter lens. For a pure telecentirc lens, all the exiting rays will be parallel to the optical axis. 
 
@@ -73,10 +72,10 @@ In comparison, rangefinder lenses can have their elements “sink” into the ca
 
 With the advancement of technology, there are less and less reasons to keep the mirror for digital cameras. Eventually the mirror was removed and digital imaging fully embraced mirrorless cameras. For mirrorless cameras, there is nothing in between the lens and the image plane (aside from some filter glasses like OLPF and UV IR cut, see [chapter 4.2](#42---olpf-and-uvir-cut)). This literated BFD in lens design, allowing lens designers to come up with optics that fully utilizes this space. 
 
-<p align="center">
+<div align="center">
 	<img src="resources/FlangeChart.png" width="960">
-  <p align="center">Figure 1.3 Flange distance for different camera mounts</p>
-</p>
+  <p align="center">Figure 1.3. Flange distance for different camera mounts</p>
+</div>
 
 The liberation of BFD also means that older lenses designed for rangefinder cameras, which tend to have a short BFD and consequently shorter flange distance, can now also be adapted and mounted onto mirrorless cameras. Due to the lack of mirror, even if a lens was originally designed for a system with even shorter flange distance, it can still be adapted onto new mirrorless cameras, such as putting an M42 lens onto a PL mount camera. From the technical aspect, this ensured that a vintage lens can be adapted onto almost any modern camera and is one of the driving forces for the resurgence. 
 
@@ -103,14 +102,14 @@ $$B = \lambda _{F} = 486.13 \mu m$$
 
 Although integrating the 3 Gaussian distribution can be more accurate in calculating the color shift and tint in an optical system, it faces some challenges at the end of the system. Consider the case of an orthochromatic film:
 
-<p align="center">
+<div align="center">
 	<img src="resources/OrthoPlusSp.png" width="360">
-  <p align="center">Figure 2.1 Ilford Ortho Plus Spectral Sensitivity</p>
-</p>
+  <p align="center">Figure 2.1. Ilford Ortho Plus Spectral Sensitivity</p>
+</div>
 
 The image above showed the spectral sensitivity of [Ilford Ortho Plus](https://www.ilfordphoto.com/amfile/file/download/file/1948/product/1658) film. As can be seen, this type of film is sensitive to blue and green but not to red, red objects will appear black when shot on this film. 
 
-The integrated spectral distribution will be clipped by the spectral sensitivity of the orthochromatic film, and the red side of the spectrum will become zero. In this situation, it could be hard to find the RGB color using 3 Guassian distributions whose $$\mu$$ is still the same as the original. 
+The integrated spectral distribution will be clipped by the spectral sensitivity of the orthochromatic film, and the red side of the spectrum will become zero. However, due to the red channel is a Guassian distribution, there will still be part of the red channel that overlaps with the the green section, making reconstruction difficult. In this situation, it could be hard to find the RGB color using 3 Guassian distributions whose $\mu$ is still the same as the original. 
 
 Another significant influencer is **Metamerism**, while two colors may be perceived the same, the actual composition of wavelengths and their intensities may be different. This is particularly true for colors that look warm due to the large overlapping wavelength for human green and red cod cells. On the flip side, blue rod cells caps at around 470 nm, making wavelengths shorter than that rather deterministic (also the reason why wavelengths at the shorter end in the CIE 1931 chart are located on a near straight line). 
 
@@ -124,18 +123,18 @@ In geometric optics, a ray can be described by:
 
 $$\binom{h_2}{\gamma _2}$$
 
-$$h_2$$ is the height of the light (from the optical axis), and $$\gamma _2$$ its angle. As such, the ray propagatiion can be expressed as a matrix operation: 
+$h_2$ is the height of the light (from the optical axis), and $\gamma _2$ its angle. As such, the ray propagatiion can be expressed as a matrix operation: 
 
 $$\binom{h_2}{\gamma _2}=\begin{bmatrix}
  \mathbb{A}& \mathbb{B} \\
 \mathbb{C} & \mathbb{D} \\
 \end{bmatrix}\cdot \binom{h_1}{\gamma _1}$$
 
-Where the different components of the matrix can be configured differently to represent translation and refraction. This is very similar to 2D transformation matrix, the only difference is that $$\gamma$$ represents the radian and thus the "rotation" is based on the Snell's law, as defnied by: 
+Where the different components of the matrix can be configured differently to represent translation and refraction. This is very similar to 2D transformation matrix, the only difference is that $\gamma$ represents the radian and thus the "rotation" is based on the Snell's law, as defnied by: 
 
 $$n_1 \sin \theta _1 = n_2 \sin \theta _2$$
 
-Typically, the translation matrix will be denoted as $$\mathbf{T}$$ and refration matrix as $$\mathbf{R}$$. Under the paraxial assumption, it can be derived that: 
+Typically, the translation matrix will be denoted as $\mathbf{T}$ and refration matrix as $\mathbf{R}$. Under the paraxial assumption, it can be derived that: 
 
 $$\mathbf{T}=\begin{bmatrix}
 1 & -l \\
@@ -147,20 +146,20 @@ $$\mathbf{R}=\begin{bmatrix}
 \frac{n_2 - n_1}{n_2 \cdot r} & \frac{n_1}{n_2} \\
 \end{bmatrix}$$
 
-Where $$l$$ is the traveled length, $$r$$ is the surface radius, $$n_1$$ and $$n_2$$ are the RI of each medium. 
+Where $l$ is the traveled length, $r$ is the surface radius, $n_1$ and $n_2$ are the RI of each medium. 
 Then, a ray going through a lens can be represented as: 
 
 $$\binom{h_3}{\gamma _3}= \mathbf{M} _L \binom{h_1}{\gamma _1} \quad with \quad \mathbf{M} _L= \mathbf{R} _2 \mathbf{T} _{12} \mathbf{R} _1$$
 
 The translation and refraction matrix can then be pre-multiplied and thus represent the lens with one single matrix. For a lens with multiple elements, this process is still applicable, allowing the ray transfer to be condensed into simple matrix multiplications. 
 
-This approach, however, does not fit here. On one hand, the ray transfer matrix is established under paraxial approximation, which assumes the oblique angle of the incident light $$\theta$$ to be small enough that it equals $$\sin \theta$$. On the other hand, the ray transfer applies only on a 2D plane or an axisymmetric lens, which is not the case here. Additionally, the ray transfer matrix is also sequential, as it ignores reflection at each surface and the scattering during ray propagation. 
+This approach, however, does not fit here. On one hand, the ray transfer matrix is established under paraxial approximation, which assumes the oblique angle of the incident light $\theta$ to be small enough that it equals $\sin \theta$. On the other hand, the ray transfer applies only on a 2D plane or an axisymmetric lens, which is not the case here. Additionally, the ray transfer matrix is also sequential, as it ignores reflection at each surface and the scattering during ray propagation. 
 
 For this application, the lens can be non-axisymmetric due to the inclusion of cylindrical and conical elements. And to emulate veiling glares and some types of flares, reflection also needs to be modeled, which makes this process non-sequential. To put it simply, it is closer to a 3D ray tracer application. 
 
 For 3D, representing an angle in degrees or radians can be difficult, as Euler angles are susceptible to gimbal lock. Quaternions are free from these sufferings but are rather questionable to be used to calculate reflections and refractions, due to the need of being translated into Euler angle, perform reflection and refractions, then translate back to quaternions again. 
 
-One way to work around that might be to use vectors to represent the ray direction, this also avoids the gimbal lock and rotation hierarchy problem. With 3D vectors, it can be proved that when the incident vector $$\mathbf{I}$$ in a medium with RI $$n_1$$ enters a different medium with RI $$n_2$$, given the normal at the point of incident to be $$\mathbf{N}$$, then the refracted vector $$\mathbf{R}$$ can be expressed as:  
+One way to work around that might be to use vectors to represent the ray direction, this also avoids the gimbal lock and rotation hierarchy problem. With 3D vectors, it can be proved that when the incident vector $\mathbf{I}$ in a medium with RI $n_1$ enters a different medium with RI $n_2$, given the normal at the point of incident to be $\mathbf{N}$, then the refracted vector $\mathbf{R}$ can be expressed as:  
 
 $$ \mathbf{R}=\frac{n_1}{n_2}\left ( \mathbf{I} - \left ( \mathbf{I} \cdot \mathbf{N} \right ) \mathbf{N} \right ) - \mathbf{N} \sqrt{ 1 - \left ( \frac{n_1}{n_2} \right ) ^{2} \left ( 1 -  \left( \mathbf{I} \cdot \mathbf{N} \right )^{2} \right ) }$$
 
@@ -168,7 +167,7 @@ In a similar way, the reflection vector can be defined as:
 
 $$\mathbf{R}=\mathbf{I}-2 \left ( \mathbf{I} \cdot \mathbf{N} \right ) \mathbf{N}$$
 
-To use these vector equations in the same way as the ray transfer matrix, there need to be a matrix $$\mathbf{M}$$ such that: 
+To use these vector equations in the same way as the ray transfer matrix, there need to be a matrix $\mathbf{M}$ such that: 
 
 $$\mathbf{R} = \mathbf{M} \cdot \mathbf{I}$$
 
@@ -209,26 +208,98 @@ N_z \\
 \end{pmatrix} S
 $$
 
-Where $$S$$ is a scalar defined by $$\mathbf{I}$$ and $$\mathbf{N}$$:
+Where $S$ is a scalar defined by $\mathbf{I}$ and $\mathbf{N}$:
 
 $$S = \sqrt{ 1 - \sigma^2 + \sigma^2 I_x^2 N_x^2 + \sigma^2 I_y^2 N_y^2 + \sigma^2 I_z^2 N_z^2 + 2 \sigma ^2 I_x I_y N_x N_y + 2 \sigma ^2 I_x I_y N_x N_y +2 \sigma ^2 I_z I_x N_z N_x }$$
 
-This turned out to be troublesome, terms like $$\sigma ^2 I_x I_y N_x N_y$$ makes it very hard to rearrange $$S$$ such that there exists a matrix $$M$$ that satisfies $$\mathbf{R} = \mathbf{M} \cdot \mathbf{I}$$. This also indicates that the different terms in the incident vector in 3D are not independent from each other upon refraction, which makes sense. To summarize, **in a 3D setting without the paraxial approximation, the ray transfer matrix may not work**. 
+This turned out to be troublesome, terms like $\sigma ^2 I_x I_y N_x N_y$ makes it very hard to rearrange $S$ such that there exists a matrix $M$ that satisfies $\mathbf{R} = \mathbf{M} \cdot \mathbf{I}$. This also indicates that the different terms in the incident vector in 3D are not independent from each other upon refraction, which makes sense. To summarize, **in a 3D setting without the paraxial approximation, the ray transfer matrix may not work**. 
 
 Luckily, this is not the end of the story. Not being able to obtain a matrix multiplication form of refraction simply means that the program may have to iterate through every surface instead of aggregate all the surfaces together, it will take more time, but still doable. 
 
 
 ### 3.2 - Sufrace Iteration 
 
-Placeholder 
+Before feeding a ray into the lens, the surfaces must be defined. A typical spherical surface in this application has 4 attributes:
+
+- **Radius** $r$. The surface curvature. 
+
+- **Material**. Using material instead of $n_D$ and $v_D$ since the calculation will need wavelengths, the corresponding RI and dispersion of the material can be calculated depending on the input wavelength. 
+
+- **Clear semi-diameter** $d$. The name “semi-diameter” is used to avoid being mixed with radius, but it essentially describes the working radius of the surface, calculated by height from the axis. Radius larger than that will be treated as a flat plane. This value is non-negative, and for a lens with 2 or more surfaces (such as a doublet), the clear semi-diameter of the first surface will be used to the rest of surfaces. 
+
+- **Edge chamfer** $c$. At the edge of the clear semi-diameter, a 45 degree chamfer can be applied, the chamfer direction is the same as the positive $z$ direction. 
+
+<div align="center">
+	<img src="resources/SurfaceNotes.png" width="512">
+  <p align="center">Figure 3.1. Notations for surfaces, negative values are noted in red.</p>
+</div>
+
+Aside from the chamfer, the rest are the same as most optical simulation software, like Zemax and CODEX. 
+
+
+It is also worth noting that here we defined the origin to be the vertex of the first surface. The coordinate system is a right hand system with the positive $y$ axis pointing up, The $z$ axis is the optical axis for the lens and its positive direction points to the direction of the image plane, as shown in the figure below. 
+
+
+<div align="center">
+	<img src="resources/systemNote.png" width="320">
+  <p align="center">Figure 3.2. The coordinate system used.</p>
+</div>
+
+Readers may notice this coordinate seems to contradict the surface radius direction. The sign of the surface radius is set to conform to the lens design tradition, with positive being convex and negative being concave when viewing from the front. 
 
 #### 3.2.1 - Object to 1st Surface 
 
+For an object point $P$ not located at infinity, ignoring indirect reflections for now, all the light reflected from this point that can be gathered by the lens forms a cone. If the object point is not directly on the optical axis, then this cone becomes an oblique cone. 
 
+The next task is to sample the lights in this oblique cone evenly. The most obvious way may be to subdivide the circle formed by the clear semi-diameter $d$, but as we will show later in the case of extreme oblique angle, this sampling method will introduce unevenness when the surface radius gets large. A better way is to sample from the projection of $d$ from the direction of the object point $P$. 
+
+<div align="center">
+	<img src="resources/OffAxisCone.png" width="500">
+  <p align="center">Figure 3.3. Cross section of an oblique cone.</p>
+</div>
+
+The figure above shows the cross section of the oblique cone on the plane that contains its apex, the figure below shows the cone in a more 3D enviroment: 
+
+<div align="center">
+	<img src="resources/Cone3dDiagram.png" width="500">
+  <p align="center">Figure 3.4. The cone in 3D.</p>
+</div>
+
+Let the location of the point $P$ to be:
+
+$$P = \left( p_x, p_y, p_z \right) ^ T$$
+
+Then, the position of point $A$ and $C$ can be accquired by timing the clear semi-diamater $d$ with the normalized $xy$ directional vector: 
+
+$$A = d \frac{\left( p_x, p_y, 0 \right) ^ T}{\left|  \left( p_x, p_y, 0 \right) ^ T \right|} =
+\begin{pmatrix} 
+d p_x / \sqrt{p_x ^ 2 + p_y ^ 2} \\ 
+d p_y / \sqrt{p_x ^ 2 + p_y ^ 2} \\
+0 \\
+\end{pmatrix}$$
+
+and:
+
+$$C = d \frac{\left( p_x, p_y, 0 \right) ^ T}{\left|  \left( p_x, p_y, 0 \right) ^ T \right|} =
+\begin{pmatrix} 
+-d p_x / \sqrt{p_x ^ 2 + p_y ^ 2} \\ 
+-d p_y / \sqrt{p_x ^ 2 + p_y ^ 2} \\
+0 \\
+\end{pmatrix}$$
+
+This makes it possible to calculate $\vec{PA}$ and $\vec{PC}$. Let $\mathbf{\hat{a}}$ and $\mathbf{\hat{c}}$ to denote the normalized $\vec{PA}$ and $\vec{PC}$, then the direction of vector $\vec{PD}$ can be accquired by simply averging them: 
+
+$$\vec{d} = \frac{ \mathbf{\hat{a}} + \mathbf{\hat{c}} }{2}$$
+
+Note that $\vec{d}$ is also the normal vector the the projected conical area we are trying to get, as such, the plane in which the conical area resides in can be derived by: 
 
 #### 3.2.2 - Internal Surfaces
 
+Placeholder 
+
 #### 3.2.3 - Image Plane 
+
+Placeholder
 
 ### 3.3 - Aspherical Surface 
 
