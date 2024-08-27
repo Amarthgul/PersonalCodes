@@ -303,9 +303,38 @@ $$C = d \frac{\left( -p_x, -p_y, 0 \right) ^ T}{\left|  \left( -p_x, -p_y, 0 \ri
 
 This makes it possible to calculate $\vec{PA}$ and $\vec{PC}$. Let $\mathbf{\hat{a}}$ and $\mathbf{\hat{c}}$ to denote the normalized $\vec{PA}$ and $\vec{PC}$, then the direction of vector $\vec{PD}$ can be accquired by simply averging them: 
 
-$$\vec{d} = \frac{ \mathbf{\hat{a}} + \mathbf{\hat{c}} }{2}$$
+$$\vec{n} = \frac{ \mathbf{\hat{a}} + \mathbf{\hat{c}} }{2}=\begin{pmatrix} 
+n_x \\ 
+n_y \\
+n_z \\
+\end{pmatrix}$$
 
-Note that $\vec{d}$ is also the normal vector the the projected conical area we are trying to get, as such, the plane in which the conical area resides in can be derived by: 
+Note that $\vec{n}$ is also the normal vector the the projected conical area we are trying to get, as such, the plane passing through point $A$, in which the conical area resides in, can be defined as: 
+
+$$n_x \left( x - \frac{d p_x}{ \sqrt{p_x ^ 2 + p_y ^ 2} }  \right) + 
+n_y \left( y - \frac{d p_y}{  \sqrt{p_x ^ 2 + p_y ^ 2} } \right) + n_z z = 0$$
+
+For the typical plane equation $Ax + By + Cz + D = 0$, this gives us: 
+
+$$\begin{empheq}{align}
+ A &= n_x\\
+ B &= n_y\\
+ C &= n_z\\
+ D &= -\frac{d p _x n _x + d p _y n _y}{ \sqrt{p _x ^2 + p _y ^2} }
+\end{empheq}$$
+
+This then allows us to find the position of point $B$:
+
+$$p_B=\begin{pmatrix} 
+p_x + t \left( - \frac{dp_x}{\sqrt{p _x ^2 + p _y ^2}}  - p _x  \right)  \\ 
+p_y + t \left( - \frac{dp_y}{\sqrt{p _x ^2 + p _y ^2}}  - p _y \right)  \\
+p_z + t \left(  - P _z \right)  \\
+\end{pmatrix}$$
+
+With $t$ being: 
+
+$$t=\frac{-n _x p _x - n _y p _y - n _z p _z + \frac{d p _x n _x + d p _y n _y}{ \sqrt{p _x ^2 + p _y ^2} } }
+{n _x \left( - \frac{dp_x}{\sqrt{p _x ^2 + p _x ^2}}  - p _y \right) + n _ y \left( - \frac{dp_y}{\sqrt{p _x ^2 + p _y ^2}}  - p _y \right) + n _z \left( - p _z \right)}$$
 
 <br />
 
