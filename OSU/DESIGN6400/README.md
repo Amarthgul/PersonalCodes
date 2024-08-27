@@ -53,14 +53,14 @@ While BFD may seem to be a free space, in many cases it is rather constrained. F
 For lens design, BFD indriectly ties in with telecentricity. Below is the layout/crossection of the lens Jupiter-12 35mm f/2.8, it has a very shoty BFD and the rays exit lens at a large angle: 
 
 <div align="center">
-	<img src="resources/Jupiter_12_Layout_inf.png" width="512">
+	<img src="resources/Jupiter12Layoutinf.png" width="512">
   <p align="center">Figure 1.1. Jupiter-12 35mm f/2.8</p>
 </div>
 
 In comparison, longer BFD tend to force the exiting rays to be more telecentric, as demonstrated below: 
 
 <div align="center">
-	<img src="resources/Canon_85_Layout_Inf.png" width="512">
+	<img src="resources/Canon85LayoutInf.png" width="512">
   <p align="center">Figure 1.2. Canon 85mm f/1.2</p>
 </div>
 
