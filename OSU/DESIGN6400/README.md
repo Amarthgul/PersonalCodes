@@ -38,11 +38,15 @@ The most recent updated section can be found [here](#32---sufrace-iteration). No
 
 ------------------ 
 
+<br />
+
 ## 1 - General 
 
 This project aims to establish a way with which a physical lens can be digitized and used in virtual productions, such as for digital animations and TV/movies post VFX, to emulate the optical characteristics of the physical optics in a virtual setting. 
 
 Vintage lenses are (by definition) no longer in production, there will be a day when those lenses become inaccessible for the people that wish to use them. This project thus holds a certain level of time sensitivity and will need to reach some degree of completion before vintage lenses become antique and eventually history. 
+
+<br />
 
 ### 1.1 - Back Focal Distance and Telecentricity  
 
@@ -79,9 +83,13 @@ With the advancement of technology, there are less and less reasons to keep the 
 
 The liberation of BFD also means that older lenses designed for rangefinder cameras, which tend to have a short BFD and consequently shorter flange distance, can now also be adapted and mounted onto mirrorless cameras. Due to the lack of mirror, even if a lens was originally designed for a system with even shorter flange distance, it can still be adapted onto new mirrorless cameras, such as putting an M42 lens onto a PL mount camera. From the technical aspect, this ensured that a vintage lens can be adapted onto almost any modern camera and is one of the driving forces for the resurgence. 
 
+<br />
+
 ### 1.2 - Resurgence in Film and Vintage Lenses 
 
 Placeholder 
+
+<br />
 
 ## 2 - Wavelength Reconstruction 
 
@@ -98,6 +106,8 @@ $$G = \lambda _{d} = 587.56 \mu m$$
 
 $$B = \lambda _{F} = 486.13 \mu m$$
 
+<br />
+
 ### 2.1 - Selecting the Distribution 
 
 Although integrating the 3 Gaussian distribution can be more accurate in calculating the color shift and tint in an optical system, it faces some challenges at the end of the system. Consider the case of an orthochromatic film:
@@ -112,6 +122,8 @@ The image above showed the spectral sensitivity of [Ilford Ortho Plus](https://w
 The integrated spectral distribution will be clipped by the spectral sensitivity of the orthochromatic film, and the red side of the spectrum will become zero. However, due to the red channel is a Guassian distribution, there will still be part of the red channel that overlaps with the the green section, making reconstruction difficult. In this situation, it could be hard to find the RGB color using 3 Guassian distributions whose $\mu$ is still the same as the original. 
 
 Another significant influencer is **Metamerism**, while two colors may be perceived the same, the actual composition of wavelengths and their intensities may be different. This is particularly true for colors that look warm due to the large overlapping wavelength for human green and red cod cells. On the flip side, blue rod cells caps at around 470 nm, making wavelengths shorter than that rather deterministic (also the reason why wavelengths at the shorter end in the CIE 1931 chart are located on a near straight line). 
+
+<br />
 
 ## 3 - Ray Propagation 
 
@@ -216,6 +228,7 @@ This turned out to be troublesome, terms like $\sigma ^2 I_x I_y N_x N_y$ makes 
 
 Luckily, this is not the end of the story. Not being able to obtain a matrix multiplication form of refraction simply means that the program may have to iterate through every surface instead of aggregate all the surfaces together, it will take more time, but still doable. 
 
+<br />
 
 ### 3.2 - Sufrace Iteration 
 
@@ -245,6 +258,8 @@ It is also worth noting that here we defined the origin to be the vertex of the 
 </div>
 
 Readers may notice this coordinate seems to contradict the surface radius direction. The sign of the surface radius is set to conform to the lens design tradition, with positive being convex and negative being concave when viewing from the front. 
+
+<br />
 
 #### 3.2.1 - Object to 1st Surface 
 
@@ -292,49 +307,73 @@ $$\vec{d} = \frac{ \mathbf{\hat{a}} + \mathbf{\hat{c}} }{2}$$
 
 Note that $\vec{d}$ is also the normal vector the the projected conical area we are trying to get, as such, the plane in which the conical area resides in can be derived by: 
 
+<br />
+
 #### 3.2.2 - Internal Surfaces
 
 Placeholder 
+
+<br />
 
 #### 3.2.3 - Image Plane 
 
 Placeholder
 
+<br />
+
 ### 3.3 - Aspherical Surface 
 
 Placeholder 
+
+<br />
 
 #### 3.3.1 - Even Aspheric 
 
 Standard ASPH elements, which can be seen as early as the FD 55mm f/1.2 Asph. 
 
+<br />
+
 #### 3.3.2 - Cylindrical 
 
 For anamorphic lenses. 
+
+<br />
 
 ### 3.4 - Aperture Stop 
 
 Placeholder 
 
+<br />
+
 ## 4 - Imager
 
 In [chapter 3.2.3](#323---image-plane) it is already discussed how to intersect a simple imager with rays, this chapter will focus on the more complex effects of the imager, such as tilt shift, halation, and spectral response. 
+
+<br />
 
 ### 4.1 - Tilt and Shift
 
 Placeholder 
 
+<br />
+
 ### 4.2 - OLPF and UVIR Cut 
 
 Placeholder 
+
+<br />
 
 ### 4.3 - Film
 
 Placeholder 
 
+<br />
+
 ## 5 - Diffraction 
 
 Up till this point, the project has been operating under the realm of geometric optics, i.e., treating lights as beams and particles. However, geometric optics cannot replicate one of the most famous optical artifacts used in movies, TVs, and video games: **flares**. 
+
+<br />
 
 ## Journals
 
@@ -347,6 +386,8 @@ Up till this point, the project has been operating under the realm of geometric 
 
 Attempting to disassemble the ray transfer matrix in 3D revealed that this approach may not work, documented in chapter [3.1](#31---explore-ray-transfer-matrix). 
 
+<br />
+
 ### Week 1
 
 (Week of Aug 19th)
@@ -355,6 +396,7 @@ This week was mostly spent on setting up this markdown document and some initial
 
 For now, I intend to spend the first 5 weeks on the math part, establishing a theoretical foundation for the later implementation (paper prototype, one can say). Although some degree of implementation may be attempted. 
 
+<br />
 
 ## References 
 
