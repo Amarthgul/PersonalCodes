@@ -265,17 +265,28 @@ Readers may notice this coordinate seems to contradict the surface radius direct
 
 For an object point $P$ not located at infinity, ignoring indirect reflections for now, all the light reflected from this point that can be gathered by the lens forms a cone. If the object point is not directly on the optical axis, then this cone becomes an oblique cone. 
 
-The next task is to sample the lights in this oblique cone evenly. The most obvious way may be to subdivide the circle formed by the clear semi-diameter $d$, but as we will show later in the case of extreme oblique angle, this sampling method will introduce unevenness when the surface radius gets large. A better way is to sample from the projection of $d$ from the direction of the object point $P$. 
+The next task is to sample the lights in this oblique cone evenly. The most obvious way may be to subdivide the circle formed by the clear semi-diameter $d$, which will work, **if only** the first surface is prefectly flat. However, for almost all photographic lenses, the first surface is not flat (barely any surface in a lens is flat). This creates a probelm, when the surface curvature is significant and the incident angle is large enough, even sampling based directly on clear semi-diameter will create unevenness from the perspective of the point.
+
+<div align="center">
+	<img src="resources/3.2.1ExtremeOblique.png" width="320">
+  <p align="center">Figure 3.3. Unevenness caused by surface curvature.</p>
+</div>
+
+As can be seen, there is a significant amount of spatial density unevenness of the rays emitted from the point. While this may be true for certain sufraces in 3D with certain BRDF characteristics, it is not valid for Lambertian surfaces, which is very much the case here.   
+
+A better way is to sample from the projection of $d$ from the direction of the object point $P$. 
 
 <div align="center">
 	<img src="resources/OffAxisCone.png" width="500">
   <p align="center">Figure 3.3. Cross section of an oblique cone.</p>
 </div>
 
-The figure above shows the cross section of the oblique cone on the plane that contains its apex, the figure below shows the cone in a more 3D enviroment: 
+The figure above shows the cross section of the oblique cone on the plane that contains its apex, our goal is to obtain the ellipsal shape on the plane of $AB$ perpendicular to $PCA$. 
+
+To make it clearer, below is the figure presented in a more 3D enviroment: 
 
 <div align="center">
-	<img src="resources/Cone3dDiagram.png" width="500">
+	<img src="resources/Cone3dDiagram.png" width="480">
   <p align="center">Figure 3.4. The cone in 3D.</p>
 </div>
 
@@ -339,7 +350,7 @@ $$t=\frac{-n _x p _x - n _y p _y - n _z p _z + \frac{d p _x n _x + d p _y n _y}{
 This then allows us to derive the equation for the eclipse perpendicular to plane $PAC$ and passing through $AB$, illustrated in the figure below as the pink ellipse: 
 
 <div align="center">
-	<img src="resources/3.2.1VerticalConical.png" width="360">
+	<img src="resources/3.2.1VerticalConical.png" width="320">
   <p align="center">Figure 3.5.</p>
 </div>
 
