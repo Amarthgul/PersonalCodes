@@ -98,13 +98,18 @@ For this application, a pixel on an image or a point in a 3D scene can both be v
 In virtually all software the color of the pixel or the color of the point on the 3D object is expressed by RGB value (although underlaying implementations may vary). However, in reality, the color of the light is determined by the distribution and the intensity of every wavelength. This is important because refraction is dependent on wavelength, as light of different wavelength will be bent differently when entering another material with a different refraction index. 
 
 RGB can be treated as 3 Gaussian distributions of wavelengths. With the RGB value on each channel representing the intensity of the peak wavelength, acting as a scale factor for the entire distribution. Integrating over all 3 distributions will then yield a spectral representation of the given RGB color, and the same process can be used to translate the wavelength distribution into RGB value. 
-For ease of calculation (especially later with Abbe number), it may be fitting to choose the peak wavelength of RGB as: 
+
+For ease of calculation, it may be fitting to choose the peak wavelength of RGB as: 
 
 $$R = \lambda _{C} = 656.27 \mu m$$
 
 $$G = \lambda _{d} = 587.56 \mu m$$
 
 $$B = \lambda _{F} = 486.13 \mu m$$
+
+These values also allows us to make comparisons with patents much easier, since most modern patents uses $n _D$ and $v _D$ to describe the optical material properties, and $v _D$ is defined using the values above: 
+
+$$v_D = \frac{n _d - 1}{n _F - n _C}$$
 
 <br />
 
@@ -122,6 +127,12 @@ The image above showed the spectral sensitivity of [Ilford Ortho Plus](https://w
 The integrated spectral distribution will be clipped by the spectral sensitivity of the orthochromatic film, and the red side of the spectrum will become zero. However, due to the red channel is a Guassian distribution, there will still be part of the red channel that overlaps with the the green section, making reconstruction difficult. In this situation, it could be hard to find the RGB color using 3 Guassian distributions whose $\mu$ is still the same as the original. 
 
 Another significant influencer is **Metamerism**, while two colors may be perceived the same, the actual composition of wavelengths and their intensities may be different. This is particularly true for colors that look warm due to the large overlapping wavelength for human green and red cod cells. On the flip side, blue rod cells caps at around 470 nm, making wavelengths shorter than that rather deterministic (also the reason why wavelengths at the shorter end in the CIE 1931 chart are located on a near straight line). 
+
+When considering all these factors, Gaussian distribution may be hard to reconstruct after the initial disassembly. For now 
+
+```C++
+// TODO: add equations for linear disassembly based on distance 
+```
 
 <br />
 
@@ -272,7 +283,7 @@ The next task is to sample the lights in this oblique cone evenly. The most obvi
   <p align="center">Figure 3.3. Unevenness caused by surface curvature.</p>
 </div>
 
-As can be seen, there is a significant amount of spatial density unevenness of the rays emitted from the point. While this may be true for certain sufraces in 3D with certain BRDF characteristics, it is not valid for Lambertian surfaces, which is very much the case here.   
+As shown in the figure above, there is an observable amount of spatial density unevenness of the rays emitted from the point, the upper part appears to be denser than the lower part. In another words, the point "emits" more light from the top than from the bottom. While this kind of emission/distribution may be true for some highly reflective sufraces at certain angle, it is not valid for Lambertian surfaces, which is very much the case here.   
 
 A better way is to sample from the projection of $d$ from the direction of the object point $P$. 
 
@@ -412,7 +423,7 @@ In [chapter 3.2.3](#323---image-plane) it is already discussed how to intersect 
 
 ### 4.1 - Tilt and Shift
 
-Placeholder 
+Aside from simple 3D transformation, a big effect tilt-shift has is the potential of color shift for digital sensors. This is caused by the depth of the photosite well, which will be the focus here in this chapter. 
 
 <br />
 
