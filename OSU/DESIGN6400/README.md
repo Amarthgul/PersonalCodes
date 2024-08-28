@@ -78,7 +78,7 @@ With the advancement of technology, there are less and less reasons to keep the 
 
 <div align="center">
 	<img src="resources/FlangeChart.png" width="960">
-  <p align="center">Figure 1.3. Flange distance for different camera mounts</p>
+  <p align="center">Figure 1.3. Flange distance for different camera mounts. Showing only the main streams (there were a lot of main streams historically), some of the more proprietary and scarce mounts are omitted to save space</p>
 </div>
 
 The liberation of BFD also means that older lenses designed for rangefinder cameras, which tend to have a short BFD and consequently shorter flange distance, can now also be adapted and mounted onto mirrorless cameras. Due to the lack of mirror, even if a lens was originally designed for a system with even shorter flange distance, it can still be adapted onto new mirrorless cameras, such as putting an M42 lens onto a PL mount camera. From the technical aspect, this ensured that a vintage lens can be adapted onto almost any modern camera and is one of the driving forces for the resurgence. 
@@ -335,6 +335,25 @@ With $t$ being:
 
 $$t=\frac{-n _x p _x - n _y p _y - n _z p _z + \frac{d p _x n _x + d p _y n _y}{ \sqrt{p _x ^2 + p _y ^2} } }
 {n _x \left( - \frac{dp_x}{\sqrt{p _x ^2 + p _x ^2}}  - p _y \right) + n _ y \left( - \frac{dp_y}{\sqrt{p _x ^2 + p _y ^2}}  - p _y \right) + n _z \left( - p _z \right)}$$
+
+This then allows us to derive the equation for the eclipse perpendicular to plane $PAC$ and passing through $AB$, illustrated in the figure below as the pink ellipse: 
+
+<div align="center">
+	<img src="resources/3.2.1VerticalConical.png" width="360">
+  <p align="center">Figure 3.5.</p>
+</div>
+
+As a 2D shape, the ellipse can be described as: 
+
+$$\frac{x ^ 2}{a ^ 2} + \frac{y ^ 2}{b ^ 2} = 1$$
+
+Where: 
+
+$$a = \frac{AB}{2}$$
+
+$$b = \frac{ \sqrt{B B\' \cdot AC} }{ 2 }$$
+
+Apparently, $AB$ can be accquired by subtracting the postion of the two points, and $BB\'$ can be calculated by exploiting the similarity between $PBB\'$ and $PCA$, it is also quite convenient since $AC$ is the clear diameter, i.e., $AC = 2d$. 
 
 <br />
 
