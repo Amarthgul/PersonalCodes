@@ -369,7 +369,7 @@ As a 2D shape, the ellipse can be described as:
 
 $$\frac{x ^ 2}{a ^ 2} + \frac{y ^ 2}{b ^ 2} = 1$$
 
-Where: 
+Where [^1]: 
 
 $$a = \frac{AB}{2}$$
 
@@ -469,5 +469,8 @@ For now, I intend to spend the first 5 weeks on the math part, establishing a th
 <br />
 
 ## References 
+
+[^1]: pauca, Intelligenti. “Answer to ‘Is the Right Intersection of an Oblique Circular Cone an Ellipse?’” Mathematics Stack Exchange, February 6, 2019. https://math.stackexchange.com/a/3103027/453693.
+
 
 Placeholder 
