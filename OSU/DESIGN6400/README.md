@@ -6,9 +6,9 @@ Journal for DESIGN 6400 AU24 (Prof. Maria Palazzi).
 
 - Use the table of content to quickly jump to different chapters.
 - **The journal that summarizes each week's progress can be found at the end** [(**or click here**)](#journals). 
-- Use `History` on top right to inspect past versions or make comparasions. 
+- Use `History` on top right to inspect past versions or make comparasions, there is also a `back to top` button next to it. 
 
-The most recent updated section can be found [here](#32---sufrace-iteration). Note that this is the section that received the most amount of progress with respect to the project, not the course. As such, this may not be the same as the journal content of the corresponding week. 
+The most recent updated section can be found [here](#32---sufrace-iteration). Note that this is the section that received the most amount of progress with respect to the project, not the course. As such, this may not be the same as the journal content of the corresponding week. Although GitHub version history can be used to inspect past versions, for ease of access, snapshots of this documentation are also created periodically and are stored in [resources](https://github.com/Amarthgul/PersonalCodes/tree/master/OSU/DESIGN6400/resources)
 
 #### Table of content:
 
@@ -303,11 +303,11 @@ To make it clearer, below is the figure presented in a more 3D enviroment:
 
 Let the location of the point $P$ to be:
 
-$$P = \left( p_x, p_y, p_z \right) ^ T$$
+$$p _P = \left( p_x, p_y, p_z \right) ^ T$$
 
 Then, the position of point $A$ and $C$ can be accquired by timing the clear semi-diamater $d$ with the normalized $xy$ directional vector: 
 
-$$A = d \frac{\left( p_x, p_y, 0 \right) ^ T}{\left|  \left( p_x, p_y, 0 \right) ^ T \right|} =
+$$p _A = d \frac{\left( p_x, p_y, 0 \right) ^ T}{\left|  \left( p_x, p_y, 0 \right) ^ T \right|} =
 \begin{pmatrix} 
 d p_x / \sqrt{p_x ^ 2 + p_y ^ 2} \\ 
 d p_y / \sqrt{p_x ^ 2 + p_y ^ 2} \\
@@ -316,7 +316,7 @@ d p_y / \sqrt{p_x ^ 2 + p_y ^ 2} \\
 
 and:
 
-$$C = d \frac{\left( -p_x, -p_y, 0 \right) ^ T}{\left|  \left( -p_x, -p_y, 0 \right) ^ T \right|} =
+$$p _C = d \frac{\left( -p_x, -p_y, 0 \right) ^ T}{\left|  \left( -p_x, -p_y, 0 \right) ^ T \right|} =
 \begin{pmatrix} 
 -d p_x / \sqrt{p_x ^ 2 + p_y ^ 2} \\ 
 -d p_y / \sqrt{p_x ^ 2 + p_y ^ 2} \\
@@ -331,34 +331,20 @@ n_y \\
 n_z \\
 \end{pmatrix}$$
 
-Note that $\vec{n}$ is also the normal vector the the projected conical area we are trying to get, as such, the plane passing through point $A$, in which the conical area resides in, can be defined as: 
+Note that $\vec{n}$ is also the normal vector the the projected conical area we are trying to get. This gave us:
 
-$$n_x \left( x - \frac{d p_x}{ \sqrt{p_x ^ 2 + p_y ^ 2} }  \right) + 
-n_y \left( y - \frac{d p_y}{  \sqrt{p_x ^ 2 + p_y ^ 2} } \right) + n_z z = 0$$
+- The normal $\vec{n}$ of the plane.
+- A point $A$ on the plane.
+- The direction $\vec{PC}$ of the line.
+- A point $C$ on the line.
 
-For the typical plane equation $Ax + By + Cz + D = 0$, this gives us: 
+With these info, it is then possible to calculate the position of point $B$:
 
-$$\begin{empheq}{align}
- A &= n_x\\
- B &= n_y\\
- C &= n_z\\
- D &= -\frac{d p _x n _x + d p _y n _y}{ \sqrt{p _x ^2 + p _y ^2} }
-\end{empheq}$$
+$$p _B = p _C + \vec{CP} * t$$ 
 
-This then allows us to find the position of point $B$:
+$$t = \frac{ \vec{n} \cdot \left(p _A - p _C \right) }{ \vec{n} \cdot \vec{CP} }$$
 
-$$p_B=\begin{pmatrix} 
-p_x + t \left( - \frac{dp_x}{\sqrt{p _x ^2 + p _y ^2}}  - p _x  \right)  \\ 
-p_y + t \left( - \frac{dp_y}{\sqrt{p _x ^2 + p _y ^2}}  - p _y \right)  \\
-p_z + t \left(  - P _z \right)  \\
-\end{pmatrix}$$
-
-With $t$ being: 
-
-$$t=\frac{-n _x p _x - n _y p _y - n _z p _z + \frac{d p _x n _x + d p _y n _y}{ \sqrt{p _x ^2 + p _y ^2} } }
-{n _x \left( - \frac{dp_x}{\sqrt{p _x ^2 + p _x ^2}}  - p _y \right) + n _ y \left( - \frac{dp_y}{\sqrt{p _x ^2 + p _y ^2}}  - p _y \right) + n _z \left( - p _z \right)}$$
-
-This then allows us to derive the equation for the eclipse perpendicular to plane $PAC$ and passing through $AB$, illustrated in the figure below as the pink ellipse: 
+The position of point $B$ then allows us to derive the equation for the eclipse perpendicular to plane $PAC$ and passing through $AB$, illustrated in the figure below as the pink ellipse: 
 
 <div align="center">
 	<img src="resources/3.2.1VerticalConical.png" width="320">
@@ -376,6 +362,10 @@ $$a = \frac{AB}{2}$$
 $$b = \frac{ \sqrt{B B\' \cdot AC} }{ 2 }$$
 
 Apparently, $AB$ can be accquired by subtracting the postion of the two points, and $BB\'$ can be calculated by exploiting the similarity between $PBB\'$ and $PCA$, it is also quite convenient since $AC$ is the clear diameter, i.e., $AC = 2d$. 
+
+```C++
+// TODO: add handling for when the surface radius is large enought to cause occlusion  
+```
 
 <br />
 
@@ -454,7 +444,14 @@ Up till this point, the project has been operating under the realm of geometric 
 
 (Week of Aug 26th)
 
-Attempting to disassemble the ray transfer matrix in 3D revealed that this approach may not work, documented in chapter [3.1](#31---explore-ray-transfer-matrix). 
+Attempting to disassemble the ray transfer matrix in 3D revealed that this approach may not work, documented in chapter [3.1](#31---explore-ray-transfer-matrix). I then switched to using the more traditional ray casting approach, treating rays as vectors in 3D. 
+
+While I initially thought the difficulty would only come when I try to recurse the lights, it ended up arriving much earlier. I realized that directly sampling from the clear diameter will result in unevenness (illustrated by figure 3.3). To avoid that, the sample should be based on an ellipse in the plane perpendicular to the incident angle. 
+
+The road to get that ellipse was quite difficult. I tried to do it step by step, first calculating the plane normal, then finding the plane equation, followed by finding the 2 coefficients for the ellipse. I also tried to use the different terms of the vectors to derive a direct expression of the ellipse, but it quickly got out of hand and out of page as well, some of the incredibly cumbersome equations can still be found in the snapshots. 
+
+Later it occurred to me that with plane normal, line direction, a point on the line and a point on the plane, I could directly calculate the intersection and use triangle similarity to find the ellipse. Which finally ended my struggles that lasted for over 30 hours. 
+
 
 <br />
 
