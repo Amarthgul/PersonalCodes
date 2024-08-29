@@ -46,6 +46,27 @@ This project aims to establish a way with which a physical lens can be digitized
 
 Vintage lenses are (by definition) no longer in production, there will be a day when those lenses become inaccessible for the people that wish to use them. This project thus holds a certain level of time sensitivity and will need to reach some degree of completion before vintage lenses become antique and eventually history. 
 
+```C++
+// TODO: add more explanation 
+```
+
+The logic of the application is similar to that of a ray tracer. Lights emit from a point and are collected by a lens then focused onto the image plane, in the ideal case the focused image is still an ideal point. In reality, however, this "point" is susceptible to an array of aberrations, which cause the image to become a larger spot. 
+
+The final image of a scene can be thought as a collection of these spots added (the actual mathematical addition of values) together. Depending on how the lens produces these spots, different phenomena can be seen in the rendered image, which is the source of the “characteristic” of the lens. 
+
+<div align="center">
+	<img src="resources/1.1PSF_Demo.png" width="512">
+  <p align="center">Figure 1.x. Spot of a point, this is from the sim result of Zeiss Planar 80mm f/2.8 in Zemax.</p>
+</div>
+
+In the figure above, an idealized point is placed at the left, emitting light *(this is modified for illustrational purposes, a truly ideal point has no diameter and is thus invisible to human)*. 
+
+The lights reaching the lens are refracted and focused together after exiting the lens. However, zooming in the image may reveal that the beams are not focused together, rather, they are offset to some degree, a common sign of spherical aberration. 
+
+An imager, shown as the dark green line in the figure, is placed right to the lens collecting the existing light. Due to the aberration, the collected image turned out to be a larger spot than the original point. 
+
+Figure 1.x and all the subsequent figures in this document all follow the tradition of showing light paths in a lens layout graph. The left side is the `object space`, light emitted from this side of the lens. After passing through the lens, lights enter the `image space` on the right, and finally reach the imager. 
+
 <br />
 
 ### 1.1 - Back Focal Distance and Telecentricity  
@@ -58,14 +79,14 @@ For lens design, BFD indriectly ties in with telecentricity. Below is the layout
 
 <div align="center">
 	<img src="resources/Jupiter12Layoutinf.png" width="512">
-  <p align="center">Figure 1.1. Jupiter-12 35mm f/2.8</p>
+  <p align="center">Figure 1.x. Jupiter-12 35mm f/2.8</p>
 </div>
 
 In comparison, longer BFD tend to force the exiting rays to be more telecentric, as demonstrated below: 
 
 <div align="center">
 	<img src="resources/Canon85LayoutInf.png" width="512">
-  <p align="center">Figure 1.2. Canon 85mm f/1.2</p>
+  <p align="center">Figure 1.x. Canon 85mm f/1.2</p>
 </div>
 
 Note that for the Canon lens in figure 1.2, the last surface is relatively far away from the image plane (long BFD), and the exiting ray at the top have a smaller oblique angle compare to the Jupiter lens. For a pure telecentirc lens, all the exiting rays will be parallel to the optical axis. 
@@ -78,7 +99,7 @@ With the advancement of technology, there are less and less reasons to keep the 
 
 <div align="center">
 	<img src="resources/FlangeChart.png" width="960">
-  <p align="center">Figure 1.3. Flange distance for different camera mounts. Showing only the main streams (there were a lot of main streams historically), some of the more proprietary and scarce mounts are omitted to save space</p>
+  <p align="center">Figure 1.x. Flange distance for different camera mounts. Showing only the main streams (there were a lot of main streams historically), some of the more proprietary and scarce mounts are omitted to save space</p>
 </div>
 
 The liberation of BFD also means that older lenses designed for rangefinder cameras, which tend to have a short BFD and consequently shorter flange distance, can now also be adapted and mounted onto mirrorless cameras. Due to the lack of mirror, even if a lens was originally designed for a system with even shorter flange distance, it can still be adapted onto new mirrorless cameras, such as putting an M42 lens onto a PL mount camera. From the technical aspect, this ensured that a vintage lens can be adapted onto almost any modern camera and is one of the driving forces for the resurgence. 
@@ -119,7 +140,7 @@ Although integrating the 3 Gaussian distribution can be more accurate in calcula
 
 <div align="center">
 	<img src="resources/OrthoPlusSp.png" width="360">
-  <p align="center">Figure 2.1. Ilford Ortho Plus Spectral Sensitivity</p>
+  <p align="center">Figure 2.x. Ilford Ortho Plus Spectral Sensitivity</p>
 </div>
 
 The image above showed the spectral sensitivity of [Ilford Ortho Plus](https://www.ilfordphoto.com/amfile/file/download/file/1948/product/1658) film. As can be seen, this type of film is sensitive to blue and green but not to red, red objects will appear black when shot on this film. 
