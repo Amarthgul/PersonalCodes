@@ -384,6 +384,27 @@ $$b = \frac{ \sqrt{B B\' \cdot AC} }{ 2 }$$
 
 Apparently, $AB$ can be accquired by subtracting the postion of the two points, and $BB\'$ can be calculated by exploiting the similarity between $PBB\'$ and $PCA$, it is also quite convenient since $AC$ is the clear diameter, i.e., $AC = 2d$. 
 
+There is still work to be done, the ellipse equation described above is 2D, but the ellipse in question is more than likely a 3D ellipse. This can be solved by applying 2 rotations, the first one rotates the ellipse along the $z$ axis so that its $x$ axis aligns with $AC$:
+
+$$\mathbf{R_1} = \begin{bmatrix}
+\cos \theta _1 & -\sin \theta _1 & 0 \\
+\sin \theta _1 & \cos \theta _1 & 0 \\
+0 & 0 &  1 \\
+\end{bmatrix}$$
+
+The second rotation happens around point $A$, the angle can be acquired by using the vector $\vec{AB}$ and $\vec{AC}$: 
+
+$$\theta _2 = \cos ^{-1} \left( \frac{\vec{AB} \cdot \vec{AC}}{ \left| \vec{AB} \right|  \left| \vec{AC} \right|} \right) $$
+
+We will also need the axis of rotation, for this second rotation this would be the unit vector in $xy$ plane perpendicular to $AC$, which can be easily accquired by $\mathbf{v} = \vec{AC} \times 
+ \left( 0, 0, 1  \right)$. In this way, we can get: 
+
+ $$\mathbf{R_2}=\begin{bmatrix}
+\cos \theta _2 +v _x ^2 \left( 1- \cos \theta _2 \right) & v _x v _y \left ( 1 - \cos \theta _2 \right )  & v _y \\
+v _x v _y\left ( 1- \cos \theta _2 \right ) & \cos \theta _2 + v _y ^2 \left( 1- \cos \theta _2 \right) & -v _x \\
+v _y \sin \theta _2 & v _x \sin \theta _2 &  \cos \theta _2 \\
+\end{bmatrix} $$
+
 ```C++
 // TODO: add handling for when the surface radius is large enought to cause occlusion  
 ```
