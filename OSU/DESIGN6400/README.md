@@ -384,26 +384,9 @@ $$b = \frac{ \sqrt{B B\' \cdot AC} }{ 2 }$$
 
 Apparently, $AB$ can be accquired by subtracting the postion of the two points, and $BB\'$ can be calculated by exploiting the similarity between $PBB\'$ and $PCA$, it is also quite convenient since $AC$ is the clear diameter, i.e., $AC = 2d$. 
 
-There is still work to be done, the ellipse equation described above is 2D, but the ellipse in question is more than likely a 3D ellipse. This can be solved by applying 2 rotations, the first one rotates the ellipse along the $z$ axis so that its $x$ axis aligns with $AC$:
+There is still work to be done, the ellipse equation described above is 2D (or, in the 2D $xy$ plane), but the ellipse in question resides in a true 3D space. This can be solved by simple 3D transformations. First, totate the ellipse to the right direction so that its semi-major axis align with the $AB$ line, the rotation angle can be easily determined by using the projection of point $P$. Next, move the ellipse so that it touches point $A$. At last, rotate the ellipse around point $A$ by the angle between $AB$ and $AC$. Since these are all general 3D transformation, the process ~~shall be left as a practice for the reader~~ is omitted here. 
 
-$$\mathbf{R_1} = \begin{bmatrix}
-\cos \theta _1 & -\sin \theta _1 & 0 \\
-\sin \theta _1 & \cos \theta _1 & 0 \\
-0 & 0 &  1 \\
-\end{bmatrix}$$
 
-The second rotation happens around point $A$, the angle can be acquired by using the vector $\vec{AB}$ and $\vec{AC}$: 
-
-$$\theta _2 = \cos ^{-1} \left( \frac{\vec{AB} \cdot \vec{AC}}{ \left| \vec{AB} \right|  \left| \vec{AC} \right|} \right) $$
-
-We will also need the axis of rotation, for this second rotation this would be the unit vector in $xy$ plane perpendicular to $AC$, which can be easily accquired by $\mathbf{v} = \vec{AC} \times 
- \left( 0, 0, 1  \right)$. In this way, we can get: 
-
- $$\mathbf{R_2}=\begin{bmatrix}
-\cos \theta _2 +v _x ^2 \left( 1- \cos \theta _2 \right) & v _x v _y \left ( 1 - \cos \theta _2 \right )  & v _y \\
-v _x v _y\left ( 1- \cos \theta _2 \right ) & \cos \theta _2 + v _y ^2 \left( 1- \cos \theta _2 \right) & -v _x \\
-v _y \sin \theta _2 & v _x \sin \theta _2 &  \cos \theta _2 \\
-\end{bmatrix} $$
 
 ```C++
 // TODO: add handling for when the surface radius is large enought to cause occlusion  
@@ -490,10 +473,18 @@ Attempting to disassemble the ray transfer matrix in 3D revealed that this appro
 
 While I initially thought the difficulty would only come when I try to recurse the lights, it ended up arriving much earlier. I realized that directly sampling from the clear diameter will result in unevenness (illustrated by figure 3.3). To avoid that, the sample should be based on an ellipse in the plane perpendicular to the incident angle. 
 
-The road to get that ellipse was quite difficult. I tried to do it step by step, first calculating the plane normal, then finding the plane equation, followed by finding the 2 coefficients for the ellipse. I also tried to use the different terms of the vectors to derive a direct expression of the ellipse, but it quickly got out of hand and out of page as well, some of the incredibly cumbersome equations can still be found in the snapshots. 
+The road to get that ellipse was quite difficult. I tried to do it step by step, first calculating the plane normal, then finding the plane equation, followed by finding the 2 coefficients for the ellipse. I also tried to use the different terms of the vectors to derive a direct expression of the ellipse, but it quickly got out of hand and out of page as well, some of the incredibly cumbersome equations can still be found in the snapshots. Later it occurred to me that with plane normal, line direction, a point on the line and a point on the plane, I could directly calculate the intersection and use triangle similarity to find the ellipse. Which finally ended my struggles that lasted for over over 2 days. 
 
-Later it occurred to me that with plane normal, line direction, a point on the line and a point on the plane, I could directly calculate the intersection and use triangle similarity to find the ellipse. Which finally ended my struggles that lasted for over 30 hours. 
+This enabled me to proceed to try sampling on this ellipse. Somehow there is no established algorithm on this subject, but some people online mentioned to use area increment to decide how many sample points to put into a certain area. Eventually I derived a layered-based sample method and was able to produce a fairly even sampling (method will be added later since I finished this only on Saturday). 
 
+<div align="center">
+	<img src="resources/J_02_PointsOnEllipse.png" width="280">
+  <p align="center">Journal Figure 2.1. Demo calculation result showing sampling points on a 3D ellipse. The red, green, and blue line shows the $x$, $y$, and $a$ axis, pointing to their positive direction respectively. </p>
+</div>
+
+In general, the planned goal for this week was to finish the "first surface sampling algorithm", I'd say this goal is accomplished. During the process I did realize that there are still drawbacks for the current methodology, like it cannot generate a correct and even sampling when the incident angle is too steep. But since the entire process is designed to be modular, I can come back and modify them later. The current priority should be moving forward and have a working prototype. 
+
+There was also a lot of time spent on adding more content on this document, particularly the first chapter. Writing those non-technical stuff ended up feeling more difficult than the technical ones, subjective narratives seem to require way more organization than objective inductions. 
 
 <br />
 
