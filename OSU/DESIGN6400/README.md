@@ -471,11 +471,13 @@ Up till this point, the project has been operating under the realm of geometric 
 
 Attempting to disassemble the ray transfer matrix in 3D revealed that this approach may not work, documented in chapter [3.1](#31---explore-ray-transfer-matrix). I then switched to using the more traditional ray casting approach, treating rays as vectors in 3D. 
 
-While I initially thought the difficulty would only come when I try to recurse the lights, it ended up arriving much earlier. I realized that directly sampling from the clear diameter will result in unevenness (illustrated by figure 3.3). To avoid that, the sample should be based on an ellipse in the plane perpendicular to the incident angle. 
+While I initially thought the difficulty would only come when I try to recursively propagate the lights through the lens, it ended up arriving much earlier. It appears that directly sampling from the clear diameter $d$ will result in unevenness around the edges (illustrated by figure 3.3). To avoid that, the sample should be based on an ellipse in the plane perpendicular to the incident angle. 
 
 The road to get that ellipse was quite difficult. I tried to do it step by step, first calculating the plane normal, then finding the plane equation, followed by finding the 2 coefficients for the ellipse. I also tried to use the different terms of the vectors to derive a direct expression of the ellipse, but it quickly got out of hand and out of page as well, some of the incredibly cumbersome equations can still be found in the snapshots. Later it occurred to me that with plane normal, line direction, a point on the line and a point on the plane, I could directly calculate the intersection and use triangle similarity to find the ellipse. Which finally ended my struggles that lasted for over over 2 days. 
 
-This enabled me to proceed to try sampling on this ellipse. Somehow there is no established algorithm on this subject, but some people online mentioned to use area increment to decide how many sample points to put into a certain area. Eventually I derived a layered-based sample method and was able to produce a fairly even sampling (method will be added later since I finished this only on Saturday). 
+This also led me to think: for me and for this project, the final implementation will be done by Python Numpy, which is fairly fast for matrix and array calculation. While it certainly will be good if I can simplify the calculations by disassembling a matrix element by element then eliminating certain terms, the time saved from these simplified calculations may not be fully justified by the time spent to derive them. 
+
+Anyways, finding the formula for the ellipse enabled me to proceed to try sampling on this ellipse. Somehow I found no established algorithm on this subject, but some people online mentioned to use area increment to decide how many sample points to put into a certain area. Eventually I derived a layered-based sample method and was able to produce a fairly even sampling (method will be added later since I finished this only on Saturday). 
 
 <div align="center">
 	<img src="resources/J_02_PointsOnEllipse.png" width="280">
@@ -485,6 +487,8 @@ This enabled me to proceed to try sampling on this ellipse. Somehow there is no 
 In general, the planned goal for this week was to finish the "first surface sampling algorithm", I'd say this goal is accomplished. During the process I did realize that there are still drawbacks for the current methodology, like it cannot generate a correct and even sampling when the incident angle is too steep. But since the entire process is designed to be modular, I can come back and modify them later. The current priority should be moving forward and have a working prototype. 
 
 There was also a lot of time spent on adding more content on this document, particularly the first chapter. Writing those non-technical stuff ended up feeling more difficult than the technical ones, subjective narratives seem to require way more organization than objective inductions. 
+
+And a slight tangent: I finally understand why some people prefer to do the calculations on a bigger surface like a whiteboard or a blackboard. The formulas I wrote on paper are barely recognizable and they get increasingly bad with more time spent on them. Whiteboards, on the other hand, have some magic that can sustain a long period of thinking and writing without significant deterioration of handwriting. I assume this is due to the bigger surface area uses more elbow movement than finger, which is easier to control for a long time. 
 
 <br />
 
