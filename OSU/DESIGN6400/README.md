@@ -21,7 +21,7 @@ The most recent updated section can be found [here](#32---sufrace-iteration). No
   - [3.1 - Explore Ray Transfer Matrix](#31---explore-ray-transfer-matrix)
   - [3.2 - Sufrace Iteration](#32---sufrace-iteration)
     - [3.2.1 - Object to 1st Surface](#321---object-to-1st-surface)
-    - [3.2.2 - Internal Surfaces](322---internal-surfaces)
+    - [3.2.2 - Iterate Through Surfaces](322---iterate-through-surfaces)
     - [3.2.3 - Image Plane](#323---image-plane)
   - [3.3 - Aspherical Surface](#33---aspherical-surface)
     - [3.3.1 - Even Aspheric](#331---even-aspheric)
@@ -262,7 +262,7 @@ Where $S$ is a scalar defined by $\mathbf{I}$ and $\mathbf{N}$:
 
 $$S = \sqrt{ 1 - \sigma^2 + \sigma^2 I_x^2 N_x^2 + \sigma^2 I_y^2 N_y^2 + \sigma^2 I_z^2 N_z^2 + 2 \sigma ^2 I_x I_y N_x N_y + 2 \sigma ^2 I_x I_y N_x N_y +2 \sigma ^2 I_z I_x N_z N_x }$$
 
-This turned out to be troublesome, terms like $\sigma ^2 I_x I_y N_x N_y$ makes it very hard to rearrange $S$ such that there exists a matrix $M$ that satisfies $\mathbf{R} = \mathbf{M} \cdot \mathbf{I}$. This also indicates that the different terms in the incident vector in 3D are not independent from each other upon refraction, which makes sense. To summarize, **in a 3D setting without the paraxial approximation, the ray transfer matrix may not work**. 
+This turned out to be troublesome, terms like $\sigma ^2 I_x I_y N_x N_y$ makes it very hard to rearrange $S$ such that there exists a matrix $M$ that satisfies $\mathbf{R} = \mathbf{M} \cdot \mathbf{I}$ (While Taylor Expansion may help with this situation, it will add significantly more work here and consequently further slowing down the development).  This also indicates that the different terms in the incident vector in 3D are not independent from each other upon refraction, which makes sense. To summarize, **in a 3D setting without the paraxial approximation, the ray transfer matrix may not work**. 
 
 Luckily, this is not the end of the story. Not being able to obtain a matrix multiplication form of refraction simply means that the program may have to iterate through every surface instead of aggregate all the surfaces together, it will take more time, but still doable. 
 
@@ -394,17 +394,17 @@ There is still work to be done, the ellipse equation described above is 2D (or, 
 
 Next step is to sample this ellipse. The most intuitive way is to use a random distribution, but this would require a fairly high sample count in order to look more even. To achieve even sampling with small sample count, an area-based sampling is adopted. 
 
-First, determine how many rings will be used in the sample, each ring is a concentric ellipse on which sample point will be placed. Then, the unit radius is divided by the number of rings to acquire each step length. Starting from the innermost ring ($step lenth = 1$), calculate the increment in area (the delta area). Divide this delta area with a constant to get the number of sample points on this ring, and use polar coordinates to locate these sample points. 
-
-Those points can then be transform in the same way as the ellipse, connecting them with point $P$ and we will have a relatively even projection from P to the surface. 
+First, determine how many rings will be used in the sample, each ring is a concentric ellipse on which sample point will be placed. Then, the unit radius is divided by the number of rings to acquire each step length. Starting from the innermost ring ($step lenth = 1$), calculate the increment in area (the delta area). Divide this delta area with a constant to get the number of sample points on this ring, and use polar coordinates to locate these sample points. Those sample points can then be transform in the same way as the ellipse to accuquire the ray points. 
 
 ```C++
-// TODO: add handling for when the surface radius is large enought to cause occlusion. Find a way to factor in the 2 different axis lenth of the ellipse. 
+// TODO: add handling for when the surface radius is large enought to cause occlusion. Find a way to factor in the 2 different axis lenth of the ellipse. Note that the current sampling method essentially works the same as the paraxial assumption, just more accurate in the angles. 
 ```
+
+With the sample points, we can then cast vectors  from point P to them and generate a bunch of rays. The next step would be determining where they ray intersects with the lens surfaces. 
 
 <br />
 
-#### 3.2.2 - Internal Surfaces
+#### 3.2.2 - Iterate Through Surfaces
 
 Placeholder 
 
