@@ -132,10 +132,6 @@ These values also allows us to make comparisons with patents much easier, since 
 
 $$v_D = \frac{n _d - 1}{n _F - n _C}$$
 
-<br />
-
-### 2.1 - Selecting the Distribution 
-
 Although integrating the 3 Gaussian distribution can be more accurate in calculating the color shift and tint in an optical system, it faces some challenges at the end of the system. Consider the case of an orthochromatic film:
 
 <div align="center">
@@ -149,7 +145,17 @@ The integrated spectral distribution will be clipped by the spectral sensitivity
 
 Another significant influencer is **Metamerism**, while two colors may be perceived the same, the actual composition of wavelengths and their intensities may be different. This is particularly true for colors that look warm due to the large overlapping wavelength for human green and red cod cells. On the flip side, blue rod cells caps at around 470 nm, making wavelengths shorter than that rather deterministic (also the reason why wavelengths at the shorter end in the CIE 1931 chart are located on a near straight line). 
 
-When considering all these factors, Gaussian distribution may be hard to reconstruct after the initial disassembly. For now 
+When considering all these factors, Gaussian distribution may be hard to reconstruct after the initial disassembly. 
+
+<br />
+
+### 2.1 - Selecting the Distribution 
+
+What was presented previously was but an extremely peripheral survey on color and wavelength, a comprehensive discussion may still feel short given a book’s length. Depending on the standard, there can be a pyramid of methods in how to convert between RGB color and wavelength. 
+
+However,  color and wavelength relation does not mean there is a causation. The current simplification of RGB from wavelength can be dated back to 1927 with the standard overserver experiment. And the modern implementation varies, with standards like Rec. 709 and Rec. 2020 etc. 
+
+
 
 ```C++
 // TODO: add equations for linear disassembly based on distance 
