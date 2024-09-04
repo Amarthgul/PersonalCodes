@@ -472,8 +472,24 @@ Up till this point, the project has been operating under the realm of geometric 
 
 ## Journals
 
+Parenthesis marks the Monday of that week for easier identification. 
+
+- [Week 4 (Sept 8th)](#week-4)
+- [Week 3 (Sept 1st)](#week-3)
 - [Week 2 (Aug 26th)](#week-2)
 - [Week 1 (Aug 19th)](#week-1)
+
+### Week 4
+
+Placeholder - summing the spots passed through the lens into an image. 
+
+<br />
+
+### Week 3
+
+inter-surface sequential propagation 
+
+<br />
 
 ### Week 2
 
