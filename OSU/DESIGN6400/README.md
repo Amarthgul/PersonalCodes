@@ -406,7 +406,39 @@ With the sample points, we can then cast vectors  from point P to them and gener
 
 #### 3.2.2 - Iterate Through Surfaces
 
-Placeholder 
+A typical sphere in 3D is expressed as:
+
+$$\left( x - x _c \right) ^2 + \left( y - y _c \right) ^2 + \left( z - z _c \right) ^2 = r ^2$$
+
+In last chapter, we calculated the position of the sample points on the ellipse, which enables us to derive the vectors. Let us say there is a ray emitting from $\mathbf{p _P} = \left( x _0, y _0, z _0 \right) ^ T$, at the direction $\mathbf{v} = \left( x _v, y _v, z _v  \right) ^ T$, it can be shown that the parametric form of the intersection equation is:
+
+$$A t ^2 + B t + C = 0$$
+
+Where: 
+
+- $$A = v _x ^2 + v _y ^2 + v _z ^2 $$
+
+- $$B = 2 \left( \left( x _0 - x_c  \right) v _x + \left( y _0 - y _c  \right) v _y + \left( z _0 - z _c  \right) v _z \right)  $$
+
+- $$C = \left( x _0 - x_c  \right) ^2 + \left( y _0 - y _c  \right) ^2 + \left( z _0 - z _c  \right) ^2 $$
+
+It is then possible to calculate: 
+
+$$t = \frac{ -B \pm \sqrt{ B ^2 - 4 AC } }{ 2A }$$
+
+And accquire the intersection point with: 
+
+$$\begin{pmatrix} 
+x \\ 
+y \\
+z \\
+\end{pmatrix} = \begin{pmatrix} 
+x _0 + t v _x \\ 
+y _0 + t v _y \\
+z _0 + t v _z\\
+\end{pmatrix}$$
+
+Note that unless the line is in tangent with the sphere, there are 2 intersections. However, since the intersection that the ray hits is deterministic, there is only one point that is correct. 
 
 <br />
 
