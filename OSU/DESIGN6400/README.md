@@ -417,9 +417,7 @@ $$A t ^2 + B t + C = 0$$
 Where: 
 
 - $$A = v _x ^2 + v _y ^2 + v _z ^2 $$
-
 - $$B = 2 \left( \left( x _0 - x_c  \right) v _x + \left( y _0 - y _c  \right) v _y + \left( z _0 - z _c  \right) v _z \right)  $$
-
 - $$C = \left( x _0 - x_c  \right) ^2 + \left( y _0 - y _c  \right) ^2 + \left( z _0 - z _c  \right) ^2 $$
 
 It is then possible to calculate: 
@@ -438,7 +436,14 @@ y _0 + t v _y \\
 z _0 + t v _z\\
 \end{pmatrix}$$
 
-Note that unless the line is in tangent with the sphere, there are 2 intersections. However, since the intersection that the ray hits is deterministic, there is only one point that is correct. 
+Note that depending on the direction of the vector and the point it originated from, there can be three cases of intersection: 
+
+- No intersection. When the distance between the line (formed by the vector and the point) to the sphere’s center is bigger than the radius.  
+- 1 intersection. When the line is in tangent with the sphere. 
+- 2 intersections. When the distance is smaller than the radius. 
+
+However, since a surface is only 1 side of the sphere, the 2 intersections scenario needs to be modified to only have 1 intersection. This can be done by comparing the surface curvature and deduce the value range of the surface on the $z$ axis, the interaction within this range will be the true interaction. 
+
 
 <br />
 
