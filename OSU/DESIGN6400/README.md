@@ -524,7 +524,22 @@ Placeholder - summing the spots passed through the lens into an image.
 
 ### Week 3
 
-inter-surface sequential propagation 
+The goal of this week is to find a way to propagate rays from one surface to another. And since it is the only refractive model in geometrical optics I’m considering, the derivation process turned out to be very easy, as described in section [3.1](#31---explore-ray-transfer-matrix). This week I managed to finish a spherical surface defnition that could calculate the effective zone of the sperical surface (since for a lens, its surface is only part of a sphere, not the entire sphere) and use it to calculate the intersections. 
+
+There are several things I came to realize this week: 
+
+- There need to be a lens class (and a surface sub-class) so that rays propagating through can make inquiry of the lens at any time.
+- The reflective index of the given wavelength needs to be caulcated by material properties, this turned out to be a bit cumbersome to do. For example, the	BK7HT glass from Schott is described using the Sellmeier equation in its datasheet. In order to find the refractive index of a given wavelength in this glass, I would need to have a database that records the paramters for BK7HT's Sellmeier coefficients and use it to calculate the refractive index.
+- While mathematically the calculator of the sample points may be correct, they don’t stay this way in the programming side. Due to rounding errors, things that are on edge may end up getting pruned or become ineffective. An additional tolerance need to be implemented to make it also work in the code. 
+
+I also decided to move some of the testing codes into a new project and no longer rely on the Google Colab. This way I no longer need to cramp all the codes in one file and can now referencing them freely. 
+
+<div align="center">
+	<img src="resources/J_03_1stDurfaceProjection.png" width="280">
+  <p align="center">Journal Figure 3.1. The sample points converted to vectors and projected onto the spherical surface. </p>
+</div>
+
+In general, this week received fewer visible updates than I would liked to, but I think the overall progression is still on par. 
 
 <br />
 
