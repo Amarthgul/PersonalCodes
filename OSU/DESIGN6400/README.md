@@ -444,6 +444,11 @@ Note that depending on the direction of the vector and the point it originated f
 
 However, since a surface is only 1 side of the sphere, the 2 intersections scenario needs to be modified to only have 1 intersection. This can be done by comparing the surface curvature and deduce the value range of the surface on the $z$ axis, the interaction within this range will be the true interaction. 
 
+After that, the refraction can be calculated by the vector refraction formula: 
+
+$$ \mathbf{R}=\frac{n_1}{n_2}\left ( \mathbf{I} - \left ( \mathbf{I} \cdot \mathbf{N} \right ) \mathbf{N} \right ) - \mathbf{N} \sqrt{ 1 - \left ( \frac{n_1}{n_2} \right ) ^{2} \left ( 1 -  \left( \mathbf{I} \cdot \mathbf{N} \right )^{2} \right ) }$$
+
+
 
 <br />
 
@@ -540,6 +545,8 @@ I also decided to move some of the testing codes into a new project and no longe
 </div>
 
 In general, this week received fewer visible updates than I would liked to, but I think the overall progression is still on par. 
+
+Some other not so directly related findings include that GitHub markdown seems to not support tagging, so I cannot put an index for the equations. This is mildly troublesome since I cannot refer to a specific formula by saying something like “substitute the terms using equation 3.22, we can get…”, it also makes locating the equations a bit tricky. 
 
 <br />
 
