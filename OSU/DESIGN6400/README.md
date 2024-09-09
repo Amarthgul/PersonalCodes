@@ -213,10 +213,6 @@ One way to work around that might be to use vectors to represent the ray directi
 
 $$ \mathbf{R}=\frac{n_1}{n_2}\left ( \mathbf{I} - \left ( \mathbf{I} \cdot \mathbf{N} \right ) \mathbf{N} \right ) - \mathbf{N} \sqrt{ 1 - \left ( \frac{n_1}{n_2} \right ) ^{2} \left ( 1 -  \left( \mathbf{I} \cdot \mathbf{N} \right )^{2} \right ) }$$
 
-In a similar way, the reflection vector can be defined as: 
-
-$$\mathbf{R}=\mathbf{I}-2 \left ( \mathbf{I} \cdot \mathbf{N} \right ) \mathbf{N}$$
-
 To use these vector equations in the same way as the ray transfer matrix, there need to be a matrix $\mathbf{M}$ such that: 
 
 $$\mathbf{R} = \mathbf{M} \cdot \mathbf{I}$$
@@ -448,7 +444,11 @@ After that, the refraction can be calculated by the vector refraction formula:
 
 $$ \mathbf{R}=\frac{n_1}{n_2}\left ( \mathbf{I} - \left ( \mathbf{I} \cdot \mathbf{N} \right ) \mathbf{N} \right ) - \mathbf{N} \sqrt{ 1 - \left ( \frac{n_1}{n_2} \right ) ^{2} \left ( 1 -  \left( \mathbf{I} \cdot \mathbf{N} \right )^{2} \right ) }$$
 
+In a similar way, the reflection vector can be defined as: 
 
+$$\mathbf{R}=\mathbf{I}-2 \left ( \mathbf{I} \cdot \mathbf{N} \right ) \mathbf{N}$$
+
+Note that the reflection does not involve refractive index at this point, polarization is also not considered due to the simple geometric optics assumptions. 
 
 <br />
 
