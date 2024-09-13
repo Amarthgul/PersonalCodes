@@ -454,7 +454,27 @@ Note that the reflection does not involve refractive index at this point, polari
 
 #### 3.2.3 - Image Plane 
 
-Placeholder
+While the image plane can be viewed as a mere spherical surface with infinity radius, the calculation method may vary. For simplicity, a flat image plane can be viewed as a 3D plane. And assume there is no tilt shift happening (which will be addressed later), the plane can be expressed as simple as:
+
+$$z=z_0$$
+
+As such, the intersection between the image plane and the rays can be easily calculated by substituting the z value. 
+
+But to acquire an image, much more work is needed. 
+
+First, the data structure will need to be modified. The data propagated through the surfaces need to be augmented to contain information. We may design it as: 
+
+$$\mathbf{r}=\left(  x,\\ y, \\ z, \\ v _x, \\ v _y, \\ v _z, \\ \lambda, \\ \Phi, \\ i, \\ b _s \right) ^T$$
+
+In those components: 
+
+- $x$, $y$, and $z$ are the location of the base point of rays, typically their position on a surface. $v _x$, $v _y$ and $v _z$ are the vector directions. These 2 sets of parameters can be used to express the position and direction of rays. 
+- $\lambda$ is the wavelength, which is used to calculate the refraction index.
+- $\Phi$ can be treated as the radiant, i.e., the number of photons per unit time. But it can also be viewed as a normal unitless scalar representing the intensity of the the ray at the given wavelength. 
+- $i$ is an index denoting which surface this ray is currently in. It means the ray is currently behind a certain surface but not into the next surface.This can help determining the relative location of the ray more easily then using the position and direction. 
+- $b _s$ is boolean variable, with `True` meaning the given ray is propogating sequentially, and `False` meaning the ray is no longer treavling sequentially, i.e., reflected or vignetted. This can be helpful making the lens more art directable by isolating the propogation type. 
+
+The first 6 terms are the ones used previously when discussing the propagation of rays, and they can be easily adapted into the new system. The later terms are for image formation and to provide more control over the selection of rays. 
 
 <br />
 
@@ -523,7 +543,12 @@ Parenthesis marks the Monday of that week for easier identification.
 
 ### Week 4
 
-Placeholder - summing the spots passed through the lens into an image. 
+The semester plan was to use the first 5 weeks on pure theoritical algorithms, only then start the programming implementation. However, just as a mean of validation, I tried to write a Python method of every algorithm written in the main article (hence the demo images in previous weeks' journals). 
+
+And it is because of the coding part that I realized the current algorithm does not address certain problems, primarily Total Interanl Reflection and Vignette. 
+
+
+The key event of this week is that I decided I need a new data stucture to perform the calculation. 
 
 <br />
 
