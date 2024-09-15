@@ -543,12 +543,28 @@ Parenthesis marks the Monday of that week for easier identification.
 
 ### Week 4
 
-The semester plan was to use the first 5 weeks on pure theoritical algorithms, only then start the programming implementation. However, just as a mean of validation, I tried to write a Python method of every algorithm written in the main article (hence the demo images in previous weeks' journals). 
+The semester plan was to use the first 5 weeks on pure theoritical algorithms, only then start the programming implementation. However, just as a mean of validation, I tried to write a Python method of every algorithm written in the main article, somehow they worked togther, hence the demo images in previous weeks' journals. And it is because of the coding part that I realized the current algorithm does not address certain problems, primarily Total Interanl Reflection and Vignette. 
 
-And it is because of the coding part that I realized the current algorithm does not address certain problems, primarily Total Interanl Reflection and Vignette. 
+In section [3.1](#31---explore-ray-transfer-matrix) I have noted that ray transfer matrix seems to be a dead end for more accurate simulations. What I did not say is that for most programming languages, array operations typically have faster support than the same elements in the array but are iterated one by one. For this reason, the data structure in these algorithms should still better be designed in a form that can be written as array operations. But since this is technically a programming language dependent concern, I have not explicitly written this into the documentation. 
 
+<div align="center">
+	<img src="resources/J_04_singletRefraction.png" width="280">
+  <p align="center">Journal Figure 4.1. Monochromatic rays passing through a single lens with RI 1.5 and converging behind. </p>
+</div>
 
-The key event of this week is that I decided I need a new data stucture to perform the calculation. 
+Now that I can achieve ray propagation to some degree (as shown in the figure above), I realized something else. It is quite easy for rays to be vignetted or experience total internal reflection. In these two cases, the rays will then be unable to directly travel to the next surface, thus becoming non-sequential. 
+
+(reminder that sequential means the ray will travel from one surface to the next and never returns)
+
+Mathematically non-sequential rays are not a problem, but coding-wise they are. Because these non-sequential rays were once sequential and were in the same array. It is very tricky to handle 2 different types of rays in 1 array. As such, I decided I need a new data structure to perform the calculation. The new structure is described at the beginning of section [3.2.3](#323---image-plane) and is still work in progress. 
+
+This could be my advantage in designing stuff, at the same my Hamartia. I don’t believe I am physically capable of thinking of a thing without considering its tangents and contexts. I cannot evaluate an idea purely for the idea's sake, its origin, its cause, its implications and implementation (even non-existence at the time) will all be considered. In other words, my way of working tends to contain feedback from outside of the current time and scope. 
+
+Just in this project and just so far, this habit has saved me from committing several mistakes and have corrected several oversights. But at the same time, it also means that my claim of making the theories `"completely programming language invariant"` is untrue, I am biased by the languages I know/use. I can say with confidence that I do not regret the choices I made, they are always the local optimal. If I was sent back in time, unless there is new information available that I did not know, I would make the same decision again. But I am factually not a clairvoyant and won’t be able to foresee the future with 100% accuracy (I genuinely think knowing the future is logically incoherent), it is possible that I will be constrained by another step that has not yet manifested itself, prematurely making adjustments that may not be true when that step eventually arrives. 
+
+It is somewhat hilarious that this thinking method itself is telling me its shortcomings but at the same time convincing me that keep employing it is the best thing I can do for now. 
+
+-> Back to [journal selection](#journals)
 
 <br />
 
@@ -572,6 +588,8 @@ I also decided to move some of the testing codes into a new project and no longe
 In general, this week received fewer visible updates than I would liked to, but I think the overall progression is still on par. 
 
 Some other not so directly related findings include that GitHub markdown seems to not support tagging, so I cannot put an index for the equations. This is mildly troublesome since I cannot refer to a specific formula by saying something like “substitute the terms using equation 3.22, we can get…”, it also makes locating the equations a bit tricky. 
+
+-> Back to [journal selection](#journals)
 
 <br />
 
@@ -602,6 +620,8 @@ In general, the planned goal for this week was to find a first surface sampling 
 
 During the process I did realize that there are possible drawbacks for the current methodology, like it cannot generate a correct and even sampling when the incident angle is too steep, and if the curvature of the first surface is too big, this method also cannot account for the surface occlusion. But since the entire process is designed to be modular, I can come back and modify them later. The current priority should be to keep moving forward and have a working prototype as soon as possible. 
 
+-> Back to [journal selection](#journals)
+
 <br />
 
 ### Week 1
@@ -611,6 +631,8 @@ During the process I did realize that there are possible drawbacks for the curre
 This week was mostly spent on setting up this markdown document and some initialization work for the course. The table of content was drafted according to my estimation and will hopefully provide a directional guide in the rest of the semester. In this documentation I have been working on the first several chapters, particularly the first introductory chapter, preparing it for the next research proposal assignment.  
 
 For now, I intend to spend the first 5 weeks on the math part, establishing a theoretical foundation for the later implementation (paper prototype, one can say). Although some degree of implementation may be attempted. 
+
+-> Back to [journal selection](#journals)
 
 <br />
 
