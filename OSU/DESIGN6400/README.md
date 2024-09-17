@@ -536,10 +536,19 @@ Up till this point, the project has been operating under the realm of geometric 
 
 Parenthesis marks the Monday of that week for easier identification. 
 
+- [Week 5 (Sept 15th)](#week-5)
 - [Week 4 (Sept 8th)](#week-4)
 - [Week 3 (Sept 1st)](#week-3)
 - [Week 2 (Aug 26th)](#week-2)
 - [Week 1 (Aug 19th)](#week-1)
+
+### Week 5
+
+Next TODO: fix the ellipse rotation  
+
+-> Back to [journal selection](#journals)
+
+<br />
 
 ### Week 4
 
