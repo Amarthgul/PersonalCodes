@@ -272,7 +272,7 @@ Before feeding a ray into the lens, the surfaces must be defined. A typical sphe
 
 - **Material**. A material attribute is used instead of $n_D$ and $v_D$ since refraction and reflectance vary by wavelength, using material could ensure that refractive index can be freely calculated depending on the wavelength. This attribute is presented in the form of a `string` like `LASFN1`, a look-up table is used to retrive the parameters of the material. 
 
-- **Clear semi-diameter** $d$. The name “semi-diameter” is borrowed from Zemax, it essentially describes the working radius of the surface, calculated by height from the optical axis. Radius larger than that will be treated as a flat plane perpendicular to the axis. This value is non-negative, and for a lens group with 2 or more surfaces (such as a doublet), the clear semi-diameter of the first surface will be used for the rest of surfaces as well. 
+- **Clear semi-diameter** $sd$. The name “semi-diameter” is borrowed from Zemax, it essentially describes the working radius of the surface, calculated by height from the optical axis. Radius larger than that will be treated as a flat plane perpendicular to the axis. This value is non-negative, and for a lens group with 2 or more surfaces (such as a doublet), the clear semi-diameter of the first surface will be used for the rest of surfaces as well. 
 
 - **Edge chamfer** $c$. At the edge of the clear semi-diameter, a 45 degree chamfer can be applied. The positive chamfer value points to the positive $z$ direction, which means this value should be either 0 or having the opposite sign of $r$.  For a lens group with 2 or more surfaces, only the first and last sufrace's chamfer will be calculated. 
 
@@ -324,17 +324,19 @@ To make it clearer, below is the figure presented in a more 3D enviroment:
   <p align="center">Figure 3.4. The cone in 3D.</p>
 </div>
 
+Note that the figure above represents a surface with $r=\infty$, i.e., a plane. Since the first vertex is the origin, the location of the circle on $z$ axis will be offset a bit depending on the radius and clear semi-diameter. 
+
 Let the location of the point $P$ to be:
 
 $$p _P = \left( p_x, p_y, p_z \right) ^ T$$
 
-Then, the position of point $A$ and $C$ can be accquired by timing the clear semi-diamater $d$ with the normalized $xy$ directional vector: 
+Then, the position of point $A$ and $C$ can be accquired by timing the clear semi-diamater $d$ with the normalized $xy$ directional vector. There $z$ coordinate can be accquired by using Pythagorean theorem using radius and clear semi diameter: 
 
 $$p _A = d \frac{\left( p_x, p_y, 0 \right) ^ T}{\left|  \left( p_x, p_y, 0 \right) ^ T \right|} =
 \begin{pmatrix} 
 d p_x / \sqrt{p_x ^ 2 + p_y ^ 2} \\ 
 d p_y / \sqrt{p_x ^ 2 + p_y ^ 2} \\
-0 \\
+r - \sqrt{r ^2 - sd ^2} \\
 \end{pmatrix}$$
 
 and:
@@ -343,7 +345,7 @@ $$p _C = d \frac{\left( -p_x, -p_y, 0 \right) ^ T}{\left|  \left( -p_x, -p_y, 0 
 \begin{pmatrix} 
 -d p_x / \sqrt{p_x ^ 2 + p_y ^ 2} \\ 
 -d p_y / \sqrt{p_x ^ 2 + p_y ^ 2} \\
-0 \\
+r - \sqrt{r ^2 - sd ^2} \\
 \end{pmatrix}$$
 
 This makes it possible to calculate $\vec{PA}$ and $\vec{PC}$. Let $\mathbf{\hat{a}}$ and $\mathbf{\hat{c}}$ to denote the normalized $\vec{PA}$ and $\vec{PC}$, then the direction of vector $\vec{PD}$ can be accquired by simply averging them: 
@@ -510,7 +512,7 @@ In [chapter 3.2.3](#323---image-plane) it is already discussed how to intersect 
 
 ### 4.1 - Tilt and Shift
 
-Aside from simple 3D transformation, a big effect tilt-shift has is the potential of color shift for digital sensors. This is caused by the depth of the photosite well, which will be the focus here in this chapter. 
+Aside from simple 3D transformation, a big effect tilt-shift has is the potential of color shift for digital sensors. This is caused by the depth of the photosite well and the microlens in front of it, which will be the focus here in this chapter. 
 
 <br />
 
@@ -544,7 +546,7 @@ Parenthesis marks the Monday of that week for easier identification.
 
 ### Week 5
 
-Next TODO: fix the ellipse rotation  
+A simple flip of the first surface radius from positive to negative, i.e., from a convex to concave, and the program failed, it still ran but the result is incorrect. To determine the cause I spent roughly another two days as every fix seemed to have a ripple effect that either triggers something else to fail or reveals more faulty designs. 
 
 -> Back to [journal selection](#journals)
 
