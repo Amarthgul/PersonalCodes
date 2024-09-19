@@ -156,10 +156,50 @@ What was presented previously was but an extremely peripheral survey on color an
 However,  color and wavelength relation does not mean there is a causation. The current simplification of RGB from wavelength can be dated back to 1927 with the standard overserver experiment. And the modern implementation varies, with standards like Rec. 709 and Rec. 2020 etc. 
 
 
-
 ```C++
 // TODO: add equations for linear disassembly based on distance 
 ```
+
+### 2.2 - Dispersion 
+
+One of the most important aspect of determining the wavelength is to use it in calculating the refraction index of this wavelength in a certain material, different wavelenth will have different refraction index in the same material, i.e., dispersion. 
+
+The dispersion characteristic of a material can be described using several different formulas listed below (listing only the common ones): 
+
+- **Schott** 
+
+$$n ^2 = a _0 + a _1 \lambda ^ 2 + a _2 \lambda ^ {-2} + a _3 \lambda ^ {-4} + a _4 \lambda ^ {-6} + a _5 \lambda ^ {-8}$$
+
+- **Sellmeier 1** 
+
+$$n ^2 - 1 = \frac{K _1 \lambda ^2}{\lambda ^2 - L _1} + \frac{K _2 \lambda ^2}{\lambda ^2 - L _2} + \frac{K _3 \lambda ^2}{\lambda ^2 - L _3}$$
+
+- **Sellmeier 3** 
+
+$$n ^2 - 1 = \frac{K _1 \lambda ^2}{\lambda ^2 - L _1} + \frac{K _2 \lambda ^2}{\lambda ^2 - L _2} + \frac{K _3 \lambda ^2}{\lambda ^2 - L _3} + \frac{K _4 \lambda ^2}{\lambda ^2 - L _4}$$
+
+- **Sellmeier 4** 
+
+$$n ^2 = A + \frac{B \lambda ^2}{\lambda ^2 - C} + \frac{D \lambda ^2}{\lambda ^2 - E}$$
+
+- **Herzberger**
+
+$$n=A + BL + CL ^2 + D \lambda ^2 + E \lambda ^4 + F \lambda ^6$$
+
+$$L = \frac{1}{\lambda ^2 - 0.028}$$
+
+- **Conrady**
+
+$$n=n _0 + \frac{A}{\lambda} + \frac{B}{\lambda ^ {3.5}}$$
+
+- **Extended 2**
+
+$$n ^2 = a _0 + a_1 \lambda ^2  + a_2 \lambda ^{-2} + a_3 \lambda ^ {-4} + a_5 \lambda ^{-8} + a_6 \lambda ^4 + a_1 \lambda ^2 + a_7 \lambda ^6$$
+
+- **Extended 3**
+
+$$n ^2 = a _0 + a_1 \lambda ^2  + a_2 \lambda ^{4} + a_3 \lambda ^ {-2} + a_5 \lambda ^{-4} + a_6 \lambda ^{-6} + a_1 \lambda ^{-8} + a_7 \lambda ^{-10} + a _8 \lambda ^{-12}$$
+
 
 <br />
 
