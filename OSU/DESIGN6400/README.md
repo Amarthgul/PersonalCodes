@@ -170,21 +170,31 @@ The dispersion characteristic of a material can be described using several diffe
 
 $$n ^2 = a _0 + a _1 \lambda ^ 2 + a _2 \lambda ^ {-2} + a _3 \lambda ^ {-4} + a _4 \lambda ^ {-6} + a _5 \lambda ^ {-8}$$
 
+This is probably one of the most commonly used optical materials. 
+
 - **Sellmeier 1** 
 
 $$n ^2 - 1 = \frac{K _1 \lambda ^2}{\lambda ^2 - L _1} + \frac{K _2 \lambda ^2}{\lambda ^2 - L _2} + \frac{K _3 \lambda ^2}{\lambda ^2 - L _3}$$
+
+For describing optical materials, Sellmeier 1 can be seen as often as Schott. 
 
 - **Sellmeier 3** 
 
 $$n ^2 - 1 = \frac{K _1 \lambda ^2}{\lambda ^2 - L _1} + \frac{K _2 \lambda ^2}{\lambda ^2 - L _2} + \frac{K _3 \lambda ^2}{\lambda ^2 - L _3} + \frac{K _4 \lambda ^2}{\lambda ^2 - L _4}$$
 
+Very few optical glasses uses Sellmeier 3 to describe their dispersion characteristics, and for the ones that do use them, they're typically materials for optical systems designed for UV range. 
+
 - **Sellmeier 4** 
 
 $$n ^2 = A + \frac{B \lambda ^2}{\lambda ^2 - C} + \frac{D \lambda ^2}{\lambda ^2 - E}$$
 
+Sellmeier 4 has been used primarily in birefringent materials. Since polarization is less disscussed here in this applciation, Sellmeier 4 will also receive less attention. 
+
 - **Herzberger**
 
 $$n=A + BL + CL ^2 + D \lambda ^2 + E \lambda ^4 + F \lambda ^6$$
+
+Herzberger formula is quite similar to Sellmeier 3, the difference is that Herzberger formula is used more in materials for optical systems in IR range.  
 
 $$L = \frac{1}{\lambda ^2 - 0.028}$$
 
