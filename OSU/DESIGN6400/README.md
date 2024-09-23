@@ -323,7 +323,7 @@ Before feeding a ray into the lens, the surfaces must be defined. A typical sphe
 
 - **Material**. A material attribute is used instead of $n_D$ and $v_D$ since refraction and reflectance vary by wavelength, using material could ensure that refractive index can be freely calculated depending on the wavelength. This attribute is presented in the form of a `string` like `LASFN1`, a look-up table is used to retrive the parameters of the material. 
 
-- **Clear semi-diameter** $sd$. The name “semi-diameter” is borrowed from Zemax, it essentially describes the working radius of the surface, calculated by height from the optical axis. Radius larger than that will be treated as a flat plane perpendicular to the axis. This value is non-negative, and for a lens group with 2 or more surfaces (such as a doublet), the clear semi-diameter of the first surface will be used for the rest of surfaces as well. 
+- **Clear semi-diameter** $s _d$. The name “semi-diameter” is borrowed from Zemax and similar optical design software, it essentially describes the working radius of the surface, calculated by height from the optical axis. Radius larger than that will be treated as a flat plane perpendicular to the axis. This value is non-negative, and for a lens group with 2 or more surfaces (such as a doublet), the clear semi-diameter of the first surface will be used for the rest of surfaces as well. 
 
 - **Edge chamfer** $c$. At the edge of the clear semi-diameter, a 45 degree chamfer can be applied. The positive chamfer value points to the positive $z$ direction, which means this value should be either 0 or having the opposite sign of $r$.  For a lens group with 2 or more surfaces, only the first and last sufrace's chamfer will be calculated. 
 
@@ -387,7 +387,7 @@ $$p _A = d \frac{\left( p_x, p_y, 0 \right) ^ T}{\left|  \left( p_x, p_y, 0 \rig
 \begin{pmatrix} 
 d p_x / \sqrt{p_x ^ 2 + p_y ^ 2} \\ 
 d p_y / \sqrt{p_x ^ 2 + p_y ^ 2} \\
-r - \sqrt{r ^2 - sd ^2} \\
+r - \sqrt{r ^2 - s _d ^2} \\
 \end{pmatrix}$$
 
 and:
@@ -396,7 +396,7 @@ $$p _C = d \frac{\left( -p_x, -p_y, 0 \right) ^ T}{\left|  \left( -p_x, -p_y, 0 
 \begin{pmatrix} 
 -d p_x / \sqrt{p_x ^ 2 + p_y ^ 2} \\ 
 -d p_y / \sqrt{p_x ^ 2 + p_y ^ 2} \\
-r - \sqrt{r ^2 - sd ^2} \\
+r - \sqrt{r ^2 - s _d ^2} \\
 \end{pmatrix}$$
 
 This makes it possible to calculate $\vec{PA}$ and $\vec{PC}$. Let $\mathbf{\hat{a}}$ and $\mathbf{\hat{c}}$ to denote the normalized $\vec{PA}$ and $\vec{PC}$, then the direction of vector $\vec{PD}$ can be accquired by simply averging them: 
