@@ -605,6 +605,8 @@ There turned out to be a series of problems. To start, the ellipse projection al
   <p align="center">Journal Figure 5.1. Corrected ellipse projection. </p>
 </div>
 
+Formulas in section [3.2.1](#321---object-to-1st-surface) are also corrected to reflect this change. 
+
 After that, there are also a lot of places in which the sign of the radius is not properly calculated or downright ignored. And after correcting these, the program is able to run correctly (as far as i can tell). A pruning algorithm is also added to separate the lights that cannot propagate to the next surface or have too steep an angle and become total internal reflections (TIR). 
 
 Another advancement is the implementation of the material system. After starting the new data structure, I no longer have manual control over every process and thus cannot feed the index of refraction into the refraction calculation part. It took some time but I was eventually able to finish a table look up and a parser that checks a table of 3,000+ glass materials, find the one entered, and parse the parameter of the material then calculate the index of refraction at a given wavelength.  
