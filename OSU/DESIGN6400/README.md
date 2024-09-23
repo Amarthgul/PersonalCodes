@@ -598,6 +598,24 @@ Parenthesis marks the Monday of that week for easier identification.
 
 A simple flip of the first surface radius from positive to negative, i.e., from a convex to concave, and the program failed, it still ran but the result is incorrect. To determine the cause I spent roughly another two days as every fix seemed to have a ripple effect that either triggers something else to fail or reveals more faulty designs. 
 
+There turned out to be a series of problems. To start, the ellipse projection algorithm is not producing the correct ellipse. After investigation, this turned out to be caused by me not considering the z-axis offset by the curvature of the surface. In previous journal images this problem can already be seen as the circular base is not aligned with the triangle. 
+
+<div align="center">
+	<img src="resources/J_05_CorrectedEllipseProjection.png" width="280">
+  <p align="center">Journal Figure 5.1. Corrected ellipse projection. </p>
+</div>
+
+After that, there are also a lot of places in which the sign of the radius is not properly calculated or downright ignored. And after correcting these, the program is able to run correctly (as far as i can tell). A pruning algorithm is also added to separate the lights that cannot propagate to the next surface or have too steep an angle and become total internal reflections (TIR). 
+
+Another advancement is the implementation of the material system. After starting the new data structure, I no longer have manual control over every process and thus cannot feed the index of refraction into the refraction calculation part. It took some time but I was eventually able to finish a table look up and a parser that checks a table of 3,000+ glass materials, find the one entered, and parse the parameter of the material then calculate the index of refraction at a given wavelength.  
+
+<div align="center">
+	<img src="resources/J_05_LF7.png" width="540">
+  <p align="center">Journal Figure 5.2. Refraction index plot of the glass material LF7, x axis represents wavelength in micrometer. </p>
+</div>
+
+Now the lens is able to propagate the light through. Although reflection is yet to be implemented, I should be able to get an image or a spot diagram in the following week.
+
 -> Back to [journal selection](#journals)
 
 <br />
