@@ -8,7 +8,7 @@ Journal for DESIGN 6400 AU24 (Prof. Maria Palazzi).
 - **The journal that summarizes each week's progress can be found at the end** [(**or click here**)](#journals). 
 - Use `History` on top right to inspect past versions or make comparasions, there is also a `back to top` button next to it. 
 
-The most recent updated section can be found [here](#32---sufrace-iteration). Note that this is the section that received the most amount of progress with respect to the project, not the course. As such, this may not be the same as the journal content of the corresponding week. Although GitHub version history can be used to inspect past versions, for ease of access, snapshots of this documentation are also created periodically and are stored in [resources](https://github.com/Amarthgul/PersonalCodes/tree/master/OSU/DESIGN6400/resources)
+The most recent updated section can be found [here](#22---dispersion). Note that this is the section that received the most amount of progress with respect to the project, not the course. As such, this may not be the same as the journal content of the corresponding week. Although GitHub version history can be used to inspect past versions, for ease of access, snapshots of this documentation are also created periodically and are stored in [resources](https://github.com/Amarthgul/PersonalCodes/tree/master/OSU/DESIGN6400/resources)
 
 #### Table of content:
 
@@ -17,6 +17,7 @@ The most recent updated section can be found [here](#32---sufrace-iteration). No
   - [1.2 - Eesurgence in Film and Vintage Lenses](#12---resurgence-in-film-and-vintage-lenses)
 - [2 - Wavelength Reconstruction](#2---wavelength-reconstruction)
   - [2.1 - Selecting the Distribution](#21---selecting-the-distribution)
+  - [2.2 - Dispersion](#22---dispersion)
 - [3 - Ray Propagation](#3---ray-propagation)
   - [3.1 - Explore Ray Transfer Matrix](#31---explore-ray-transfer-matrix)
   - [3.2 - Sufrace Iteration](#32---sufrace-iteration)
