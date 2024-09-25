@@ -529,6 +529,19 @@ In those components:
 
 The first 6 terms are the ones used previously when discussing the propagation of rays, and they can be easily adapted into the new system. The later terms are for image formation and to provide more control over the selection of rays. 
 
+With the radiant term, it is then possible to calculate the image formed after the rays arrives at the image plane by taking an integral (discrete integral, since the rays are rather sparse) over the image plane. 
+
+There is, however, one trivia. The pixels on an image are indexed as unitless integers, but the location of the rays on the image plane are decimal numbers representing physical measurements. While the rays can be iterated through one by one and determine its corresponding pixel location, this process is not going to be efficient at all as the time complexity is going to be $\theta \left( n \right)$ where $n$ is the number of rays. A different approach can be adapted here to do the same but with constant time complexity. 
+
+Assume the positions of the intersection is represented as a 2D array $\mathbf{p} = \left( \mathbf{p_x}, \mathbf{p_y}, \mathbf{\Phi} \right) ^T$, the process is as follows: 
+
+- Determine the pixel pitch of the imager by dividing its physical size by the number of pixels on the axis, this results in a $\mu = \frac{L}{p_L} < 1$ for virtually all digital sensors.
+- Divide the intersection points' position by the pixel pitch and accquire the scaled up intersection locations.
+- Offset the intersection points' position by half of the pixel count on each axis. For example, if the imager has a dimension of `960 x 540`, then offset the positions by `(480, 270)`.
+- Floor cast the positions from decimal to integer.
+
+Now, the position of the ray intersections directly represents the index of the pixel it falls into, an iterative look-up operation is thus converted to a simple hashing. 
+
 <br />
 
 ### 3.3 - Aspherical Surface 
@@ -618,6 +631,21 @@ Thanks to the fact that the programming part is already in progress, I discovere
 </div>
 
 But, again, this means that the integral part is not language invariant, since not every language has the same operation as Python NumPy. 
+
+I was also able to fix an indexing error that happens when there are too many rays being vignetted while calculating the intersection. After that, the program was able to model the Zeiss Biotar 50mm f/1.4, as shown in the figure below. 
+
+<div align="center">
+	<img src="resources/J_06_Biotar.png" width="280">
+  <p align="center">Journal Figure 6.3. Beams of 550nm ray through the Zeiss 50mm f/1.4. </p>
+</div>
+
+The spot of the this setup can also be calculated. Below shows the spot of a point located roughly `0.77m` away from the lens while the lens is focused at infinity:  
+
+<div align="center">
+	<img src="resources/J_06_BiotarSpot.png" width="440">
+  <p align="center">Journal Figure 6.4. Spot of 550nm ray from 0.77m distance through the Zeiss 50mm f/1.4 focused at infinity. </p>
+</div>
+
 
 -> Back to [journal selection](#journals)
 
