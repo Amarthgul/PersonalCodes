@@ -589,11 +589,39 @@ Up till this point, the project has been operating under the realm of geometric 
 
 Parenthesis marks the Monday of that week for easier identification. 
 
+- [Week 6 (Sept 22ndth)](#week-6)
 - [Week 5 (Sept 15th)](#week-5)
 - [Week 4 (Sept 8th)](#week-4)
 - [Week 3 (Sept 1st)](#week-3)
 - [Week 2 (Aug 26th)](#week-2)
 - [Week 1 (Aug 19th)](#week-1)
+
+
+### Week 6
+
+Finding where the rays fall on the imager is rather easy. Assuming the imager is a flat plane located on the optical axis, then it is just plane-vector intersection. 
+
+<div align="center">
+	<img src="resources/J_06_Imager.png" width="280">
+  <p align="center">Journal Figure 6.1. Intersecting the rays with an imager. </p>
+</div>
+
+Since it is possible for 2 rays to fall on one pixel, finding the image is existentially taking an integral of the rays on the image plane, the difference between actual integral being the rays are discrete and mostly sparse. 
+
+While this technically is doable by iterating through the rays, finding its corresponding pixel and adding the radians into that pixel’s value, it will take a lot of time and is by no means an efficient way of doing things. There needs to be a way to achieve the same without relying on iteration. 
+
+Thanks to the fact that the programming part is already in progress, I discovered some ways in NumPy that achieves indexing and location-wise addition at the same time and was able to produce the image of the point this way: 
+
+<div align="center">
+	<img src="resources/J_06_SpotSample.png" width="320">
+  <p align="center">Journal Figure 6.2. B&W spot of the input point. </p>
+</div>
+
+But, again, this means that the integral part is not language invariant, since not every language has the same operation as Python NumPy. 
+
+-> Back to [journal selection](#journals)
+
+<br />
 
 ### Week 5
 
