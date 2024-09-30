@@ -8,7 +8,7 @@ Journal for DESIGN 6400 AU24 (Prof. Maria Palazzi).
 - **The journal that summarizes each week's progress can be found at the end** [(**or click here**)](#journals). 
 - Use `History` on top right to inspect past versions or make comparasions, there is also a `back to top` button next to it. 
 
-The most recent updated section can be found [here](#22---dispersion). Note that this is the section that received the most amount of progress with respect to the project, not the course. As such, this may not be the same as the journal content of the corresponding week. Although GitHub version history can be used to inspect past versions, for ease of access, snapshots of this documentation are also created periodically and are stored in [resources](https://github.com/Amarthgul/PersonalCodes/tree/master/OSU/DESIGN6400/resources)
+The most recent updated section can be found [here](#323---image-plane). Note that this is the section that received the most amount of progress with respect to the project, not the course. As such, this may not be the same as the journal content of the corresponding week. Although GitHub version history can be used to inspect past versions, for ease of access, snapshots of this documentation are also created periodically and are stored in [resources](https://github.com/Amarthgul/PersonalCodes/tree/master/OSU/DESIGN6400/resources)
 
 #### Table of content:
 
@@ -621,9 +621,9 @@ Finding where the rays fall on the imager is rather easy. Assuming the imager is
 
 Since it is possible for 2 rays to fall on one pixel, finding the image is existentially taking an integral of the rays on the image plane, the difference between actual integral being the rays are discrete and mostly sparse. 
 
-While this technically is doable by iterating through the rays, finding its corresponding pixel and adding the radians into that pixel’s value, it will take a lot of time and is by no means an efficient way of doing things. There needs to be a way to achieve the same without relying on iteration. 
+While this technically is doable by iterating through the rays, finding its corresponding pixel and adding the radians into that pixel’s value, it will take a lot of time and is by no means an efficient way of doing things. Consider a typical FHD 1920 image, it has $2073600$ individual pixels, currently a single spot takes about $0.001$ seconds to propograte through, with 3 channels on each pixel, it'll then need $2073600\times 3 \times 0.001 = 6220.8$ seconds, already a hefty amount of time. An iterative approach would multiply this time at least ten folds accroding to experiments, rendering it near impossible to see any update within human patience span. Thus, there needs to be a way to achieve the same without relying on iteration. 
 
-Thanks to the fact that the programming part is already in progress, I discovered some ways in NumPy that achieves indexing and location-wise addition at the same time and was able to produce the image of the point this way: 
+Thanks to the fact that the programming part is already in progress, I discovered some ways in NumPy that achieves indexing and location-wise addition at the same time, converting an iteration into hashing, the detail is documented in section [3.2.3](#323---image-plane). With the new approach, I was able to produce the image of the point this way: 
 
 <div align="center">
 	<img src="resources/J_06_SpotSample.png" width="320">
@@ -632,7 +632,7 @@ Thanks to the fact that the programming part is already in progress, I discovere
 
 But, again, this means that the integral part is not language invariant, since not every language has the same operation as Python NumPy. 
 
-I was also able to fix an indexing error that happens when there are too many rays being vignetted while calculating the intersection. After that, the program was able to model the Zeiss Biotar 50mm f/1.4, as shown in the figure below. 
+I was also able to fix an indexing error that happens when there are too many rays being vignetted while calculating the intersection, and a weird case that causes on axis rays to crash the program entirely. After that, the program was able to model the Zeiss Biotar 50mm f/1.4, as shown in the figure below. 
 
 <div align="center">
 	<img src="resources/J_06_Biotar.png" width="280">
@@ -645,6 +645,17 @@ The spot of the this setup can also be calculated. Below shows the spot of a poi
 	<img src="resources/J_06_BiotarSpot.png" width="440">
   <p align="center">Journal Figure 6.4. Spot of 550nm ray from 0.77m distance through the Zeiss 50mm f/1.4 focused at infinity. </p>
 </div>
+
+Soon after I finished spot rendering, I decided it's time to talk to more people. I sent an email to [Prof. Shen](https://cse.osu.edu/people/shen.94), but knowing his inbox unread is commonly around 9999 (capped by Outlook maximum), it might take a while for him to see mine...  
+
+There are several things to do next: 
+
+- RGB spot rendering and image rendering.
+  Finish the RGB-wavelength conversion and thus generate a spot that represents a common light source with all wavelengths. This will then be used to render an RGB image.
+- Adding reflection,
+  The current implementation only computes refraction, reflections are marked but not calculated, but they will be needed to simulate flares and glares.
+- Restructure. 
+  For now, the spot is still generated in the `Lens` class, which is not what a lens is supposed to do. A different class is needed to perform the image generation part.  
 
 
 -> Back to [journal selection](#journals)
