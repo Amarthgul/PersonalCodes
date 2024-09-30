@@ -650,12 +650,21 @@ Soon after I finished spot rendering, I decided it's time to talk to more people
 
 There are several things to do next: 
 
-- RGB spot rendering and image rendering.
+- **RGB spot rendering and image rendering**
+
   Finish the RGB-wavelength conversion and thus generate a spot that represents a common light source with all wavelengths. This will then be used to render an RGB image.
-- Adding reflection,
+
+- **Adding reflection**
+
   The current implementation only computes refraction, reflections are marked but not calculated, but they will be needed to simulate flares and glares.
-- Restructure. 
-  For now, the spot is still generated in the `Lens` class, which is not what a lens is supposed to do. A different class is needed to perform the image generation part.  
+
+- **Restructure**
+
+  For now, the spot is still generated in the `Lens` class, which is not what a lens is supposed to do. A different class is needed to perform the image generation part.
+
+- **Rework sample algorithm**
+
+  It is only after I see the generated spot that I realized that the spot looks patterned, this is due to the sampling algorithm is based on polar coordinate and sample points being concentric. While this helps for analysis, it does not look natural. Either a new sampling algorithm is needed, or noises need to be added to make the spot less "organized". 
 
 
 -> Back to [journal selection](#journals)
