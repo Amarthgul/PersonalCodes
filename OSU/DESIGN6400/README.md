@@ -602,12 +602,34 @@ Up till this point, the project has been operating under the realm of geometric 
 
 Parenthesis marks the Monday of that week for easier identification. 
 
-- [Week 6 (Sept 22ndth)](#week-6)
+- [Week 7 (Sept 29th)](#week-7)
+- [Week 6 (Sept 22nd)](#week-6)
 - [Week 5 (Sept 15th)](#week-5)
 - [Week 4 (Sept 8th)](#week-4)
 - [Week 3 (Sept 1st)](#week-3)
 - [Week 2 (Aug 26th)](#week-2)
 - [Week 1 (Aug 19th)](#week-1)
+
+
+### Week 7 
+
+Aside from preparing for the 5-week presentation, this week have been very coding-oriented. 
+
+The current implementation (up to this point) has been doing everything in a single class called `Lens`. However, for the sake of maintenance and design principles (both the _design_ design and software design), a single class will introduce too much coupling later, which will make development and maintenance difficult. So this week I am trying to split the jobs into different classes, the hierarchy is as follow:
+
+- **Imaging System** 
+  The imaging system is the container for the entire application. 
+  - **Lens** 
+    The `Lens` class defines how the entire lens is formed, which is further described by the `Surface` class. This part is very much the same as all the optical design software. 
+  - **Imager** 
+    The `Imager` class may also contains `Surface` components since digital sensors have some form of glass elements in front of them. However, these glasses are not counted as part of the lens since they move with the sensor and not with the lens. Additionally, the effect of these sensor glasses will keep existing regardless of what lens is in front of the sensor - same as all interchangeable lens camera. As such, it is better to put them in the imager. 
+
+
+
+
+-> Back to [journal selection](#journals)
+
+<br />
 
 
 ### Week 6
