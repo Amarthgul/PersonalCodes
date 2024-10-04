@@ -618,11 +618,22 @@ Aside from preparing for the 5-week presentation, this week have been very codin
 The current implementation (up to this point) has been doing everything in a single class called `Lens`. However, for the sake of maintenance and design principles (both the _design_ design and software design), a single class will introduce too much coupling later, which will make development and maintenance difficult. So this week I am trying to split the jobs into different classes, the hierarchy is as follow:
 
 - **Imaging System** 
-  The imaging system is the container for the entire application. 
+
+  The `imagingSystem` class is the container for the entire application. 
+
   - **Lens** 
-    The `Lens` class defines how the entire lens is formed, which is further described by the `Surface` class. This part is very much the same as all the optical design software. 
+
+    The `Lens` class contains the definition of the lens and provides functionality regarding how it will behave. 
+
+    - **Surface**
+      
+      The `Surface` class is used to define a surface in a lens. This part is very much the same as all the optical design software. While currently it contains only standard spherical surface, it is planned to include even aspherical and cylindrical elements in the future.  
+
   - **Imager** 
+
     The `Imager` class may also contains `Surface` components since digital sensors have some form of glass elements in front of them. However, these glasses are not counted as part of the lens since they move with the sensor and not with the lens. Additionally, the effect of these sensor glasses will keep existing regardless of what lens is in front of the sensor - same as all interchangeable lens camera. As such, it is better to put them in the imager. 
+
+    This class will also be responsible for building the wavelength sensitivity difference, either from digital sensors or film emulsions. 
 
 
 
