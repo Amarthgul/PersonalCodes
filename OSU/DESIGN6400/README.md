@@ -613,9 +613,13 @@ Parenthesis marks the Monday of that week for easier identification.
 
 ### Week 7 
 
-Aside from preparing for the 5-week presentation, this week have been very coding-oriented. 
+A lot has been going on this week. Firstly, the 5-week presentation. 
 
-The current implementation (up to this point) has been doing everything in a single class called `Lens`. However, for the sake of maintenance and design principles (both the _design_ design and software design), a single class will introduce too much coupling later, which will make development and maintenance difficult. So this week I am trying to split the jobs into different classes, the hierarchy is as follow:
+While the presentation itself was fine, I did not expect Sébastien to say he felt dumb (albeit jokingly). I already decided not to show any of the deduction process to derive the formulas used in writing the application but I forgot that optical design itself is still an incredible niche and scientific thing. While I have been so used to the diagrams, others still will have difficulty understanding them. This should be addressed in future presentations. 
+
+The second is the decision to restructure the application. 
+
+The current implementation has been doing everything in a single class called `Lens`. However, for the sake of maintenance and design principles (both the _design_ design and software design), a single class will introduce too much coupling later, which will make development and maintenance difficult. So this week I am trying to split the jobs into different classes, the hierarchy is as follow:
 
 - **Imaging System** 
 
@@ -635,6 +639,12 @@ The current implementation (up to this point) has been doing everything in a sin
 
     This class will also be responsible for building the wavelength sensitivity difference, either from digital sensors or film emulsions. 
 
+
+And then, explorations in wavelength reconstruction. 
+
+Since I am working on wavelength, I decided to try recreating a glass material only by its ne and Ve, since this was what hindered me when trying to replicate some old Leica Summilux lens patents. I tried simple regressions and failed, then a neural network (which I hate) but also failed. Suspecting it’s because the relationship between the parameters are not modeled, I dug into it and read a lot of stuff about autoencoders. But even this cannot produce the accuracy I needed (I need less than 1% error from the prediction).
+
+While inverse material engineering was not fruitful, it did spark me on the question of how to convert RGB values to wavelength. Previously I was trying to convert them into Gaussian distribution of wavelengths, but that apparently will have problems when converting back to RGB. The inverse material attempt made me realize that I can subdivide the wavelength, in this way keeping them as discrete values while still working with the lens and its effects. Related explanations can be seen and will be further detailed in [Section 2.1](#21---selecting-the-distribution).
 
 
 
