@@ -152,9 +152,39 @@ When considering all these factors, Gaussian distribution may be hard to reconst
 
 ### 2.1 - Selecting the Distribution 
 
-What was presented previously was but an extremely peripheral survey on color and wavelength, a comprehensive discussion may still feel short given a book’s length. Depending on the standard, there can be a pyramid of methods in how to convert between RGB color and wavelength. 
+However, color and wavelength are related does not mean there is a causation. The current simplification of RGB from wavelength can be dated back to 1927 with the standard overserver experiment. And the modern implementation varies, with standards like Rec. 709 and Rec. 2020 etc. What was presented previously was but an extremely peripheral survey on color and wavelength, a comprehensive discussion may still feel short given a book’s length. Depending on the standard, there can be a myriad of methods in how to convert between RGB color and wavelength. 
 
-However,  color and wavelength relation does not mean there is a causation. The current simplification of RGB from wavelength can be dated back to 1927 with the standard overserver experiment. And the modern implementation varies, with standards like Rec. 709 and Rec. 2020 etc. 
+In this project, after a lot of trial and errors, a naive way is adapted to convert RGB to wavelength and then back. This method relies on a dictionary that explicitly defines the color based on the Fraunhofer lines: 
+
+```python
+LambdaLines = {
+    "i" : 365.01, 
+    "h" : 404.66, 
+    "g" : 435.84, 
+    "F'": 479.99, 
+    "F" : 486.13, 
+    "e" : 546.07, 
+    "d" : 587.56, 
+    "D" : 589.3, 
+    "C'": 643.85,
+    "C" : 656.27, 
+    "r" : 706.52, 
+    "A'": 768.2, 
+    "s" : 852.11
+}
+```
+
+During RGB to wavelength conversion, each channel is mapped to a specific Fraunhofer line. For example: 
+
+```python
+{"R": "C'", "G": "e", "B":"g"}
+```
+
+The value of that channel will be the intensity/radiant flus of the corresponding wavelength. For an image with bitdepth $b=8$, this means the intensity of each channel is $\Phi _c = \frac{V _c}{V _{max}}$, where $V _c$ is the value of the channel, and $V _{max} = 2 ^ b$. 
+
+As an example, using the RGB definiton above, an 8-bit pixel of value $\left(  255, \\ 0, \\ 0 \right)$ will be converted as 3 different wavelengths $\left( 643.85, \\ 546.07, \\ 435.84 \right)$, with each wavelength carrying and intensity/radiant flux of $\left(  1.0, \\ 0, \\ 0 \right)$.
+
+This apprently will have some accuracy issues, sampling only 3 wavelength may not be enough. To solve this, a secondary spectrum is introduced. 
 
 
 ```C++
