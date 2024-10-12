@@ -632,6 +632,7 @@ Up till this point, the project has been operating under the realm of geometric 
 
 Parenthesis marks the Monday of that week for easier identification. 
 
+- [Week 8 (Oct 6th)](#week-8)
 - [Week 7 (Sept 29th)](#week-7)
 - [Week 6 (Sept 22nd)](#week-6)
 - [Week 5 (Sept 15th)](#week-5)
@@ -639,6 +640,17 @@ Parenthesis marks the Monday of that week for easier identification.
 - [Week 3 (Sept 1st)](#week-3)
 - [Week 2 (Aug 26th)](#week-2)
 - [Week 1 (Aug 19th)](#week-1)
+
+### Week 8
+
+Due to Fall break and my surgery (doctors gave me an off excuse that lasted 5 days to exactly the next Monday… how I wish this can be offset to cover the actual weekdays), very little was done this week. 
+
+However, I finally devised a way to do the RGB-wavelength conversion. The previous trouble boils down to the process being single-directional, i.e., I can convert RGB into wavelength but cannot convert it back the same way and vice versa. This new method simplifies the conversion into direct wavelength mapping and interpolations, thus making the conversion process mutual and very much lossless. 
+
+
+-> Back to [journal selection](#journals)
+
+<br />
 
 
 ### Week 7 
