@@ -632,6 +632,7 @@ Up till this point, the project has been operating under the realm of geometric 
 
 Parenthesis marks the Monday of that week for easier identification. 
 
+- [Week 9 (Oct 13th)](#week-9)
 - [Week 8 (Oct 6th)](#week-8)
 - [Week 7 (Sept 29th)](#week-7)
 - [Week 6 (Sept 22nd)](#week-6)
@@ -640,6 +641,16 @@ Parenthesis marks the Monday of that week for easier identification.
 - [Week 3 (Sept 1st)](#week-3)
 - [Week 2 (Aug 26th)](#week-2)
 - [Week 1 (Aug 19th)](#week-1)
+
+### Week 9
+
+This week has more time spent on reading books rather than implementing the project. I am planning to meet faculties from astronmy and there will certainly be loads of questions about wave optics, I would rather like to say something when such questions are being asked. 
+
+A new sampling method is also implemented. 
+
+-> Back to [journal selection](#journals)
+
+<br />
 
 ### Week 8
 
