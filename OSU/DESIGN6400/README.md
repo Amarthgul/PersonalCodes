@@ -644,9 +644,11 @@ Parenthesis marks the Monday of that week for easier identification.
 
 ### Week 9
 
-This week has more time spent on reading books rather than implementing the project. I am planning to meet faculties from astronmy and there will certainly be loads of questions about wave optics, I would rather like to say something when such questions are being asked. 
+This week has more time spent on reading books rather than implementing the project. I am planning to meet faculties from the department astronmy in the next 2 weeks and there will certainly be loads of questions about wave optics, I would rather like to say something when such questions are being asked. 
 
-A new sampling method is also implemented. 
+A new sampling method is also implemented based on random scattering instead of polar coordinate. This is mostly due to the discovery that the polar method tends to produce concentric circles, which does not look natural. It also has the potential problem of being unable to cope with extreme incident angles, because the projected ellipse will have one major axis significantly longer than the other and cause the transformed polar samples to look uneven on one axis. 
+
+The RGB to wavelength algorithm was also implemented, but the change of logic brought a temporary (hopefully) halt to the project. The rays are somehow inverted after the first 2 surfaces and I am still investigating the reason. 
 
 -> Back to [journal selection](#journals)
 
