@@ -632,6 +632,7 @@ Up till this point, the project has been operating under the realm of geometric 
 
 Parenthesis marks the Monday of that week for easier identification. 
 
+- [Week 10 (Oct 20th)](#week-10)
 - [Week 9 (Oct 13th)](#week-9)
 - [Week 8 (Oct 6th)](#week-8)
 - [Week 7 (Sept 29th)](#week-7)
@@ -641,6 +642,15 @@ Parenthesis marks the Monday of that week for easier identification.
 - [Week 3 (Sept 1st)](#week-3)
 - [Week 2 (Aug 26th)](#week-2)
 - [Week 1 (Aug 19th)](#week-1)
+
+### Week 10 
+
+Eventually I was able to figure out what happened to the program that caused it to crash. The rays were inverted because they were reflected instead of refracted, which is weird to happen since there is currently no reflection feature. The reason for the pseudo reflection was due to the refraction ratio being so high that the bending of light went above what’s physically possible. And the cause of that was due to the index of refraction returning to high of a result, which then is caused by wavelength not in the right unit. This finally led me to realize that it’s the unit conversion changing the original value despite it being passed into the function as an argument - a very C++ problem only caused by Numpy’s logic. Well shit. 
+
+-> Back to [journal selection](#journals)
+
+<br />
+
 
 ### Week 9
 
