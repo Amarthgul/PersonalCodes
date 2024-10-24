@@ -184,8 +184,10 @@ The value of that channel will be the intensity/radiant flus of the correspondin
 
 As an example, using the RGB definiton above, an 8-bit pixel of value $\left(  255, \\ 0, \\ 0 \right)$ will be converted as 3 different wavelengths $\left( 643.85, \\ 546.07, \\ 435.84 \right)$, with each wavelength carrying and intensity/radiant flux of $\left(  1.0, \\ 0, \\ 0 \right)$.
 
-This apprently will have some accuracy issues, sampling only 3 wavelength may not be enough. To solve this, a secondary spectrum is introduced. 
+This apparently will have some accuracy issues, sampling only 3 wavelengths may not be enough. To solve this, a secondary spectrum is introduced. The member of this secondary spectrum can be expressed either using the Fraunhofer symbols listed above, or explicitly stated wavelengths (in nanometers). The program will interpolate the wavelength based on its linear distance from the Fraunhofer lines for RGB designated in the last step and yield corresponding radiant values.
 
+Of course, it might happen that the user input wavelength is away from the RGB and into the UV/IR range. For this, an UV-IR cut is implemented that essentially acts as the zero value bound. If the secondary spectrum wavelengths are beyond the UV/IR cut then the radiant will return 0, otherwise a similar linear interpolation is used to determine the radiant. 
+ 
 
 ```C++
 // TODO: add equations for linear disassembly based on distance 
