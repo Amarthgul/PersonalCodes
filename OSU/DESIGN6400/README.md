@@ -647,7 +647,29 @@ Parenthesis marks the Monday of that week for easier identification.
 
 ### Week 10 
 
-Eventually I was able to figure out what happened to the program that caused it to crash. The rays were inverted because they were reflected instead of refracted, which is weird to happen since there is currently no reflection feature. The reason for the pseudo reflection was due to the refraction ratio being so high that the bending of light went above what’s physically possible. And the cause of that was due to the index of refraction returning to high of a result, which then is caused by wavelength not in the right unit. This finally led me to realize that it’s the unit conversion changing the original value despite it being passed into the function as an argument - a very C++ problem only caused by Numpy’s logic. Well shit. 
+Eventually I was able to figure out what happened to the program that caused it to crash. 
+
+The rays were inverted after going through the second surface, which is weird since there is currently no reflection implemented. Turned out it’s the refraction ratio being so high that the bending of light went above what’s physically possible. And the cause of that was due to the index of refraction not calculated correctly. 
+
+This finally led me to locate the source of the error: the wavelengths are mostly represented in nanometers, in the index of refraction calculation, the wavelength was converted to micrometers. But the unit conversion changed the original value despite it being passed into the function as an argument - a very C++ problem only caused by Numpy’s logic. Well shit. 
+
+After fixing the wavelength conversion, another set of modifications are needed to accommodate the change of data structure. Ultimately I was able to produce a spot with color: 
+
+<div align="center">
+	<img src="resources/J_10_colorSpot.png" width="500">
+  <p align="center">Journal Figure 10.1. Spot generated with color. </p>
+</div>
+
+There are still some problems. Initially I added a secondary set of wavelengths to increase accuracy and used a linear interpolation to determine the strength of that wavelength. However, it turned out that this is introducing color bias and quite often phantom colors. 
+
+For example, if the input color is `[255, 0, 0]`, the red wavelength will have max radiant whereas the green and blue wavelength has none. But when secondary wavelength is enabled, there will be some green color due to the red radiant “bleed” into the green. 
+
+I also realized that due to the image determining the brightest value by finding the max value in the signal, the resulting spot can be pretty dark. While I can manually brighten it up, it can be hard to do so when there are more spots. 
+
+<div align="center">
+	<img src="resources/J_10_colorSpotOneStopOver.png" width="500">
+  <p align="center">Journal Figure 10.2. Enhanced spot. </p>
+</div>
 
 -> Back to [journal selection](#journals)
 
