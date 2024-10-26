@@ -653,7 +653,7 @@ The rays were inverted after going through the second surface, which is weird si
 
 This finally led me to locate the source of the error: the wavelengths are mostly represented in nanometers, in the index of refraction calculation, the wavelength was converted to micrometers. But the unit conversion changed the original value despite it being passed into the function as an argument - a very C++ problem only caused by Numpy’s logic. Well shit. 
 
-After fixing the wavelength conversion, another set of modifications are needed to accommodate the change of data structure. Ultimately I was able to produce a spot with color: 
+After fixing the wavelength conversion, another set of modifications are needed to accommodate the change of data structure. While very time-consuming, these are mostly about restructuring the matrices to incorporate the bigger wavelengths, then change the corresponding index to slice the right part of the matrix. Ultimately I was able to produce a spot with color: 
 
 <div align="center">
 	<img src="resources/J_10_colorSpot.png" width="500">
@@ -670,6 +670,8 @@ I also realized that due to the image determining the brightest value by finding
 	<img src="resources/J_10_colorSpotOneStopOver.png" width="500">
   <p align="center">Journal Figure 10.2. Enhanced spot. </p>
 </div>
+
+Outside of the class, I have been trying to contact [Prof. Shen](https://cse.osu.edu/people/shen.94) from the CSE department since his area mostly closely aligns with this topic. The 2 emails seem to have been buried in his thousands of (probably tens of thousands at this point) unread emails. So I tried to see if I could intercept him in person, I even tried to find him after a CSE faculty meeting but was of no luck (he did not participate in the faculty meeting?). The 10th week was filled with events, I’ll try to see if I have better luck next week. 
 
 -> Back to [journal selection](#journals)
 
