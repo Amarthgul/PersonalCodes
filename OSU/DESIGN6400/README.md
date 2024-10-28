@@ -671,7 +671,12 @@ I also realized that due to the image determining the brightest value by finding
   <p align="center">Journal Figure 10.2. Enhanced spot. </p>
 </div>
 
-Outside of the class, I have been trying to contact [Prof. Shen](https://cse.osu.edu/people/shen.94) from the CSE department since his area mostly closely aligns with this topic. The 2 emails seem to have been buried in his thousands of (probably tens of thousands at this point) unread emails. So I tried to see if I could intercept him in person, I even tried to find him after a CSE faculty meeting but was of no luck (he did not participate in the faculty meeting?). The 10th week was filled with events, I’ll try to see if I have better luck next week. 
+The next steps would include:
+- Add reflection into the program. 
+- Image-wide transmission. 
+- Consider implementing a light source description using the off axis angle on X and Y direction and a distance. The current 3D location can be quite tricky when dealing with the field of view. 
+
+Outside of the programming, I have been trying to contact [Prof. Shen](https://cse.osu.edu/people/shen.94) from the CSE department since his area mostly closely aligns with this topic. The 2 emails seem to have been buried in his thousands of (probably tens of thousands at this point) unread emails. So I tried to see if I could intercept him in person, I even tried to find him after a CSE faculty meeting but was of no luck (he did not participate in the faculty meeting?). The 10th week was filled with events, I’ll try to see if I have better luck next week. 
 
 -> Back to [journal selection](#journals)
 
