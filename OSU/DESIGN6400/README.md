@@ -8,7 +8,7 @@ Journal for DESIGN 6400 AU24 (Prof. Maria Palazzi).
 - **The journal that summarizes each week's progress can be found at the end** [(**or click here**)](#journals). 
 - Use `History` on top right to inspect past versions or make comparasions, there is also a `back to top` button next to it. 
 
-The most recent updated section can be found [here](#323---image-plane). Note that this is the section that received the most amount of progress with respect to the project, not the course. As such, this may not be the same as the journal content of the corresponding week. Although GitHub version history can be used to inspect past versions, for ease of access, snapshots of this documentation are also created periodically and are stored in [resources](https://github.com/Amarthgul/PersonalCodes/tree/master/OSU/DESIGN6400/resources)
+The most recent updated section can be found [here](#21---selecting-the-distribution). Note that this is the section that received the most amount of progress with respect to the project, not the course. As such, this may not be the same as the journal content of the corresponding week. Although GitHub version history can be used to inspect past versions, for ease of access, snapshots of this documentation are also created periodically and are stored in [resources](https://github.com/Amarthgul/PersonalCodes/tree/master/OSU/DESIGN6400/resources)
 
 #### Table of content:
 
@@ -184,10 +184,12 @@ The value of that channel will be the intensity/radiant flus of the correspondin
 
 As an example, using the RGB definiton above, an 8-bit pixel of value $\left(  255, \\ 0, \\ 0 \right)$ will be converted as 3 different wavelengths $\left( 643.85, \\ 546.07, \\ 435.84 \right)$, with each wavelength carrying and intensity/radiant flux of $\left(  1.0, \\ 0, \\ 0 \right)$.
 
-This apparently will have some accuracy issues, sampling only 3 wavelengths may not be enough. To solve this, a secondary spectrum is introduced. The member of this secondary spectrum can be expressed either using the Fraunhofer symbols listed above, or explicitly stated wavelengths (in nanometers). The program will interpolate the wavelength based on its linear distance from the Fraunhofer lines for RGB designated in the last step and yield corresponding radiant values.
+This apparently will have some accuracy issues, sampling only 3 wavelengths may not be enough. 
 
-Of course, it might happen that the user input wavelength is away from the RGB and into the UV/IR range. For this, an UV-IR cut is implemented that essentially acts as the zero value bound. If the secondary spectrum wavelengths are beyond the UV/IR cut then the radiant will return 0, otherwise a similar linear interpolation is used to determine the radiant. 
- 
+To solve this, an apparent solution is to introduce a secondary spectrum. The member of this secondary spectrum can be expressed either using the Fraunhofer symbols listed above, or explicitly stated wavelengths (in nanometers). The program will interpolate the wavelength based on its linear distance from the Fraunhofer lines for RGB designated in the last step and yield corresponding radiant values.Of course, it might happen that the user input wavelength is away from the RGB and into the UV/IR range. For this, an UV-IR cut is implemented that essentially acts as the zero value bound. If the secondary spectrum wavelengths are beyond the UV/IR cut then the radiant will return 0, otherwise a similar linear interpolation is used to determine the radiant. 
+
+However, in practice, the secondary spectrum described above will have some problems. Still consider, for the moment, the pixel of color `[255, 0, 0]` used above. With the secondary spectrum, the translated wavelength collection will be `[643.85, 546.07, 435.84, 486.13, 589.3 ]`, with radiant `[1, 0, 0 , 0, 0.44211495]`. But when the same process is used to convert this wavelength back to color, it will result in `[255, 100,  0]`. The green channel is now non-zero, which is caused by the `589.3nm` wavelength being decomposed into both red and green color, but this wavelength is only created by interpolating from the `643.85nm`. 
+
 
 ```C++
 // TODO: add equations for linear disassembly based on distance 
