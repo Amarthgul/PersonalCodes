@@ -636,7 +636,7 @@ Up till this point, the project has been operating under the realm of geometric 
 
 Parenthesis marks the Monday of that week for easier identification. 
 
-- [Week 12 (Oct 27th)](#week-11)
+- [Week 11 (Oct 27th)](#week-11)
 - [Week 10 (Oct 20th)](#week-10)
 - [Week 9 (Oct 13th)](#week-9)
 - [Week 8 (Oct 6th)](#week-8)
