@@ -636,6 +636,7 @@ Up till this point, the project has been operating under the realm of geometric 
 
 Parenthesis marks the Monday of that week for easier identification. 
 
+- [Week 12 (Oct 27th)](#week-11)
 - [Week 10 (Oct 20th)](#week-10)
 - [Week 9 (Oct 13th)](#week-9)
 - [Week 8 (Oct 6th)](#week-8)
@@ -646,6 +647,25 @@ Parenthesis marks the Monday of that week for easier identification.
 - [Week 3 (Sept 1st)](#week-3)
 - [Week 2 (Aug 26th)](#week-2)
 - [Week 1 (Aug 19th)](#week-1)
+
+
+### Week 11
+
+This was not a very fruitful week. In regard to the program I have only been modifying and improving some implementations, such as the dot generation order and optimizing the matrix slicing to buy more time, no major progress was made. 
+
+It did make me contemplate about the wavelength implementation. As noted in section [2.1](#21---selecting-the-distribution), the current way to convert RGB color to wavelength is to disassemble an RGB value into 3 wavelengths corresponding to the red, green, and blue color. This, however, may be producing more color than there actually are. In the real world, the color of the pixel records the irradiance of a point in space, but the irradiance may be just one single (peak) wavelength, so using 3 different weight wavelengths to represent that 1 peak wavelength may cause some errors, but the real effect can only be seen later with some actual comparisons. 
+
+With all the alumni speakers, I also realized that I do not have questions to ask. In fact, I think I never had real questions in the past during all those guest presentation events, the ones that I asked were more like _“situationally expected”_ questions, not _mine_ questions. 
+
+I think the reason might be that I do not believe in the replicability of experience at all. Everyone is the cumulative sum of the environments and their experiences in it. Thus, to isolate one section of the experience without considering the rest, whatever conclusion drawn from that section could not be valid. To know what they did back in their time is as useful as reading the Hobbit and learning how Bilbo Baggins found the Arkenstone and escaped from Smug - amusing stories, but it’s set in a different time at a different place about different people. As such, these questions and answers do not have the validity to guide me making decisions in a different time and space, and for entirely different purposes. 
+
+Another intended use for these presentations is likely networking. However, aside from most of them having some different field than my topic, I also question the robustness of these networking results should I try to participate. In my typical deconstructionist manner, I do not see anyone can be truly altruistic, that is, willing to perform tasks solely for the benefit of others with absolutely no pursuit of any form of returned favor. Even parental love, which often is praised to be the most selfless one of all, is scientifically flawed. The parents’ love is conditioned for the expectation of the offspring to live as the parents have intended[^2], if not, quite unfortunate events may happen[^3]. My point is, networking feels more like a trade, I cannot make a deal without having something to put on the table. And I can only make the best offer and most sustainable trade if I know what they need, before that, I am just an easily forgettable college student. 
+
+
+-> Back to [journal selection](#journals)
+
+<br />
+
 
 ### Week 10 
 
@@ -941,5 +961,7 @@ For now, I intend to spend the first 5 weeks on the math part, establishing a th
 
 [^1]: pauca, Intelligenti. “Answer to ‘Is the Right Intersection of an Oblique Circular Cone an Ellipse?’” Mathematics Stack Exchange, February 6, 2019. https://math.stackexchange.com/a/3103027/453693.
 
+[^2]: Weiss, Meira. “Conditional Love: Parents’ Attitudes Toward Handicapped Children,” 1994. https://www.semanticscholar.org/paper/Conditional-Love%3A-Parents'-Attitudes-Toward-Weiss/3f32703234cef1affe9ce069b7855bb41a166505.
 
-Placeholder 
+[^3]: Shaahinfar, Ashkon, Kevin D. Whitelaw, and Karim M. Mansour. “Update on Abusive Head Trauma.” Current Opinion in Pediatrics 27, no. 3 (June 2015): 308. https://doi.org/10.1097/MOP.0000000000000207.
+
