@@ -21,9 +21,10 @@ The most recent updated section can be found [here](#21---selecting-the-distribu
 - [3 - Ray Propagation](#3---ray-propagation)
   - [3.1 - Explore Ray Transfer Matrix](#31---explore-ray-transfer-matrix)
   - [3.2 - Sufrace Iteration](#32---sufrace-iteration)
-    - [3.2.1 - Object to 1st Surface](#321---object-to-1st-surface)
-    - [3.2.2 - Iterate Through Surfaces](322---iterate-through-surfaces)
-    - [3.2.3 - Image Plane](#323---image-plane)
+    - [3.2.1 - Object Space](#321---object-space)
+    - [3.2.2 - Object to 1st Surface](#321---object-to-1st-surface)
+    - [3.2.3 - Iterate Through Surfaces](322---iterate-through-surfaces)
+    - [3.2.4 - Image Plane](#323---image-plane)
   - [3.3 - Aspherical Surface](#33---aspherical-surface)
     - [3.3.1 - Even Aspheric](#331---even-aspheric)
     - [3.3.2 - Cylindrical](#332---cylindrical)
@@ -380,7 +381,12 @@ Readers may notice this coordinate seems to contradict the surface radius direct
 
 <br />
 
-#### 3.2.1 - Object to 1st Surface 
+#### 3.2.1 - Object Space 
+
+For a real lens, its object space is the real world. In this application, however, object space may be in several different forms. 
+
+
+#### 3.2.2 - Object to 1st Surface 
 
 For an object point $P$ not located at infinity, ignoring indirect reflections for now, all the light reflected from this point that can be gathered by the lens forms a cone. If the object point is not directly on the optical axis, then this cone becomes an oblique cone. 
 
@@ -487,7 +493,7 @@ With the sample points, we can then cast vectors  from point P to them and gener
 
 <br />
 
-#### 3.2.2 - Iterate Through Surfaces
+#### 3.2.3 - Iterate Through Surfaces
 
 A typical sphere in 3D is expressed as:
 
@@ -539,7 +545,7 @@ Note that the reflection does not involve refractive index at this point, polari
 
 <br />
 
-#### 3.2.3 - Image Plane 
+#### 3.2.4 - Image Plane 
 
 While the image plane can be viewed as a mere spherical surface with infinity radius, the calculation method may vary. For simplicity, a flat image plane can be viewed as a 3D plane. And assume there is no tilt shift happening (which will be addressed later), the plane can be expressed as simple as:
 
