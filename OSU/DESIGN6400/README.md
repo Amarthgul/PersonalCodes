@@ -8,7 +8,7 @@ Journal for DESIGN 6400 AU24 (Prof. Maria Palazzi).
 - **The journal that summarizes each week's progress can be found at the end** [(**or click here**)](#journals). 
 - Use `History` on top right to inspect past versions or make comparasions, there is also a `back to top` button next to it. 
 
-The most recent updated section can be found [here](#21---selecting-the-distribution). Note that this is the section that received the most amount of progress with respect to the project, not the course. As such, this may not be the same as the journal content of the corresponding week. Although GitHub version history can be used to inspect past versions, for ease of access, snapshots of this documentation are also created periodically and are stored in [resources](https://github.com/Amarthgul/PersonalCodes/tree/master/OSU/DESIGN6400/resources)
+The most recent updated section can be found [here](#321---object-space). Note that this is the section that received the most amount of progress with respect to the project, not the course. As such, this may not be the same as the journal content of the corresponding week. Although GitHub version history can be used to inspect past versions, for ease of access, snapshots of this documentation are also created periodically and are stored in [resources](https://github.com/Amarthgul/PersonalCodes/tree/master/OSU/DESIGN6400/resources)
 
 #### Table of content:
 
@@ -369,7 +369,7 @@ Before feeding a ray into the lens, the surfaces must be defined. A typical sphe
 
 Aside from the chamfer, the rest are the same as most optical simulation software, like Zemax and CODEX. 
 
-It is also worth noting that here we defined the origin to be the vertex of the first surface. The coordinate system is a right hand system with the positive $y$ axis pointing up, The $z$ axis is the optical axis for the lens and its positive direction points to the direction of the image plane, as shown in the figure below. 
+It is also worth noting that here we defined the origin to be the vertex of the first surface. The coordinate system is a right hand system with the positive $y$ axis pointing up, The $z$ axis is the optical axis for the lens and its positive direction points to the direction of the image plane, as shown in the figure below. This also gives us the convenience that the entire $z<0$ area is the object space, and that the image space will only exist in $z>0$. 
 
 
 <div align="center">
@@ -385,6 +385,27 @@ Readers may notice this coordinate seems to contradict the surface radius direct
 
 For a real lens, its object space is the real world. In this application, however, object space may be in several different forms. 
 
+The simplest case is a **point source**. This can be defined as a point residing in the position $\mathbf{P}=\left ( x, y, z \right )^{T}$ emitting light of a certain wavelength(s) $\lambda$, with radiant flux $\Phi$. 
+
+For optical imaging, the position of the source can also be represented as a field angle instead of a 3D position, basically using the polar coordinate instead of the Euclidean one. 
+
+<div align="center">
+	<img src="resources/PointRepresentation.png" width="500">
+  <p align="center">Figure 3.3. The point source.</p>
+</div>
+
+As figure 3.3 illustrated, the point can be represented using 2 field angles $\theta_{x}$ and $\theta_{y}$, plus a distance $d$. This is particularly useful since the angle of view of lenses is easier to test using field angle than Euclidean positions. However, it is worth noting that in the actual computation, the polar coordinates will still be converted to Euclidean positions, the polar form is just for ease of use, similar to the relationship between HSV and RGB color space. 
+
+For wavelengths, due to modern computer graphics and animation software uses almost exclusively RGB, the wavelength representation should better be regarded as an intermediate. As such, in this program, the color of the light from the point source shall be represented as RGB values. The RGB is either `[0, 1]` or a discrete range depending on bit depth, `[0, 255]` for `8` bits.
+
+Note that a point source may also be expanded as the return value of a ray cast from a ray tracing renderer. 
+
+Another case of an object that shall be used here is a 2D image. The image can essentially be viewed as a collection of points, propagating every one of these points through the system and integral the result will then yield the image as if shot through the lens. However, an image will introduce more variables than a single point, and they must be defined to convert the image into a grid of points. 
+
+Assuming the image is a single image in typical 8 bit RGB format (that is, without channels for z-depth etc.). Then the z distance of all the points will be the same, it is only the x and y position that will vary. Due to the image itself being a discrete sample of colors (as pixels), the pixel density (i.e., resolution) difference between the image and the imager may introduce mosaic pattern. 
+
+
+<br />
 
 #### 3.2.2 - Object to 1st Surface 
 
@@ -394,7 +415,7 @@ The next task is to sample the lights in this oblique cone evenly. The most obvi
 
 <div align="center">
 	<img src="resources/3.2.1ExtremeOblique.png" width="320">
-  <p align="center">Figure 3.3. Unevenness caused by surface curvature.</p>
+  <p align="center">Figure 3.4. Unevenness caused by surface curvature.</p>
 </div>
 
 As shown in the figure above, there is an observable amount of spatial density unevenness of the rays emitted from the point, the upper part appears to be denser than the lower part. In another words, the point "emits" more light from the top than from the bottom. While this kind of emission/distribution may be true for some highly reflective sufraces at certain angle, it is not valid for Lambertian surfaces, which is very much the case here.   
@@ -403,7 +424,7 @@ A better way is to sample from the projection of $d$ from the direction of the o
 
 <div align="center">
 	<img src="resources/OffAxisCone.png" width="500">
-  <p align="center">Figure 3.3. Cross section of an oblique cone.</p>
+  <p align="center">Figure 3.5. Cross section of an oblique cone.</p>
 </div>
 
 The figure above shows the cross section of the oblique cone on the plane that contains its apex, our goal is to obtain the ellipsal shape on the plane of $AB$ perpendicular to $PCA$. 
@@ -412,7 +433,7 @@ To make it clearer, below is the figure presented in a more 3D enviroment:
 
 <div align="center">
 	<img src="resources/Cone3dDiagram.png" width="480">
-  <p align="center">Figure 3.4. The cone in 3D.</p>
+  <p align="center">Figure 3.6. The cone in 3D.</p>
 </div>
 
 Note that the figure above represents a surface with $r=\infty$, i.e., a plane. Since the first vertex is the origin, the location of the circle on $z$ axis will be offset a bit depending on the radius and clear semi-diameter. 
@@ -464,7 +485,7 @@ The position of point $B$ then allows us to derive the equation for the eclipse 
 
 <div align="center">
 	<img src="resources/3.2.1VerticalConical.png" width="320">
-  <p align="center">Figure 3.5.</p>
+  <p align="center">Figure 3.7. Conical section. </p>
 </div>
 
 As a 2D shape, the ellipse can be described as: 
