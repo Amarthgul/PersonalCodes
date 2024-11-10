@@ -663,6 +663,7 @@ Up till this point, the project has been operating under the realm of geometric 
 
 Parenthesis marks the Monday of that week for easier identification. 
 
+- [Week 12 (Nov 3rd)](#week-12)
 - [Week 11 (Oct 27th)](#week-11)
 - [Week 10 (Oct 20th)](#week-10)
 - [Week 9 (Oct 13th)](#week-9)
@@ -674,6 +675,40 @@ Parenthesis marks the Monday of that week for easier identification.
 - [Week 3 (Sept 1st)](#week-3)
 - [Week 2 (Aug 26th)](#week-2)
 - [Week 1 (Aug 19th)](#week-1)
+
+### Week 12
+
+Principally, an image is just a collection of points/spots, so being able to image a point technically gives me the ability to image (verb) an image (noun). But to implement that requires a lot of changes, more on this in section [3.2.1](#321---object-space). I have been adding and stitching a lot of things in the past 2 weeks and finally was able to feed all the rays from all the points through the lens. 
+
+<div align="center">
+	<img src="resources/J_12_init.png" width="400">
+  <p align="center">Journal Figure 12.1. First imaged image. </p>
+</div>
+
+Well this is not very ideal. For reference the original image is a photo of [Henri Cartier Bresson](https://www.britannica.com/biography/Henri-Cartier-Bresson). The resulting image is flipped just like real images on the image plane. But the color is obviously not correct. It then occurs to me that the saturated red and yellow and blue are all black in the original, so I checked the conversion algorithm and realized it’s caused by the rays not being pruned depending on the brightness of the source color. 
+
+For a better examination, I also tried to image the ISO12233 chart after fixing the color: 
+
+<div align="center">
+	<img src="resources/J_12_Comp1.jpg" width="800">
+  <p align="center">Journal Figure 12.2. ISO12233, original vs. imaged. </p>
+</div>
+
+The imaged result showed barrel distortion corresponding to the simulated lens (Zeiss Biotar 50mm f/1.4), and has visible vignette, both of which are true to the optical characteristic. While not obvious, there are also traces of chromatic aberration, also an encouraging sight.  
+
+In both of the sim results, there appears to have a grid on the image. After going through the program logic I believe it’s caused by the source image having a lower resolution (134x90) than the imager (300x200). Adding on the optical distortion, created the mosaic pattern on the image. A proof is that by shifting the position of the imager, the defocused image then had a more even illumination. 
+
+<div align="center">
+	<img src="resources/J_12_Comp2.jpg" width="800">
+  <p align="center">Journal Figure 12.3. Original HCB image vs. defocused imaging. </p>
+</div>
+
+The mosaic problem should be solved by higher source resolution. But I ran into a memory problem with a higher sample _(as if I am writing C++ again)_. Turns out the previous resolution has been using about 20 gigs of memory and created over 190 million rays. Due to the way a 2D image is sampled in 3D space, double the sample rate actually increases ray count by about 10 folds, which may go over the indexing limit and will almost definitely run out of memory. In the future I will have to add manual garbage collection and some preventive methods to reduce memory consumption. 
+
+
+-> Back to [journal selection](#journals)
+
+<br />
 
 
 ### Week 11
