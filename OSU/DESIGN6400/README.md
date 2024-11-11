@@ -390,7 +390,7 @@ The simplest case is a **point source**. This can be defined as a point residing
 For optical imaging, the position of the source can also be represented as a field angle instead of a 3D position, basically using the polar coordinate instead of the Euclidean one. 
 
 <div align="center">
-	<img src="resources/PointRepresentation.png" width="500">
+	<img src="resources/PointRepresentation.png" width="400">
   <p align="center">Figure 3.3. The point source.</p>
 </div>
 
@@ -402,7 +402,19 @@ Note that a point source may also be expanded as the return value of a ray cast 
 
 Another case of an object that shall be used here is a 2D image. The image can essentially be viewed as a collection of points, propagating every one of these points through the system and integral the result will then yield the image as if shot through the lens. However, an image will introduce more variables than a single point, and they must be defined to convert the image into a grid of points. 
 
-Assuming the image is a single image in typical 8 bit RGB format (that is, without channels for z-depth etc.). Then the z distance of all the points will be the same, it is only the x and y position that will vary. Due to the image itself being a discrete sample of colors (as pixels), the pixel density (i.e., resolution) difference between the image and the imager may introduce mosaic pattern. 
+Assuming the image is a single image in typical 8 bit RGB format (that is, without channels for z-depth etc.). Then the $z$ distance of all the points will be the same, it is only the $x$ and $y$ position that will vary. Due to the image itself being a discrete sample of colors (as pixels), the pixel density (i.e., resolution) difference between the image and the imager may introduce mosaic pattern. 
+
+While an adaptive sampling may be implemented to cover the minimum amount needed to create a smooth image, it may cause burden on the hardware and may not be deemed as controllable as some users want, a manual definition is thus more ideal. The image thus has 2 set of parameters:
+
+- **Dimension**
+
+  The physical size of the image in the object space, like `300mm x 200mm`. 
+
+- **Sample per millimeter**.
+
+  As the name indicates, how many samples to have per millimeter, denoted as $s$. Note this is a scalar parameter, and for an image area in $1mm^2$, the actual samples will be $s^2$. 
+
+In practice, the dimension will be timed with a sample per millimeter to get the sample count on each axis. The image will then be resized to that size, then each pixel on the resized image will be treated as a sample. This also allows the space sample algorithm to be converted into image resolution resampling algorithm 
 
 
 <br />
@@ -663,174 +675,149 @@ Up till this point, the project has been operating under the realm of geometric 
 
 Parenthesis marks the Monday of that week for easier identification. 
 
-- [Week 12 (Nov 3rd)](#week-12)
-- [Week 11 (Oct 27th)](#week-11)
-- [Week 10 (Oct 20th)](#week-10)
-- [Week 9 (Oct 13th)](#week-9)
-- [Week 8 (Oct 6th)](#week-8)
-- [Week 7 (Sept 29th)](#week-7)
-- [Week 6 (Sept 22nd)](#week-6)
-- [Week 5 (Sept 15th)](#week-5)
-- [Week 4 (Sept 8th)](#week-4)
-- [Week 3 (Sept 1st)](#week-3)
-- [Week 2 (Aug 26th)](#week-2)
 - [Week 1 (Aug 19th)](#week-1)
+- [Week 2 (Aug 26th)](#week-2)
+- [Week 3 (Sept 1st)](#week-3)
+- [Week 4 (Sept 8th)](#week-4)
+- [Week 5 (Sept 15th)](#week-5)
+- [Week 6 (Sept 22nd)](#week-6)
+- [Week 7 (Sept 29th)](#week-7)
+- [Week 8 (Oct 6th)](#week-8)
+- [Week 9 (Oct 13th)](#week-9)
+- [Week 10 (Oct 20th)](#week-10)
+- [Week 11 (Oct 27th)](#week-11)
+- [Week 12 (Nov 3rd)](#week-12)
 
-### Week 12
 
-Principally, an image is just a collection of points/spots, so being able to image a point technically gives me the ability to image (verb) an image (noun). But to implement that requires a lot of changes, more on this in section [3.2.1](#321---object-space). I have been adding and stitching a lot of things in the past 2 weeks and finally was able to feed all the rays from all the points through the lens. 
+### Week 1
+
+(Week of Aug 19th)
+
+This week was mostly spent on setting up this markdown document and some initialization work for the course. The table of content was drafted according to my estimation and will hopefully provide a directional guide in the rest of the semester. In this documentation I have been working on the first several chapters, particularly the first introductory chapter, preparing it for the next research proposal assignment.  
+
+For now, I intend to spend the first 5 weeks on the math part, establishing a theoretical foundation for the later implementation (paper prototype, one can say). Although some degree of implementation may be attempted. 
+
+-> Back to [journal selection](#journals)
+
+<br />
+
+
+### Week 2
+
+(Week of Aug 26th)
+
+Attempting to disassemble the ray transfer matrix in 3D revealed that this approach may not work, documented in chapter [3.1](#31---explore-ray-transfer-matrix). I then switched to using the more traditional ray casting approach, treating rays as vectors in 3D. 
+
+While I initially thought the difficulty would only come when I try to recursively propagate the lights through the lens, it ended up arriving much earlier. It appears that directly sampling from the clear diameter $d$ will result in unevenness around the edges (illustrated by figure 3.3). To avoid that, the sample should be based on an ellipse in the plane perpendicular to the incident angle. 
+
+The road to get that ellipse was quite difficult. I tried to do it step by step, first calculating the plane normal, then finding the plane equation, followed by finding the 2 coefficients for the ellipse. I also tried to use the different terms of the vectors to derive a direct expression of the ellipse, but it quickly got out of hand and out of page as well, some of the incredibly cumbersome equations can still be found in the snapshots. Later it occurred to me that with plane normal, line direction, a point on the line and a point on the plane, I could directly calculate the intersection and use triangle similarity to find the ellipse. Which finally ended my struggles that lasted for over over 2 days. 
+
+This also led me to think: for me and for this project, the final implementation will be done by Python Numpy, which is fairly fast for matrix and array calculation. While it certainly will be good if I can simplify the calculations by disassembling a matrix element by element then eliminating certain terms, the time saved from using these simplified calculations may not be fully justified by the sheer amount of time spent to derive them. 
+
+Anyways, finding the formula for the ellipse enabled me to proceed to try sampling on this ellipse. Somehow I found no established algorithm on this subject, but some people online mentioned to use area increment to decide how many sample points to put into a certain area. Eventually I derived a layered-based sample method and was able to produce a fairly even sampling, as shown in the figure below: 
 
 <div align="center">
-	<img src="resources/J_12_init.png" width="400">
-  <p align="center">Journal Figure 12.1. First imaged image. </p>
+	<img src="resources/J_02_PointsOnEllipse.png" width="280">
+  <p align="center">Journal Figure 2.1. Demo calculation result showing sampling points on a 3D ellipse. The red, green, and blue line shows the $x$, $y$, and $a$ axis, pointing to their positive direction respectively. </p>
 </div>
 
-Well this is not very ideal. For reference the original image is a photo of [Henri Cartier Bresson](https://www.britannica.com/biography/Henri-Cartier-Bresson). The resulting image is flipped just like real images on the image plane. But the color is obviously not correct. It then occurs to me that the saturated red and yellow and blue are all black in the original, so I checked the conversion algorithm and realized it’s caused by the rays not being pruned depending on the brightness of the source color. 
+There was also a lot of time spent on adding more content on this document, particularly the first chapter. Writing those non-technical stuff ended up feeling more difficult than the technical ones, subjective narratives seem to require way more organization than objective inductions. 
 
-For a better examination, I also tried to image the ISO12233 chart after fixing the color: 
+And a slight tangent: I finally understand why some people prefer to do the calculations on a bigger surface like a whiteboard or a blackboard. The formulas I wrote on paper are barely recognizable and they get increasingly bad with more time spent on them. Whiteboards, on the other hand, have some magic that can sustain a long period of thinking and writing without significant deterioration of handwriting. I assume this is due to the bigger surface area uses more elbow movement than finger, which is easier to control for a long time. 
+
+In general, the planned goal for this week was to find a first surface sampling algorithm, i.e.,  solving the question of **how to evenly poject the light reflected from a point in space onto the first surface of the lens?** Given the results(as described in chapter [3.2.1](#321---object-to-1st-surface)), I'd say this goal is accomplished. 
+
+During the process I did realize that there are possible drawbacks for the current methodology, like it cannot generate a correct and even sampling when the incident angle is too steep, and if the curvature of the first surface is too big, this method also cannot account for the surface occlusion. But since the entire process is designed to be modular, I can come back and modify them later. The current priority should be to keep moving forward and have a working prototype as soon as possible. 
+
+-> Back to [journal selection](#journals)
+
+<br />
+
+
+### Week 3
+
+The goal of this week is to find a way to propagate rays from one surface to another. And since it is the only refractive model in geometrical optics I’m considering, the derivation process turned out to be very easy, as described in section [3.1](#31---explore-ray-transfer-matrix). This week I managed to finish a spherical surface defnition that could calculate the effective zone of the sperical surface (since for a lens, its surface is only part of a sphere, not the entire sphere) and use it to calculate the intersections. 
+
+There are several things I came to realize this week: 
+
+- There need to be a lens class (and a surface sub-class) so that rays propagating through can make inquiry of the lens at any time.
+- The reflective index of the given wavelength needs to be caulcated by material properties, this turned out to be a bit cumbersome to do. For example, the	BK7HT glass from Schott is described using the Sellmeier equation in its datasheet. In order to find the refractive index of a given wavelength in this glass, I would need to have a database that records the paramters for BK7HT's Sellmeier coefficients and use it to calculate the refractive index.
+- While mathematically the calculator of the sample points may be correct, they don’t stay this way in the programming side. Due to rounding errors, things that are on edge may end up getting pruned or become ineffective. An additional tolerance need to be implemented to make it also work in the code. 
+
+I also decided to move some of the testing codes into a new project and no longer rely on the Google Colab. This way I no longer need to cramp all the codes in one file and can now referencing them freely. 
 
 <div align="center">
-	<img src="resources/J_12_Comp1.jpg" width="800">
-  <p align="center">Journal Figure 12.2. ISO12233, original vs. imaged. </p>
+	<img src="resources/J_03_1stDurfaceProjection.png" width="280">
+  <p align="center">Journal Figure 3.1. The sample points converted to vectors and projected onto the spherical surface. </p>
 </div>
 
-The imaged result showed barrel distortion corresponding to the simulated lens (Zeiss Biotar 50mm f/1.4), and has visible vignette, both of which are true to the optical characteristic. While not obvious, there are also traces of chromatic aberration, also an encouraging sight.  
+In general, this week received fewer visible updates than I would liked to, but I think the overall progression is still on par. 
 
-In both of the sim results, there appears to have a grid on the image. After going through the program logic I believe it’s caused by the source image having a lower resolution (134x90) than the imager (300x200). Adding on the optical distortion, created the mosaic pattern on the image. A proof is that by shifting the position of the imager, the defocused image then had a more even illumination. 
+Some other not so directly related findings include that GitHub markdown seems to not support tagging, so I cannot put an index for the equations. This is mildly troublesome since I cannot refer to a specific formula by saying something like “substitute the terms using equation 3.22, we can get…”, it also makes locating the equations a bit tricky. 
+
+-> Back to [journal selection](#journals)
+
+<br />
+
+### Week 4
+
+The semester plan was to use the first 5 weeks on pure theoritical algorithms, only then start the programming implementation. However, just as a mean of validation, I tried to write a Python method of every algorithm written in the main article, somehow they worked togther, hence the demo images in previous weeks' journals. And it is because of the coding part that I realized the current algorithm does not address certain problems, primarily Total Interanl Reflection and Vignette. 
+
+In section [3.1](#31---explore-ray-transfer-matrix) I have noted that ray transfer matrix seems to be a dead end for more accurate simulations. What I did not say is that for most programming languages, array operations typically have faster support than the same elements in the array but are iterated one by one. For this reason, the data structure in these algorithms should still better be designed in a form that can be written as array operations. But since this is technically a programming language dependent concern, I have not explicitly written this into the documentation. 
 
 <div align="center">
-	<img src="resources/J_12_Comp2.jpg" width="800">
-  <p align="center">Journal Figure 12.3. Original HCB image vs. defocused imaging. </p>
+	<img src="resources/J_04_singletRefraction.png" width="280">
+  <p align="center">Journal Figure 4.1. Monochromatic rays passing through a single lens with RI 1.5 and converging behind. </p>
 </div>
 
-The mosaic problem should be solved by higher source resolution. But I ran into a memory problem with a higher sample _(as if I am writing C++ again)_. Turns out the previous resolution has been using about 20 gigs of memory and created over 190 million rays. Due to the way a 2D image is sampled in 3D space, double the sample rate actually increases ray count by about 10 folds, which may go over the indexing limit and will almost definitely run out of memory. In the future I will have to add manual garbage collection and some preventive methods to reduce memory consumption. 
+Now that I can achieve ray propagation to some degree (as shown in the figure above), I realized something else. It is quite easy for rays to be vignetted or experience total internal reflection. In these two cases, the rays will then be unable to directly travel to the next surface, thus becoming non-sequential. 
 
+(reminder that sequential means the ray will travel from one surface to the next and never returns)
 
--> Back to [journal selection](#journals)
+Mathematically non-sequential rays are not a problem, but coding-wise they are. Because these non-sequential rays were once sequential and were in the same array. It is very tricky to handle 2 different types of rays in 1 array. As such, I decided I need a new data structure to perform the calculation. The new structure is described at the beginning of section [3.2.3](#323---image-plane) and is still work in progress. 
 
-<br />
+This could be my advantage in designing stuff, at the same my Hamartia. I don’t believe I am physically capable of thinking of a thing without considering its tangents and contexts. I cannot evaluate an idea purely for the idea's sake, its origin, its cause, its implications and implementation (even non-existence at the time) will all be considered. In other words, my way of working tends to contain feedback from outside of the current time and scope. 
 
+Just in this project and just so far, this habit has saved me from committing several mistakes and have corrected several oversights. But at the same time, it also means that my claim of making the theories `"completely programming language invariant"` is untrue, I am biased by the languages I know/use. I can say with confidence that I do not regret the choices I made, they are always the local optimal. If I was sent back in time, unless there is new information available that I did not know, I would make the same decision again. But I am factually not a clairvoyant and won’t be able to foresee the future with 100% accuracy (I genuinely think knowing the future is logically incoherent), it is possible that I will be constrained by another step that has not yet manifested itself, prematurely making adjustments that may not be true when that step eventually arrives. 
 
-### Week 11
-
-This was not a very fruitful week. In regard to the program I have only been modifying and improving some implementations, such as the dot generation order and optimizing the matrix slicing to buy more time, no major progress was made. 
-
-It did make me contemplate about the wavelength implementation. As noted in section [2.1](#21---selecting-the-distribution), the current way to convert RGB color to wavelength is to disassemble an RGB value into 3 wavelengths corresponding to the red, green, and blue color. This, however, may be producing more color than there actually are. In the real world, the color of the pixel records the irradiance of a point in space, but the irradiance may be just one single (peak) wavelength, so using 3 different weight wavelengths to represent that 1 peak wavelength may cause some errors, but the real effect can only be seen later with some actual comparisons. 
-
-With all the alumni speakers, I also realized that I do not have questions to ask. In fact, I think I never had real questions in the past during all those guest presentation events, the ones that I asked were more like _“situationally expected”_ questions, not _mine_ questions. 
-
-I think the reason might be that I do not believe in the replicability of experience at all. Everyone is the cumulative sum of the environments and their experiences in it. Thus, to isolate one section of the experience without considering the rest, whatever conclusion drawn from that section could not be valid. To know what they did back in their time is as useful as reading the Hobbit and learning how Bilbo Baggins found the Arkenstone and escaped from Smug - amusing stories, but it’s set in a different time at a different place about different people. As such, these questions and answers do not have the validity to guide me making decisions in a different time and space, and for entirely different purposes. 
-
-Another intended use for these presentations is likely networking. However, aside from most of them having some different field than my topic, I also question the robustness of these networking results should I try to participate. In my typical deconstructionist manner, I do not see anyone can be truly altruistic, that is, willing to perform tasks solely for the benefit of others with absolutely no pursuit of any form of returned favor. Even parental love, which often is praised to be the most selfless one of all, is scientifically flawed. The parents’ love is conditioned for the expectation of the offspring to live as the parents have intended[^2], if not, quite unfortunate events may happen[^3]. My point is, networking feels more like a trade, I cannot make a deal without having something to put on the table. And I can only make the best offer and most sustainable trade if I know what they need, before that, I am just an easily forgettable college student. 
-
+It is somewhat hilarious that this thinking method itself is telling me its shortcomings but at the same time convincing me that keep employing it is the best thing I can do for now. 
 
 -> Back to [journal selection](#journals)
 
 <br />
 
 
-### Week 10 
 
-Eventually I was able to figure out what happened to the program that caused it to crash. 
+### Week 5
 
-The rays were inverted after going through the second surface, which is weird since there is currently no reflection implemented. Turned out it’s the refraction ratio being so high that the bending of light went above what’s physically possible. And the cause of that was due to the index of refraction not calculated correctly. 
+A simple flip of the first surface radius from positive to negative, i.e., from a convex to concave, and the program failed, it still ran but the result is incorrect. To determine the cause I spent roughly another two days as every fix seemed to have a ripple effect that either triggers something else to fail or reveals more faulty designs. 
 
-This finally led me to locate the source of the error: the wavelengths are mostly represented in nanometers, in the index of refraction calculation, the wavelength was converted to micrometers. But the unit conversion changed the original value despite it being passed into the function as an argument - a very C++ problem only caused by Numpy’s logic. Well shit. 
-
-After fixing the wavelength conversion, another set of modifications are needed to accommodate the change of data structure. While very time-consuming, these are mostly about restructuring the matrices to incorporate the bigger wavelengths, then change the corresponding index to slice the right part of the matrix. Ultimately I was able to produce a spot with color: 
+There turned out to be a series of problems. To start, the ellipse projection algorithm is not producing the correct ellipse. After investigation, this turned out to be caused by me not considering the z-axis offset by the curvature of the surface. In previous journal images this problem can already be seen as the circular base is not aligned with the triangle. 
 
 <div align="center">
-	<img src="resources/J_10_colorSpot.png" width="500">
-  <p align="center">Journal Figure 10.1. Spot generated with color. </p>
+	<img src="resources/J_05_CorrectedEllipseProjection.png" width="280">
+  <p align="center">Journal Figure 5.1. Corrected ellipse projection, the lower end now touches the edge of the first surface. </p>
 </div>
 
-There are still some problems. Initially I added a secondary set of wavelengths to increase accuracy and used a linear interpolation to determine the strength of that wavelength. However, it turned out that this is introducing color bias and quite often phantom colors. 
+Formulas in section [3.2.1](#321---object-to-1st-surface) are also corrected to reflect this change. 
 
-For example, if the input color is `[255, 0, 0]`, the red wavelength will have max radiant whereas the green and blue wavelength has none. But when secondary wavelength is enabled, there will be some green color due to the red radiant “bleed” into the green. 
+After that, there are also a lot of places in which the sign of the radius is not properly calculated or downright ignored. And after correcting these, the program is able to run correctly (as far as i can tell). A pruning algorithm is also added to separate the lights that cannot propagate to the next surface or have too steep an angle and become total internal reflections (TIR). 
 
-I also realized that due to the image determining the brightest value by finding the max value in the signal, the resulting spot can be pretty dark. While I can manually brighten it up, it can be hard to do so when there are more spots. 
+Another advancement is the implementation of the material system. After starting the new data structure, I no longer have manual control over every process and thus cannot feed the index of refraction into the refraction calculation part. It took some time but I was eventually able to finish a table look up and a parser that checks a table of 3,000+ glass materials, find the one entered, and parse the parameter of the material then calculate the index of refraction at a given wavelength.  
 
 <div align="center">
-	<img src="resources/J_10_colorSpotOneStopOver.png" width="500">
-  <p align="center">Journal Figure 10.2. Enhanced spot. </p>
+	<img src="resources/J_05_LF7.png" width="540">
+  <p align="center">Journal Figure 5.2. Refraction index plot of the glass material LF7, x axis represents wavelength in micrometer. </p>
 </div>
 
-The next steps would include:
-- Add reflection into the program. 
-- Image-wide transmission. 
-- Consider implementing a light source description using the off axis angle on X and Y direction and a distance. The current 3D location can be quite tricky when dealing with the field of view. 
+Now the lens is able to propagate the light through. Although reflection is yet to be implemented, I should be able to get an image or a spot diagram in the following week.
 
-Outside of the programming, I have been trying to contact [Prof. Shen](https://cse.osu.edu/people/shen.94) from the CSE department since his area mostly closely aligns with this topic. The 2 emails seem to have been buried in his thousands of (probably tens of thousands at this point) unread emails. So I tried to see if I could intercept him in person, I even tried to find him after a CSE faculty meeting but was of no luck (he did not participate in the faculty meeting?). The 10th week was filled with events, I’ll try to see if I have better luck next week. 
+A new discovery, or realization, is that my former explanation that the program is a “per pixel convolution” is not entirely correct. While it still iterates through the pixels, it is not a convolution. The problem happens at the end of the lens, the rays generated by an input pixel exiting the virtual lens may not have a corresponding pixel to map onto. Since rays arriving at the image plane have a spatially sparse distribution,  this also means that an integral process is needed to calculate the spots. This discovery would not have been possible without the codings so I am glad I did that. 
 
 -> Back to [journal selection](#journals)
 
 <br />
 
-
-### Week 9
-
-This week has more time spent on reading books rather than implementing the project. I am planning to meet faculties from the department astronmy in the next 2 weeks and there will certainly be loads of questions about wave optics, I would rather like to say something when such questions are being asked. 
-
-A new sampling method is also implemented based on random scattering instead of polar coordinate. This is mostly due to the discovery that the polar method tends to produce concentric circles, which does not look natural. It also has the potential problem of being unable to cope with extreme incident angles, because the projected ellipse will have one major axis significantly longer than the other and cause the transformed polar samples to look uneven on one axis. 
-
-The RGB to wavelength algorithm was also implemented, but the change of logic brought a temporary (hopefully) halt to the project. The rays are somehow inverted after the first 2 surfaces and I am still investigating the reason. 
-
--> Back to [journal selection](#journals)
-
-<br />
-
-### Week 8
-
-Due to Fall break and my surgery (doctors gave me an off excuse that lasted 5 days to exactly the next Monday… how I wish this can be offset to cover the actual weekdays), very little was done this week. 
-
-However, I finally devised a way to do the RGB-wavelength conversion. The previous trouble boils down to the process being single-directional, i.e., I can convert RGB into wavelength but cannot convert it back the same way and vice versa. This new method simplifies the conversion into direct wavelength mapping and interpolations, thus making the conversion process mutual and very much lossless. 
-
-
--> Back to [journal selection](#journals)
-
-<br />
-
-
-### Week 7 
-
-A lot has been going on this week. Firstly, the 5-week presentation. 
-
-While the presentation itself was fine, I did not expect Sébastien to say he felt dumb (albeit jokingly). I already decided not to show any of the deduction process to derive the formulas used in writing the application but I forgot that optical design itself is still an incredible niche and scientific thing. While I have been so used to the diagrams, others still will have difficulty understanding them. This should be addressed in future presentations. 
-
-The second is the decision to restructure the application. 
-
-The current implementation has been doing everything in a single class called `Lens`. However, for the sake of maintenance and design principles (both the _design_ design and software design), a single class will introduce too much coupling later, which will make development and maintenance difficult. So this week I am trying to split the jobs into different classes, the hierarchy is as follow:
-
-- **Imaging System** 
-
-  The `imagingSystem` class is the container for the entire application. 
-
-  - **Lens** 
-
-    The `Lens` class contains the definition of the lens and provides functionality regarding how it will behave. 
-
-    - **Surface**
-      
-      The `Surface` class is used to define a surface in a lens. This part is very much the same as all the optical design software. While currently it contains only standard spherical surface, it is planned to include even aspherical and cylindrical elements in the future.  
-
-  - **Imager** 
-
-    The `Imager` class may also contains `Surface` components since digital sensors have some form of glass elements in front of them. However, these glasses are not counted as part of the lens since they move with the sensor and not with the lens. Additionally, the effect of these sensor glasses will keep existing regardless of what lens is in front of the sensor - same as all interchangeable lens camera. As such, it is better to put them in the imager. 
-
-    This class will also be responsible for building the wavelength sensitivity difference, either from digital sensors or film emulsions. 
-
-
-And then, explorations in wavelength reconstruction. 
-
-Since I am working on wavelength, I decided to try recreating a glass material only by its ne and Ve, since this was what hindered me when trying to replicate some old Leica Summilux lens patents. I tried simple regressions and failed, then a neural network (which I hate) but also failed. Suspecting it’s because the relationship between the parameters are not modeled, I dug into it and read a lot of stuff about autoencoders. But even this cannot produce the accuracy I needed (I need less than 1% error from the prediction).
-
-While inverse material engineering was not fruitful, it did spark me on the question of how to convert RGB values to wavelength. Previously I was trying to convert them into Gaussian distribution of wavelengths, but that apparently will have problems when converting back to RGB. The inverse material attempt made me realize that I can subdivide the wavelength, in this way keeping them as discrete values while still working with the lens and its effects. Related explanations can be seen and will be further detailed in [Section 2.1](#21---selecting-the-distribution).
-
-
-
--> Back to [journal selection](#journals)
-
-<br />
 
 
 ### Week 6
@@ -894,130 +881,175 @@ There are several things to do next:
 
 <br />
 
-### Week 5
 
-A simple flip of the first surface radius from positive to negative, i.e., from a convex to concave, and the program failed, it still ran but the result is incorrect. To determine the cause I spent roughly another two days as every fix seemed to have a ripple effect that either triggers something else to fail or reveals more faulty designs. 
 
-There turned out to be a series of problems. To start, the ellipse projection algorithm is not producing the correct ellipse. After investigation, this turned out to be caused by me not considering the z-axis offset by the curvature of the surface. In previous journal images this problem can already be seen as the circular base is not aligned with the triangle. 
+### Week 7 
 
-<div align="center">
-	<img src="resources/J_05_CorrectedEllipseProjection.png" width="280">
-  <p align="center">Journal Figure 5.1. Corrected ellipse projection, the lower end now touches the edge of the first surface. </p>
-</div>
+A lot has been going on this week. Firstly, the 5-week presentation. 
 
-Formulas in section [3.2.1](#321---object-to-1st-surface) are also corrected to reflect this change. 
+While the presentation itself was fine, I did not expect Sébastien to say he felt dumb (albeit jokingly). I already decided not to show any of the deduction process to derive the formulas used in writing the application but I forgot that optical design itself is still an incredible niche and scientific thing. While I have been so used to the diagrams, others still will have difficulty understanding them. This should be addressed in future presentations. 
 
-After that, there are also a lot of places in which the sign of the radius is not properly calculated or downright ignored. And after correcting these, the program is able to run correctly (as far as i can tell). A pruning algorithm is also added to separate the lights that cannot propagate to the next surface or have too steep an angle and become total internal reflections (TIR). 
+The second is the decision to restructure the application. 
 
-Another advancement is the implementation of the material system. After starting the new data structure, I no longer have manual control over every process and thus cannot feed the index of refraction into the refraction calculation part. It took some time but I was eventually able to finish a table look up and a parser that checks a table of 3,000+ glass materials, find the one entered, and parse the parameter of the material then calculate the index of refraction at a given wavelength.  
+The current implementation has been doing everything in a single class called `Lens`. However, for the sake of maintenance and design principles (both the _design_ design and software design), a single class will introduce too much coupling later, which will make development and maintenance difficult. So this week I am trying to split the jobs into different classes, the hierarchy is as follow:
 
-<div align="center">
-	<img src="resources/J_05_LF7.png" width="540">
-  <p align="center">Journal Figure 5.2. Refraction index plot of the glass material LF7, x axis represents wavelength in micrometer. </p>
-</div>
+- **Imaging System** 
 
-Now the lens is able to propagate the light through. Although reflection is yet to be implemented, I should be able to get an image or a spot diagram in the following week.
+  The `imagingSystem` class is the container for the entire application. 
 
-A new discovery, or realization, is that my former explanation that the program is a “per pixel convolution” is not entirely correct. While it still iterates through the pixels, it is not a convolution. The problem happens at the end of the lens, the rays generated by an input pixel exiting the virtual lens may not have a corresponding pixel to map onto. Since rays arriving at the image plane have a spatially sparse distribution,  this also means that an integral process is needed to calculate the spots. This discovery would not have been possible without the codings so I am glad I did that. 
+  - **Lens** 
 
--> Back to [journal selection](#journals)
+    The `Lens` class contains the definition of the lens and provides functionality regarding how it will behave. 
 
-<br />
+    - **Surface**
+      
+      The `Surface` class is used to define a surface in a lens. This part is very much the same as all the optical design software. While currently it contains only standard spherical surface, it is planned to include even aspherical and cylindrical elements in the future.  
 
-### Week 4
+  - **Imager** 
 
-The semester plan was to use the first 5 weeks on pure theoritical algorithms, only then start the programming implementation. However, just as a mean of validation, I tried to write a Python method of every algorithm written in the main article, somehow they worked togther, hence the demo images in previous weeks' journals. And it is because of the coding part that I realized the current algorithm does not address certain problems, primarily Total Interanl Reflection and Vignette. 
+    The `Imager` class may also contains `Surface` components since digital sensors have some form of glass elements in front of them. However, these glasses are not counted as part of the lens since they move with the sensor and not with the lens. Additionally, the effect of these sensor glasses will keep existing regardless of what lens is in front of the sensor - same as all interchangeable lens camera. As such, it is better to put them in the imager. 
 
-In section [3.1](#31---explore-ray-transfer-matrix) I have noted that ray transfer matrix seems to be a dead end for more accurate simulations. What I did not say is that for most programming languages, array operations typically have faster support than the same elements in the array but are iterated one by one. For this reason, the data structure in these algorithms should still better be designed in a form that can be written as array operations. But since this is technically a programming language dependent concern, I have not explicitly written this into the documentation. 
+    This class will also be responsible for building the wavelength sensitivity difference, either from digital sensors or film emulsions. 
 
-<div align="center">
-	<img src="resources/J_04_singletRefraction.png" width="280">
-  <p align="center">Journal Figure 4.1. Monochromatic rays passing through a single lens with RI 1.5 and converging behind. </p>
-</div>
 
-Now that I can achieve ray propagation to some degree (as shown in the figure above), I realized something else. It is quite easy for rays to be vignetted or experience total internal reflection. In these two cases, the rays will then be unable to directly travel to the next surface, thus becoming non-sequential. 
+And then, explorations in wavelength reconstruction. 
 
-(reminder that sequential means the ray will travel from one surface to the next and never returns)
+Since I am working on wavelength, I decided to try recreating a glass material only by its ne and Ve, since this was what hindered me when trying to replicate some old Leica Summilux lens patents. I tried simple regressions and failed, then a neural network (which I hate) but also failed. Suspecting it’s because the relationship between the parameters are not modeled, I dug into it and read a lot of stuff about autoencoders. But even this cannot produce the accuracy I needed (I need less than 1% error from the prediction).
 
-Mathematically non-sequential rays are not a problem, but coding-wise they are. Because these non-sequential rays were once sequential and were in the same array. It is very tricky to handle 2 different types of rays in 1 array. As such, I decided I need a new data structure to perform the calculation. The new structure is described at the beginning of section [3.2.3](#323---image-plane) and is still work in progress. 
+While inverse material engineering was not fruitful, it did spark me on the question of how to convert RGB values to wavelength. Previously I was trying to convert them into Gaussian distribution of wavelengths, but that apparently will have problems when converting back to RGB. The inverse material attempt made me realize that I can subdivide the wavelength, in this way keeping them as discrete values while still working with the lens and its effects. Related explanations can be seen and will be further detailed in [Section 2.1](#21---selecting-the-distribution).
 
-This could be my advantage in designing stuff, at the same my Hamartia. I don’t believe I am physically capable of thinking of a thing without considering its tangents and contexts. I cannot evaluate an idea purely for the idea's sake, its origin, its cause, its implications and implementation (even non-existence at the time) will all be considered. In other words, my way of working tends to contain feedback from outside of the current time and scope. 
 
-Just in this project and just so far, this habit has saved me from committing several mistakes and have corrected several oversights. But at the same time, it also means that my claim of making the theories `"completely programming language invariant"` is untrue, I am biased by the languages I know/use. I can say with confidence that I do not regret the choices I made, they are always the local optimal. If I was sent back in time, unless there is new information available that I did not know, I would make the same decision again. But I am factually not a clairvoyant and won’t be able to foresee the future with 100% accuracy (I genuinely think knowing the future is logically incoherent), it is possible that I will be constrained by another step that has not yet manifested itself, prematurely making adjustments that may not be true when that step eventually arrives. 
-
-It is somewhat hilarious that this thinking method itself is telling me its shortcomings but at the same time convincing me that keep employing it is the best thing I can do for now. 
 
 -> Back to [journal selection](#journals)
 
 <br />
 
-### Week 3
 
-The goal of this week is to find a way to propagate rays from one surface to another. And since it is the only refractive model in geometrical optics I’m considering, the derivation process turned out to be very easy, as described in section [3.1](#31---explore-ray-transfer-matrix). This week I managed to finish a spherical surface defnition that could calculate the effective zone of the sperical surface (since for a lens, its surface is only part of a sphere, not the entire sphere) and use it to calculate the intersections. 
+### Week 8
 
-There are several things I came to realize this week: 
+Due to Fall break and my surgery (doctors gave me an off excuse that lasted 5 days to exactly the next Monday… how I wish this can be offset to cover the actual weekdays), very little was done this week. 
 
-- There need to be a lens class (and a surface sub-class) so that rays propagating through can make inquiry of the lens at any time.
-- The reflective index of the given wavelength needs to be caulcated by material properties, this turned out to be a bit cumbersome to do. For example, the	BK7HT glass from Schott is described using the Sellmeier equation in its datasheet. In order to find the refractive index of a given wavelength in this glass, I would need to have a database that records the paramters for BK7HT's Sellmeier coefficients and use it to calculate the refractive index.
-- While mathematically the calculator of the sample points may be correct, they don’t stay this way in the programming side. Due to rounding errors, things that are on edge may end up getting pruned or become ineffective. An additional tolerance need to be implemented to make it also work in the code. 
+However, I finally devised a way to do the RGB-wavelength conversion. The previous trouble boils down to the process being single-directional, i.e., I can convert RGB into wavelength but cannot convert it back the same way and vice versa. This new method simplifies the conversion into direct wavelength mapping and interpolations, thus making the conversion process mutual and very much lossless. 
 
-I also decided to move some of the testing codes into a new project and no longer rely on the Google Colab. This way I no longer need to cramp all the codes in one file and can now referencing them freely. 
+
+-> Back to [journal selection](#journals)
+
+<br />
+
+
+
+### Week 9
+
+This week has more time spent on reading books rather than implementing the project. I am planning to meet faculties from the department astronmy in the next 2 weeks and there will certainly be loads of questions about wave optics, I would rather like to say something when such questions are being asked. 
+
+A new sampling method is also implemented based on random scattering instead of polar coordinate. This is mostly due to the discovery that the polar method tends to produce concentric circles, which does not look natural. It also has the potential problem of being unable to cope with extreme incident angles, because the projected ellipse will have one major axis significantly longer than the other and cause the transformed polar samples to look uneven on one axis. 
+
+The RGB to wavelength algorithm was also implemented, but the change of logic brought a temporary (hopefully) halt to the project. The rays are somehow inverted after the first 2 surfaces and I am still investigating the reason. 
+
+-> Back to [journal selection](#journals)
+
+<br />
+
+
+
+### Week 10 
+
+Eventually I was able to figure out what happened to the program that caused it to crash. 
+
+The rays were inverted after going through the second surface, which is weird since there is currently no reflection implemented. Turned out it’s the refraction ratio being so high that the bending of light went above what’s physically possible. And the cause of that was due to the index of refraction not calculated correctly. 
+
+This finally led me to locate the source of the error: the wavelengths are mostly represented in nanometers, in the index of refraction calculation, the wavelength was converted to micrometers. But the unit conversion changed the original value despite it being passed into the function as an argument - a very C++ problem only caused by Numpy’s logic. Well shit. 
+
+After fixing the wavelength conversion, another set of modifications are needed to accommodate the change of data structure. While very time-consuming, these are mostly about restructuring the matrices to incorporate the bigger wavelengths, then change the corresponding index to slice the right part of the matrix. Ultimately I was able to produce a spot with color: 
 
 <div align="center">
-	<img src="resources/J_03_1stDurfaceProjection.png" width="280">
-  <p align="center">Journal Figure 3.1. The sample points converted to vectors and projected onto the spherical surface. </p>
+	<img src="resources/J_10_colorSpot.png" width="500">
+  <p align="center">Journal Figure 10.1. Spot generated with color. </p>
 </div>
 
-In general, this week received fewer visible updates than I would liked to, but I think the overall progression is still on par. 
+There are still some problems. Initially I added a secondary set of wavelengths to increase accuracy and used a linear interpolation to determine the strength of that wavelength. However, it turned out that this is introducing color bias and quite often phantom colors. 
 
-Some other not so directly related findings include that GitHub markdown seems to not support tagging, so I cannot put an index for the equations. This is mildly troublesome since I cannot refer to a specific formula by saying something like “substitute the terms using equation 3.22, we can get…”, it also makes locating the equations a bit tricky. 
+For example, if the input color is `[255, 0, 0]`, the red wavelength will have max radiant whereas the green and blue wavelength has none. But when secondary wavelength is enabled, there will be some green color due to the red radiant “bleed” into the green. 
 
--> Back to [journal selection](#journals)
-
-<br />
-
-### Week 2
-
-(Week of Aug 26th)
-
-Attempting to disassemble the ray transfer matrix in 3D revealed that this approach may not work, documented in chapter [3.1](#31---explore-ray-transfer-matrix). I then switched to using the more traditional ray casting approach, treating rays as vectors in 3D. 
-
-While I initially thought the difficulty would only come when I try to recursively propagate the lights through the lens, it ended up arriving much earlier. It appears that directly sampling from the clear diameter $d$ will result in unevenness around the edges (illustrated by figure 3.3). To avoid that, the sample should be based on an ellipse in the plane perpendicular to the incident angle. 
-
-The road to get that ellipse was quite difficult. I tried to do it step by step, first calculating the plane normal, then finding the plane equation, followed by finding the 2 coefficients for the ellipse. I also tried to use the different terms of the vectors to derive a direct expression of the ellipse, but it quickly got out of hand and out of page as well, some of the incredibly cumbersome equations can still be found in the snapshots. Later it occurred to me that with plane normal, line direction, a point on the line and a point on the plane, I could directly calculate the intersection and use triangle similarity to find the ellipse. Which finally ended my struggles that lasted for over over 2 days. 
-
-This also led me to think: for me and for this project, the final implementation will be done by Python Numpy, which is fairly fast for matrix and array calculation. While it certainly will be good if I can simplify the calculations by disassembling a matrix element by element then eliminating certain terms, the time saved from using these simplified calculations may not be fully justified by the sheer amount of time spent to derive them. 
-
-Anyways, finding the formula for the ellipse enabled me to proceed to try sampling on this ellipse. Somehow I found no established algorithm on this subject, but some people online mentioned to use area increment to decide how many sample points to put into a certain area. Eventually I derived a layered-based sample method and was able to produce a fairly even sampling, as shown in the figure below: 
+I also realized that due to the image determining the brightest value by finding the max value in the signal, the resulting spot can be pretty dark. While I can manually brighten it up, it can be hard to do so when there are more spots. 
 
 <div align="center">
-	<img src="resources/J_02_PointsOnEllipse.png" width="280">
-  <p align="center">Journal Figure 2.1. Demo calculation result showing sampling points on a 3D ellipse. The red, green, and blue line shows the $x$, $y$, and $a$ axis, pointing to their positive direction respectively. </p>
+	<img src="resources/J_10_colorSpotOneStopOver.png" width="500">
+  <p align="center">Journal Figure 10.2. Enhanced spot. </p>
 </div>
 
-There was also a lot of time spent on adding more content on this document, particularly the first chapter. Writing those non-technical stuff ended up feeling more difficult than the technical ones, subjective narratives seem to require way more organization than objective inductions. 
+The next steps would include:
+- Add reflection into the program. 
+- Image-wide transmission. 
+- Consider implementing a light source description using the off axis angle on X and Y direction and a distance. The current 3D location can be quite tricky when dealing with the field of view. 
 
-And a slight tangent: I finally understand why some people prefer to do the calculations on a bigger surface like a whiteboard or a blackboard. The formulas I wrote on paper are barely recognizable and they get increasingly bad with more time spent on them. Whiteboards, on the other hand, have some magic that can sustain a long period of thinking and writing without significant deterioration of handwriting. I assume this is due to the bigger surface area uses more elbow movement than finger, which is easier to control for a long time. 
+Outside of the programming, I have been trying to contact [Prof. Shen](https://cse.osu.edu/people/shen.94) from the CSE department since his area mostly closely aligns with this topic. The 2 emails seem to have been buried in his thousands of (probably tens of thousands at this point) unread emails. So I tried to see if I could intercept him in person, I even tried to find him after a CSE faculty meeting but was of no luck (he did not participate in the faculty meeting?). The 10th week was filled with events, I’ll try to see if I have better luck next week. 
 
-In general, the planned goal for this week was to find a first surface sampling algorithm, i.e.,  solving the question of **how to evenly poject the light reflected from a point in space onto the first surface of the lens?** Given the results(as described in chapter [3.2.1](#321---object-to-1st-surface)), I'd say this goal is accomplished. 
+-> Back to [journal selection](#journals)
 
-During the process I did realize that there are possible drawbacks for the current methodology, like it cannot generate a correct and even sampling when the incident angle is too steep, and if the curvature of the first surface is too big, this method also cannot account for the surface occlusion. But since the entire process is designed to be modular, I can come back and modify them later. The current priority should be to keep moving forward and have a working prototype as soon as possible. 
+<br />
+
+
+
+### Week 11
+
+This was not a very fruitful week. In regard to the program I have only been modifying and improving some implementations, such as the dot generation order and optimizing the matrix slicing to buy more time, no major progress was made. 
+
+It did make me contemplate about the wavelength implementation. As noted in section [2.1](#21---selecting-the-distribution), the current way to convert RGB color to wavelength is to disassemble an RGB value into 3 wavelengths corresponding to the red, green, and blue color. This, however, may be producing more color than there actually are. In the real world, the color of the pixel records the irradiance of a point in space, but the irradiance may be just one single (peak) wavelength, so using 3 different weight wavelengths to represent that 1 peak wavelength may cause some errors, but the real effect can only be seen later with some actual comparisons. 
+
+With all the alumni speakers, I also realized that I do not have questions to ask. In fact, I think I never had real questions in the past during all those guest presentation events, the ones that I asked were more like _“situationally expected”_ questions, not _mine_ questions. 
+
+I think the reason might be that I do not believe in the replicability of experience at all. Everyone is the cumulative sum of the environments and their experiences in it. Thus, to isolate one section of the experience without considering the rest, whatever conclusion drawn from that section could not be valid. To know what they did back in their time is as useful as reading the Hobbit and learning how Bilbo Baggins found the Arkenstone and escaped from Smug - amusing stories, but it’s set in a different time at a different place about different people. As such, these questions and answers do not have the validity to guide me making decisions in a different time and space, and for entirely different purposes. 
+
+Another intended use for these presentations is likely networking. However, aside from most of them having some different field than my topic, I also question the robustness of these networking results should I try to participate. In my typical deconstructionist manner, I do not see anyone can be truly altruistic, that is, willing to perform tasks solely for the benefit of others with absolutely no pursuit of any form of returned favor. Even parental love, which often is praised to be the most selfless one of all, is scientifically flawed. The parents’ love is conditioned for the expectation of the offspring to live as the parents have intended[^2], if not, quite unfortunate events may happen[^3]. My point is, networking feels more like a trade, I cannot make a deal without having something to put on the table. And I can only make the best offer and most sustainable trade if I know what they need, before that, I am just an easily forgettable college student. 
+
 
 -> Back to [journal selection](#journals)
 
 <br />
 
-### Week 1
 
-(Week of Aug 19th)
+### Week 12
 
-This week was mostly spent on setting up this markdown document and some initialization work for the course. The table of content was drafted according to my estimation and will hopefully provide a directional guide in the rest of the semester. In this documentation I have been working on the first several chapters, particularly the first introductory chapter, preparing it for the next research proposal assignment.  
+Last week I did not see the journal description changed so a large chunk of content was missed. The criticism of lack of participation was reasonable and, in a way, is exactly how I interface with the world: I observe but not participate. The world is distant, there is nothing and no one that I connect to. As a result, a job or a life has no meaning and I have no interest in a company’s culture or ways to get into a certain industry. I was born in solitude and will die in solitude, and am merely fulfilling the outside demands before the end. The module for genuine interaction was never installed, which also explains why I cannot conduct normal conversation with any human. 
 
-For now, I intend to spend the first 5 weeks on the math part, establishing a theoretical foundation for the later implementation (paper prototype, one can say). Although some degree of implementation may be attempted. 
+Back to the project, principally, an image is just a collection of points/spots, so being able to image a point technically gives me the ability to image (verb) an image (noun). But to implement that requires a lot of changes, more on this in section [3.2.1](#321---object-space). I have been adding and stitching a lot of things in the past 2 weeks and finally was able to feed all the rays from all the points through the lens. 
+
+<div align="center">
+	<img src="resources/J_12_init.png" width="400">
+  <p align="center">Journal Figure 12.1. First imaged image. </p>
+</div>
+
+Well this is not very ideal. For reference the original image is a photo of [Henri Cartier Bresson](https://www.britannica.com/biography/Henri-Cartier-Bresson) (or see figure 12.3 left). The resulting image is flipped just like real images on the image plane. But the color is obviously not correct. It then occurs to me that the saturated red and yellow and blue are all black in the original, so I checked the conversion algorithm and realized it’s caused by the rays not being pruned depending on the brightness of the source color. 
+
+For a better examination, I also tried to image the ISO12233 chart after fixing the color: 
+
+<div align="center">
+	<img src="resources/J_12_Comp1.jpg" width="800">
+  <p align="center">Journal Figure 12.2. ISO12233, original vs. imaged. </p>
+</div>
+
+The imaged result showed barrel distortion corresponding to the simulated lens (Zeiss Biotar 50mm f/1.4), and has visible vignette, both of which are true to the optical characteristic. While not obvious, there are also traces of chromatic aberration, also an encouraging sight.  
+
+In both of the sim results, there appears to have a grid on the image. After going through the program logic I believe it’s caused by the source image having a lower resolution (134x90) than the imager (300x200). Adding on the optical distortion, created the mosaic pattern on the image. A proof is that by shifting the position of the imager, the defocused image then had a more even illumination. 
+
+<div align="center">
+	<img src="resources/J_12_Comp2.jpg" width="800">
+  <p align="center">Journal Figure 12.3. Original HCB image vs. defocused imaging. </p>
+</div>
+
+The mosaic problem should be solved by higher source resolution. But I ran into a memory problem with a higher sample _(as if I am writing C++ again)_. Turns out the previous resolution has been using about 20 gigs of memory and created over 190 million rays. Due to the way a 2D image is sampled in 3D space, double the sample rate actually increases ray count by about 10 folds, which may go over the indexing limit and will almost definitely run out of memory. In the future I will have to add manual garbage collection and some preventive methods to reduce memory consumption. 
+
+Additionally, runtime also proved to be an issue in image propagation. Initially a single propagation took 3 hours, after some time debugging it turned out an array stacking operation was consuming too much time. Swapping the algorithm improved the time to be below 20 minutes, but this is still quite long for a single image, especially since it’s only 300px. I suspect that the per point sample might be able to be dropped without quality loose but is yet to confirm. 
+
+At this point the proof of concept can be viewed as complete, the next step for this program will be adding more features (particularly reflection and refraction) and optimization. 
+
+Outside of the coding, I will also be meeting some faculties to discuss the project and seeing if they can become a committee member. 
 
 -> Back to [journal selection](#journals)
 
 <br />
+
 
 ## References 
 
