@@ -588,7 +588,7 @@ As such, the intersection between the image plane and the rays can be easily cal
 
 But to acquire an image, much more work is needed. 
 
-First, the data structure will need to be modified. The data propagated through the surfaces need to be augmented to contain information. We may design it as: 
+First, the data propagated through the surfaces need to be augmented to contain more information. We may re-define it as: 
 
 $$\mathbf{r}=\left(  x,\\ y, \\ z, \\ v _x, \\ v _y, \\ v _z, \\ \lambda, \\ \Phi, \\ i, \\ b _s \right) ^T$$
 
@@ -613,7 +613,7 @@ Assume the positions of the intersection is represented as a 2D array $\mathbf{p
 - Offset the intersection points' position by half of the pixel count on each axis. For example, if the imager has a dimension of `960 x 540`, then offset the positions by `(480, 270)`.
 - Floor cast the positions from decimal to integer.
 
-Now, the position of the ray intersections directly represents the index of the pixel it falls into, an iterative look-up operation is thus converted to a simple hashing. 
+Now, the position of the ray intersections directly represents the index of the pixel it falls into, an iterative look-up operation is thus converted to a simple hashing. Taking the integral of the radiants can be achieved by simply calculating the sum of each hash basket. And the conversion of wavelength radiant can refer to [section 2.1](#21---selecting-the-distribution). 
 
 <br />
 
@@ -673,20 +673,20 @@ Up till this point, the project has been operating under the realm of geometric 
 
 ## Journals
 
-Parenthesis marks the Monday of that week for easier identification. 
+Date in parenthesis marks the Monday of that week for better identification. 
 
-- [Week 1 (Aug 19th)](#week-1)
-- [Week 2 (Aug 26th)](#week-2)
-- [Week 3 (Sept 1st)](#week-3)
-- [Week 4 (Sept 8th)](#week-4)
-- [Week 5 (Sept 15th)](#week-5)
-- [Week 6 (Sept 22nd)](#week-6)
-- [Week 7 (Sept 29th)](#week-7)
-- [Week 8 (Oct 6th)](#week-8)
-- [Week 9 (Oct 13th)](#week-9)
-- [Week 10 (Oct 20th)](#week-10)
-- [Week 11 (Oct 27th)](#week-11)
-- [Week 12 (Nov 3rd)](#week-12)
+- [Week 1 (Aug 20th)](#week-1)
+- [Week 2 (Aug 27th)](#week-2)
+- [Week 3 (Sept 2nd)](#week-3)
+- [Week 4 (Sept 9th)](#week-4)
+- [Week 5 (Sept 16th)](#week-5)
+- [Week 6 (Sept 23nd)](#week-6)
+- [Week 7 (Sept 30th)](#week-7)
+- [Week 8 (Oct 7th)](#week-8)
+- [Week 9 (Oct 14th)](#week-9)
+- [Week 10 (Oct 21st)](#week-10)
+- [Week 11 (Oct 28th)](#week-11)
+- [Week 12 (Nov 4th)](#week-12)
 
 
 ### Week 1
