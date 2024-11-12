@@ -687,7 +687,7 @@ Date in parenthesis marks the Monday of that week for better identification.
 - [Week 10 (Oct 21st)](#week-10)
 - [Week 11 (Oct 28th)](#week-11)
 - [Week 12 (Nov 4th)](#week-12)
-
+- [Week 13 (Nov 11th)](#week-13)
 
 ### Week 1
 
@@ -1050,6 +1050,14 @@ Outside of the coding, I will also be meeting some faculties to discuss the proj
 
 <br />
 
+
+### Week 13
+
+One [online](https://www.reddit.com/r/Optics/comments/1gngnna/zemax_gpu_raytracing/) post mentioned that single precision float might not be enough for raytracing with aspherical surface. This is definitely true and important. I have simulated several dozens of patents in OpticStudio now, some of the patents were presented with only 2 effective numbers in their aspherical coefficients and the results were absolutely miserable. 
+
+-> Back to [journal selection](#journals)
+
+<br />
 
 ## References 
 
