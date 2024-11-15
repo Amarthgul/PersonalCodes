@@ -26,7 +26,14 @@ Imaging System Simulation.
     - [2.5.1 - Index of Refraction](#251---index-of-refraction)
   - [2.6 - Non-Sequential Propagation](#26---non-sequential-propagation)
   - [2.7 - Imager](#27---imager)
+    - [2.7.1 - Digital Sensor](#271---digital-sensor)
+    - [2.7.2 - UV/IR Cut](#272---uvir-cut)
+    - [2.7.3 - Color Negative Film](#273---color-negative-film)
+    - [2.7.4 - Tilt Shift](#274---tilt-shift)
+  - [2.8 - Optomechanical Design](#28---optomechanical-design)
 
+
+## 2.8 - Optomechanical Design 
 
 # 1 - General 
 
@@ -48,7 +55,7 @@ Combined with some other factors, there appears to be some emerging problems/con
 - Animation and visual effects increasingly require ways to replicate real lens artifacts more easily and accurately.
   - But current implementations of optical artifacts in 3D animation/VFX software are mostly `[0, 1]` slider based qualitative control and operate almost exclusively in RGB instead of wavelength. Which is not accurate and can often be cumbersome. 
 
-- Most artists do not possess the technical ability to recreate the optical artifacts with physical accuracy; most scientists/engineers do not have the artistic experience to see the subtle differences and understand the demand. 
+- Most artists do not possess the technical ability to recreate the optical artifacts with physical accuracy; most scientists/engineers do not have the artistic experience to care about the subtle differences. 
 
 This project aims to address these problems and conflicts. This project aims to address these problems and conflicts. The end product should supply animation and VFX productions a tool to replicate optical lens effect quickly and accurately. The user does not need to be an expert in optical physics or computer science but still able to obtain imaginaries faithful to the actual optics. For the detailed goals, see section [1.4 - End Goal](#14---end-goal). 
 
@@ -204,6 +211,8 @@ There are people trying to model the lens in the 3D scene in front of the camera
 
 There are content creators trying to solve the first problem by using an orthographic camera as a render[^14], which in itself is afocal, avoiding the lens stacking issue. However, this assumes that the rays passing through the lens are all perpendicular to the image plane, which is almost never the case. In fact, many lenses for mirrorless digital cameras and rangefinder cameras have an exit pupil very close to the image plane, which causes the rays exiting the lens to have a big oblique angle. Orthographic cameras would be incapable of simulating these lenses. 
 
+</br>
+
 ## 1.4 - End Goal 
 
 The end goal of the project can be divided into several categories depending on their importance and urgency.
@@ -233,6 +242,8 @@ Items in this category are mandatory for the project. The project **must** accom
 
   - The process is clear enough that people can follow this process and implement a similar program using the programming language/package they are comfortable with. 
 
+</br>
+
 ### 1.4.2 - "Should Try to Accomplish"
 
 Items in this category are not mandatory. **They still need to be implemented**, but due to theoretical or technical limitations, do not have to be fully operational and production ready. The project should try to accomplish: 
@@ -245,6 +256,8 @@ Items in this category are not mandatory. **They still need to be implemented**,
 
 - A standardized lens measurement process such that the results can be used in the machine learning model to create a digital black box of the lens.
 
+</br>
+
 ### 1.4.3 - Good to have
 
 Items in this category are not mandatory. Ideally they should be included or at least attempted, but only if the previous two categories are already fulfilled. 
@@ -253,11 +266,17 @@ Items in this category are not mandatory. Ideally they should be included or at 
 
 - Real-time result update when changing the parameters of the imaging system. 
 
+- An image deconvolution algorithm that tries to remove the optical artifacts from an image. 
+
+</br>
+
 ## 1.5 - Examinations 
 
 The project aims to define everything in a clear, quantifiable, and falsifiable way. This means all goals listed above should have a way to exanmine their validity. For example, the bare imaging system can be tested by running a spot test, and compare the spot diagram of the same lens (with same object distance and aperture) simulated in Zemax OpticStudio or CodeV. 
 
 
+
+<br />
 
 <br />
 
@@ -277,8 +296,21 @@ In those components:
 - $s$ is an index denoting after which **s**urface this ray is currently located. This can help determining the relative location of the ray more easily than using the position and direction. 
 - $b _s$ is boolean variable, with `True` meaning the given ray is propogating sequentially, and `False` meaning the ray is no longer treavling sequentially, i.e., reflected or vignetted. This can be helpful making the lens more art directable by isolating the propogation type. 
 
+<br />
 
 ## 2.1 - Wavelength and RGB Conversion 
+
+
+Converting between RGB and Wavelength can be tricky, it is extra tricky when the typical way of conversion cannot be directly applied. 
+
+For CIE XYZ conversion, the wavelength to XYZ can be described as (showing only X):
+
+
+$$\mathbf{X}=k\int _{\lambda} \bar{x} \left ( \lambda \right ) S \left ( \lambda \right ) d \lambda$$
+
+In the formula above, $S \left ( \lambda \right )$ is the spectral distribution of the input. However, in most modern animation/VFX software, there is no such distribution available. Rather, the color is represented using RGB values.  
+
+<br />
 
 ## 2.2 - Object Space 
 
@@ -316,6 +348,7 @@ While an adaptive sampling may be implemented to cover the minimum amount needed
 In practice, the dimension will be timed with a sample per millimeter to get the sample count on each axis. The image will then be resized to that size, then each pixel on the resized image will be treated as a sample. This also allows the space sample algorithm to be converted into image resolution resampling algorithm 
 
 
+<br />
 
 ## 2.3 - Surface
 
@@ -331,10 +364,13 @@ A typical spherical surface in this application has 4 attributes:
 
 
 
+<br />
 
 ### 2.3.1 - Standard Spherical Surface 
 
 Spherical surfaces have been used since the beginning of optical imaging and is still the most common type in lens design. 
+
+<br />
 
 ### 2.3.2 - Even Aspherical 
 
@@ -342,15 +378,25 @@ Most aspherical elements in modern lens design belong to the type of even aspher
 
 $$ z=\frac{ cr ^2 }{ 1 + \sqrt{ 1 + k c ^2 r ^2}  }+ \alpha _1 r^2 + \alpha _2 r^4 + \alpha _3 r^6 + \alpha _4 r^8 +\cdots $$
 
+<br />
+
 ### 2.3.3 - Cylindrical
 
 Cylindrical surfaces are used for anamorphic lenses, they are also largely the origin of the 2.39:1 aspect ratio. 
 
+<br />
+
 ## 2.4 - Object to Entrance Pupil 
+
+To cast rays from the source to the imaging system, the easiest way might be to cast onto the first lens surface. However, this is not accurate, especially when modeling the pupil vignetting. A more accurate way would be casting the rays towards the entrance pupil. 
+
+<br />
 
 ## 2.5 - Sequential Propagation
 
 Sequential propagation (in a refractive system) is when rays never interact with the same surface twice and keep moving forward. 
+
+<br />
 
 ### 2.5.1 - Index of Refraction 
 
@@ -382,9 +428,13 @@ To acquire the IOR of a certain wavelength, an external sheet is created, contai
   <p align="center">IOR of different wavelengths in the material LF7.</p>
 </div>
 
+<br />
+
 ## 2.6 - Non-Sequential Propagation 
 
 Non-sequential is when rays are allowed to return to a surface it has previously visited. This is very common for internal reflections and is one of the primary causes of flares, glares, and image haze. 
+
+<br />
 
 ## 2.7 - Imager 
 
@@ -401,34 +451,53 @@ Assume the positions of the intersection is represented as a 2D array $\mathbf{p
 
 Now, the position of the ray intersections directly represents the index of the pixel it falls into, an iterative look-up operation is thus converted to a simple hashing. Taking the integral of the radiants can be achieved by simply calculating the sum of each hash basket. And the conversion of wavelength radiant can refer to [section 2.1](21---wavelength-and-rgb-conversion). 
 
+<br />
 
 ### 2.7.1 - Digital Sensor
 
+The spetral response, mircorlens, and Bayer filter. 
+
+<br />
+
 ### 2.7.2 - UV/IR Cut 
+
+The glasses in front of the digital sensor. 
+
+<br />
 
 ### 2.7.3 - Color Negative Film 
 
 Halation goes here. 
 
+<br />
+
 ### 2.7.4 - Tilt Shift 
 
+Transformation of the imager when it no longer sits on the lens opticla axis. 
+
+<br />
 
 ## 2.8 - Optomechanical Design 
 
-
+Other parts of the imaging system that, while not optical, do have effects on the final image. 
 
 <br />
 
 # 3 - Waveoptics 
 
+Dang bro. 
+
+<br />
+
 ## 3.1 - Diffraction 
 
-
+Sunstars and flares. 
 
 <br />
 
 # 4 - Solving As an Inverse Problem 
 
+Machine learning and AI. 
 
 <br />
 
