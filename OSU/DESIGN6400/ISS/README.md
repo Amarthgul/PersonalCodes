@@ -60,7 +60,13 @@ Combined with some other factors, there appears to be some emerging problems/con
 
 - Most artists do not possess the technical ability to recreate the optical artifacts with physical accuracy; most scientists/engineers do not have the artistic experience to care about the subtle differences. 
 
-This project aims to address these problems and conflicts. This project aims to address these problems and conflicts. The end product should supply animation and VFX productions a tool to replicate optical lens effect quickly and accurately. The user does not need to be an expert in optical physics or computer science but still able to obtain imaginaries faithful to the actual optics. For the detailed goals, see section [1.4 - End Goal](#14---end-goal). 
+This project aims to address these problems and conflicts, the end product can: 
+
+- Be used by animators to add optical artifacts easily and accurately.
+
+- Be used by VFX artists to match the CGI sequences with live action footage. 
+
+For the detailed goals, see section [1.4 - End Goal](#14---end-goal). 
 
 
 ## 1.2 - Optical Artifacts 
