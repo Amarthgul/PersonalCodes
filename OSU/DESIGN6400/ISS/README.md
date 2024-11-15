@@ -2,6 +2,7 @@
 
 Imaging System Simulation. 
 
+<br />
 
 ## Table of Content
 
@@ -31,9 +32,11 @@ Imaging System Simulation.
     - [2.7.3 - Color Negative Film](#273---color-negative-film)
     - [2.7.4 - Tilt Shift](#274---tilt-shift)
   - [2.8 - Optomechanical Design](#28---optomechanical-design)
+- [3 - Waveoptics](#3---waveoptics)
+  - [3.1 - Diffraction](#31---diffraction) 
+- [4 - Solving As an Inverse Problem](#4---solving-as-an-inverse-problem)
 
-
-## 2.8 - Optomechanical Design 
+<br />
 
 # 1 - General 
 
@@ -449,19 +452,21 @@ Assume the positions of the intersection is represented as a 2D array $\mathbf{p
 - Offset the intersection points' position by half of the pixel count on each axis. For example, if the imager has a dimension of `960 x 540`, then offset the positions by `(480, 270)`.
 - Floor cast the positions from decimal to integer.
 
-Now, the position of the ray intersections directly represents the index of the pixel it falls into, an iterative look-up operation is thus converted to a simple hashing. Taking the integral of the radiants can be achieved by simply calculating the sum of each hash basket. And the conversion of wavelength radiant can refer to [section 2.1](21---wavelength-and-rgb-conversion). 
+Now, the position of the ray intersections directly represents the index of the pixel it falls into, an iterative look-up operation is thus converted to a simple hashing. Taking the integral of the radiants can be achieved by simply calculating the sum of each hash basket. And the conversion of wavelength radiant can refer to [section 2.1](#21---wavelength-and-rgb-conversion). 
 
 <br />
 
 ### 2.7.1 - Digital Sensor
 
-The spetral response, mircorlens, and Bayer filter. 
+The spetral response, mircorlens, and Bayer filter. Also consider the cinema log mode. 
 
 <br />
 
 ### 2.7.2 - UV/IR Cut 
 
 The glasses in front of the digital sensor. 
+
+This may be a simple clamp of the $\lambda$ component of the raybatch, but may also be modeled with actual dichroic implementation.  
 
 <br />
 
