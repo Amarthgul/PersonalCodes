@@ -7,7 +7,7 @@ Imaging System Simulation.
 ## Table of Content
 
 - [1 - General](#1---general)
-  - [1.1 - Background](#11---background)
+  - [1.1 - Abstract and Background ](#11---abstract-and-background)
   - [1.2 - Optical Artifacts](#12---optical-artifacts)
   - [1.3 - Current Field and Similar Applications](#13---current-field-and-similar-applications)
   - [1.4 - End Goal](#14---end-goal)
@@ -33,7 +33,8 @@ Imaging System Simulation.
     - [2.7.4 - Tilt Shift](#274---tilt-shift)
   - [2.8 - Optomechanical Design](#28---optomechanical-design)
 - [3 - Waveoptics](#3---waveoptics)
-  - [3.1 - Diffraction](#31---diffraction) 
+  - [3.1 - Diffraction](#31---diffraction)
+  - [3.2 - Dichroic and Birefringence](#32---dichroic-and-birefringence)
 - [4 - Solving As an Inverse Problem](#4---solving-as-an-inverse-problem)
 
 <br />
@@ -44,39 +45,59 @@ This project aims to establish a way to digitize lenses with physical accuracy f
 
 Additionally, it may also be used to deconvolute images for information reconstruction, and in some cases, historical preservation of optics. 
 
-## 1.1 - Background 
+## 1.1 - Abstract and Background 
 
-The 2012 movie _The Avengers_ used Canon 5D II and Canon 7D, two models of consumer level cameras in their production [^1]. The inclusion of these two models was mainly due to their ability to capture videos using a relatively large sensor area at FHD resolution. These two models also marks a point that digital cameras, even at the consumer level, have become good enough for large productions. As digital cameras and sensors get better and more advanced, so are the lenses coupled in front of them. An early landscape lens consists of only 1 solid piece of spherical glass, while a modern Arri/Zeiss Master Anamorphic can have 17 elements arranged in 14 groups, including spherical, cylindrical, and hybrid elements [^2], with over tens of layers of coating on each element, effectively correcting every aberration and distortion. The images produced by those modern lenses can be near perfect, something that the early image makers could only dream of. 
-
-What goes around comes around. With an abundance of sharpness and clarity in the image, some filmmakers, cinematographers, and photographers started to feel a staleness in the images. To counter the clinically sharp image out of the digital sensor, they started to adapt older and optically inferior lenses onto the camera, deliberately reducing the image quality and using the lens to breathe their own aesthetics into the image. Dune: Part Two was released during the writing of this handbook, and the lenses used to shoot the movie include the Helios 44-2 and several other Soviet made lenses [^3], the Helios was also used in the new Batman movie [^4]. Zack Synder used the Canon 50mm f/0.95 on Army of the Dead and Rebel Moon [^5], even going as far as adopting Cineovision anamorphic fronts from 1960s onto ultra-fast Leica vintage lenses [^6]. 
-
-Combined with some other factors, there appears to be some emerging problems/conflicts:
+In the world of photography/cinematography, animation and visual effects, there are some emerging problems/conflicts:
 
 - The demand for vintage lenses is rising
   - But the number of vintage lenses is dwindling. 
 
 - Animation and visual effects increasingly require ways to replicate real lens artifacts more easily and accurately.
-  - But current implementations of optical artifacts in 3D animation/VFX software are mostly `[0, 1]` slider based qualitative control and operate almost exclusively in RGB instead of wavelength. Which is not accurate and can often be cumbersome. 
+  - But current implementations of lenses in 3D animation/VFX software are ideal lenses, with mostly `[0, 1]` slider based control and operate almost exclusively in RGB instead of wavelength. Which is not accurate and can often become cumbersome. 
 
-- Most artists do not possess the technical ability to recreate the optical artifacts with physical accuracy; most scientists/engineers do not have the artistic experience to care about the subtle differences. 
+- Most artists do not possess the technical ability to recreate the optical artifacts with physical accuracy; most scientists/engineers do not have the artistic experience/motivation to care about the subtle differences. 
 
 This project aims to address these problems and conflicts, the end product can: 
 
-- Be used by animators to add optical artifacts easily and accurately.
+- **Replicate the optical traits of lenses faithfully** in a digital setting;
 
-- Be used by VFX artists to match the CGI sequences with live action footage. 
+- Be used by **animators** to add optical artifacts easily and accurately;
 
-For the detailed goals, see section [1.4 - End Goal](#14---end-goal). 
+- Be used by **VFX artists** to match the CGI sequences with live action footage;
 
+- Be used to **preserve the optical characteristics** of vintage lenses digitally. 
+
+(For the detailed goals, see section [1.4 - End Goal](#14---end-goal))
+
+<br />
+
+This situation is, weirdly, caused by advancement rather than escalation; it is a combined result of improved digital sensors, better optical design in imaging lenses, and more capable tools in computer graphics. 
+
+The 2012 movie _The Avengers_ used Canon 5D II and Canon 7D, two models of consumer level cameras in their production [^1]. The inclusion of these two models was mainly due to their ability to capture videos using a relatively large sensor area at FHD resolution. These two models also mark a point that digital cameras, even at the consumer level, have become good enough for large productions. As digital cameras and sensors get better and more advanced, so are the lenses coupled in front of them. An early landscape lens consists of only 1 solid piece of spherical glass, while a modern Arri/Zeiss Master Anamorphic can have 17 elements arranged in 14 groups, including spherical, cylindrical, and hybrid elements [^2], with over tens of layers of coating on each element, effectively correcting every aberration and distortion. The images produced by those modern lenses can be near perfect, something that the early image makers could only dream of. 
+
+What goes around comes around. With an abundance of sharpness and clarity in the image, some filmmakers, cinematographers, and photographers started to feel a staleness in the images. To counter the clinically sharp images, they started to adapt older lenses with more optical artifacts onto the camera, deliberately reducing the image quality and using the lens to add their own aesthetics into the image. _Dune: Part Two_ used the Helios 44-2 and several other Soviet lenses [^3], the Helios was also used in the new _Batman_ movie [^4]. Zack Synder used the Canon 50mm f/0.95 on _Army of the Dead_ and _Rebel Moon_ [^5], even going as far as adopting Cineovision anamorphic fronts from the 1960s onto ultra-fast Leica vintage lenses [^6]. 
+
+This, however, is a problem for the VFX artists. Previously, most movies were shot with cine lenses by Arri, Zeiss, Panavison, Leitz, etc., delivering the best and cleanest image possible. As such, CGI sequences can blend in with live action footage relatively easily. With vintage lenses, however, it is becoming hard to recreate the optical artifacts that match the live action footage. For example, in the post production of Rebel Moons, the artists tried to use a grid to test the bokeh, vignette, and distortion of the lens and recreate it digitally [^20]. This method, however, only works if the virtual lens is focused at the exact same distance, with the same aperture opening, and under the identical environment. The effect is not transferable between scenes and settings. 
+
+Outside of the productions, the popularity of vintage lenses also means that more people are trying to get their hands on vintage lenses. Aside from ramping up the price, this also increases the usage and consumption of vintage lenses. However, vintage lenses are, by definition, no longer in production. So, one day they will vanish or become inaccessible to people. 
+
+This project believes that the characteristics of lenses are, in truth, the combined effects of a myriad of optical artifacts. And by recording and recreating these artifacts, it is possible to replicate the optical characteristics of the lens. Since the imager often plays as important of a role as a lens, they should also be included, hence forming an imaging system. 
+
+<br />
 
 ## 1.2 - Optical Artifacts 
 
+For an ideal lens, a point source in focus will be imaged precisely as a point, and a point source out of focus will be imaged as an evenly illuminated disk, often called a bokeh. However, this is almost never the result from real lenses, images from them are filled with optical artifacts. 
 
-Although optical artifacts are coupled and do not exist independently, for the ease of discussion, they can be divided into several different categories. 
+Although optical artifacts are highly coupled and do not exist independently, for the ease of discussion, they can be divided into several different categories. 
+
+<br />
 
 ### 1.2.1 First Order Aberration 
 
-While barely discussed in optical design, the 1st order aberration typically refers to misalignment of elements in the lens. 
+While barely discussed in optical design, the 1st order aberration typically refers to misalignment of elements in the lens. Misalignment does not have a fixed or recognizable result, thus cannot be directly described. It is typically recognized when the image shows asymmetric results of symmetric objects, or uneven distribution of the aberrations listed below. 
+
+<br />
 
 ### 1.2.2 Thrid Order Aberration 
 
@@ -131,7 +152,7 @@ It is also worth pointing out that anamorphic lens is built almost entirely on t
 Field curvature describes how the focal plane is a curved surface instead of a “plane”; it is also referred to as the Petzval sum. Field curvature can cause the image unable to focus evenly, i.e., only the center or the edge are in focus, with the rest defocused. Below is an extreme example of field curvature using a lens specifically designed to introduce more field curvature [^16]:
 
 <div align="center">
-	<img src="resources/ReadmeImg/Time-Waits-For-Nobody.jpg" width="640">
+	<img src="resources/ReadmeImg/Time-Waits-For-Nobody.jpg" width="600">
   <p align="center">Image taken with a Lensbaby lens</p>
 </div>
 
@@ -298,12 +319,17 @@ $$\mathbf{r}=\left(  x,\\ y, \\ z, \\ v _x, \\ v _y, \\ v _z, \\ \lambda, \\ \Ph
 
 In those components: 
 
-- $x$, $y$, and $z$ are the location of the base point of rays, typically their position on a surface. $v _x$, $v _y$ and $v _z$ are the vector directions. These 2 sets of parameters can be used to express the position and direction of rays. 
-- $\lambda$ is the wavelength, which is used to calculate the refraction index.
+- $x$, $y$, and $z$ are the location of the base point of rays, typically their position on a surface. $v _x$, $v _y$ and $v _z$ are the vector directions. These 2 sets of parameters can be used to express the position and direction of rays. Vector position and direction is used due to this project quite often will encounter rays that do not exist in the tangential plane, and lenses in this project may not be axial-symmetrical, which cannot be sufficed by the ray transfer matrix way of height $h$ and angle $\gamma$.
+
+- $\lambda$ is the wavelength, which is used to calculate the refraction index. Note that, while the wavelength in this document is also described in nanometers, many of the calculations are done by using the wavelength in micrometers, such as the dispersion formulas. 
+
 - $\Phi$ can be treated as the radiant, i.e., the number of photons per unit time. But it can also be viewed as a normal unitless scalar representing the intensity of the the ray at the given wavelength.
-- $i _{\Phi}$ is also the radiant, but it is the imaginary part of the radiant. This term is reserved for the polarization of light. Combined with $\Phi$, this can represent the $s$ and $p$ polarization. 
-- $s$ is an index denoting after which **s**urface this ray is currently located. This can help determining the relative location of the ray more easily than using the position and direction. 
-- $b _s$ is boolean variable, with `True` meaning the given ray is propogating sequentially, and `False` meaning the ray is no longer treavling sequentially, i.e., reflected or vignetted. This can be helpful making the lens more art directable by isolating the propogation type. 
+
+- $i _{\Phi}$ is also the radiant, but it is the imaginary part of the radiant. Combined with $\Phi$, they can represent the $s$ and $p$ polarization.
+
+- $s$ is an index denoting after which **s**urface this ray is currently located. This can help determining the relative location of the ray more easily than using the position and direction.
+
+- $b _s$ is boolean variable, with `True` meaning the given ray is propogating sequentially, and `False` meaning the ray is no longer treavling sequentially, such as being reflected or vignetted. This can be helpful making the lens more art directable. 
 
 <br />
 
@@ -506,6 +532,12 @@ Sunstars and flares.
 
 <br />
 
+## 3.2 - Dichroic and Birefringence
+
+More advanced fitlering. 
+
+<br />
+
 # 4 - Solving As an Inverse Problem 
 
 Machine learning and AI. 
@@ -556,7 +588,9 @@ Machine learning and AI.
 
 [^19]: Xor. “GM Shaders Mini: Chromatic Aberration,” April 13, 2024. https://mini.gmshaders.com/p/gm-shaders-mini-chromatic-aberration.
 
-[^20]: 
+[^20]: Webinar: The Science and Fiction of Rebel Moon’s VFX | Framestore. Accessed November 15, 2024. https://www.youtube.com/watch?v=W5liHbBa0zQ.
+
+[^21]: 
 
 
 
