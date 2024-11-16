@@ -1053,7 +1053,25 @@ Outside of the coding, I will also be meeting some faculties to discuss the proj
 
 ### Week 13
 
-One [online](https://www.reddit.com/r/Optics/comments/1gngnna/zemax_gpu_raytracing/) post mentioned that single precision float might not be enough for raytracing with aspherical surface. This is definitely true and important. I have simulated several dozens of patents in OpticStudio now, some of the patents were presented with only 2 effective numbers in their aspherical coefficients and the results were absolutely miserable. 
+I met with Will and Kyoung in the faculty visiting. Although I have an answer for every question they ask, from intended usage to limitation to the potential legal issues and commercial application, I went blank momentarily when Kyoung asked me if I enjoy the making process, because I have no answer to this question. I did not feel encouraged when a new feature worked, and I did not feel dismay when something went wrong, there was no emotion involved. The thesis project is the same as almost everything else I do, it is not because I like it, but because it is needed. I have been called, and I must answer. 
+
+In the last alumni talk and the following discussion I also had nothing to say despite trying very hard to come up with something. I cannot resonate with anything my cohorts laugh or complain about because I genuinely have no feeling about any of these. It appears that I only exist objectively and not subjectively, there is not a “me” with a heart and personal feelings. I have learned when to put on a smile or how to deliver a punchline, but behind them there is no joy and no sadness, just a void. 
+
+One [online](https://www.reddit.com/r/Optics/comments/1gngnna/zemax_gpu_raytracing/) post mentioned that a single precision float might not be enough for ray tracing with aspherical surfaces. This is definitely true and important. I have simulated several dozens of patents in OpticStudio now, some of the patents were presented with only 2 effective numbers in their aspherical coefficients and the results were absolutely miserable. However, ramping up the precision will double the memory consumption, not a very ideal thing to do at the moment. 
+
+Tracing the time and memory consumption of the program, it appeared that the initial ray generation and the later propagation are both more time consuming than they should. The generation took time mostly because it is treating each sample in an image as a point and iterating through all the points (often over a million points). The propagation might be due to the constant boolean check and indexing since there is a lot of total internal reflection and vignette conditions. 
+
+Poking around the memory boundary, eventually I was able to run a 1080p rendering. Combined with other results, the current plan apparently has the ability and the potential to replicate most of the optical artifacts, including the 5 Seidel aberrations and some optomechanical phenomena. 
+
+<div align="center">
+	<img src="resources/ISO12233_1080p.png" width="640">
+  <p align="center">Journal Figure 13.1. 1080p Image of the ISO 12233 chart. </p>
+</div>
+
+However, there are parts that I think could have been better designed, and some modules definitely will be rewritten in GPU based operation rather than CPU based. It is quite likely that next semester this project will start over again, albeit taking less time to arrive at the same level of completion. 
+
+As I just found some very well written materials about optical design and ray tracing by William J. Claff, the next several weeks are most likely to be spent on non-implementation parts. So that during winter and in the next semester, I may have a faster and more capable version of the program. 
+
 
 -> Back to [journal selection](#journals)
 
