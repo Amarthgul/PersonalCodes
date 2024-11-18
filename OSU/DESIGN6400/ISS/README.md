@@ -209,9 +209,11 @@ Academically, there have been countless papers and journal articles about optica
 
 - Heavily rely on machine learning artificial intelligence. 
 
-- Assumes the input to be an 8-bit RGB image. 
+- Assumes the input to be an compressed 8-bit RGB image. 
 
 - Requires depth reconstruction. 
+
+Because this project is built specifically for animation and VFX production, some of the assumptions and conditions from these papers would no longer hold. For one, the input will almost never be compressed 8-bit RGB images, more often than not they will be 32-bit lossless images with many channels, such as the `.exr` format. Among the channels there often contains a z depth channel, rendering depth construction unnecessary. The artists, with a pursuit of keeping the result art directable, also has no likings on AI with non deterministic results. As such, the rendering process for the project is based on physical ray propagation with no AI interference. 
 
 Outside of the acdemia, there are also many attempts of people trying to emulate optical lens effects inside a software, Blender, After Effect, Unreal, etc. However, most of them are limited by the software since these software was not designed for optical simulation and does not have the underlying infrastructure to perform accurate wavelength-based ray tracing. 
 
