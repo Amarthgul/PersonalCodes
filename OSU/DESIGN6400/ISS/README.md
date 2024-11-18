@@ -89,6 +89,13 @@ This project believes that the characteristics of lenses are, in truth, the comb
 
 For an ideal lens, a point source in focus will be imaged precisely as a point, and a point source out of focus will be imaged as an evenly illuminated disk, often called a bokeh. However, this is almost never the result from real lenses, images from them are filled with optical artifacts. 
 
+Below is an image produced by the first iteration of the program. An ISO 12233 chart was imaged through a virtual lens modeled after the Biotar 50mm f/1.4 (Patent US 1786916, Example 2). The imaged chart showed visible distortion, vignette, and aberrations. 
+
+<div align="center">
+	<img src="resources/ISO12233_1080p_s4bfd34.25.png" width="640">
+  <p align="center">ISO 12233 chart imaged through Biotar 50mm f/1.4.</p>
+</div>
+
 Although optical artifacts are highly coupled and do not exist independently, for the ease of discussion, they can be divided into several different categories. 
 
 <br />
