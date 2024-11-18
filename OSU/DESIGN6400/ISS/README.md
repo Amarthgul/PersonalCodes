@@ -282,7 +282,7 @@ Items in this category are not mandatory. **They still need to be implemented**,
 
 - An implementation that simulates $s$ and $p$ polarization. 
 
-- A machine learning model that, when given enough info of the object and its image, could construct a "lens black box" that can be used in the same way as the explicit version of the application and simulate images of other objects. 
+- A machine learning model that, when given enough info of the object and its image, could construct a "lens black box" that can be used in the same way as the explicit version of the application and simulate images of other objects. More on this in [section 4](#4---solving-as-an-inverse-problem).
 
 - A standardized lens measurement process such that the results can be used in the machine learning model to create a digital black box of the lens.
 
@@ -540,7 +540,16 @@ More advanced fitlering.
 
 # 4 - Solving As an Inverse Problem 
 
-Machine learning and AI. 
+At the beginning of [section 2](#2---geometric-optics), a ray batch data structure is introduced in the format of: 
+
+$$\mathbf{r}=\left(  x,\\ y, \\ z, \\ v _x, \\ v _y, \\ v _z, \\ \lambda, \\ \Phi, \\ i _{\Phi}, \\ s, \\ b _s \right) ^T$$
+
+This data structure above is also designed specifically to accommodate this section. The collection of ray batches can be treated as a light field, and the light field shall be used as the training material for a machine learning model that aims to create a relationship between the optics and the input/output light field. 
+
+After that, images taken with a physical lens and ground truth about the objects can be combined to approximate the input/output light field, with which the optics of the lens can be obtained, then used in digital productions. 
+
+
+
 
 <br />
 
