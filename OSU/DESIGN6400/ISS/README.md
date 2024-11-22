@@ -110,6 +110,8 @@ While barely discussed in optical design, the 1st order aberration typically ref
 
 The third order aberration is also referred to as the Seidel aberration or monochromatic aberration due to them existing on rays of any wavelength. There are 5 major forms of monochromatic aberration: 
 
+<br />
+
 **Spherical Aberration**
 
 Spherical aberration (SA) is caused by light entering different parts of a lens unable to focus at the same spot. Due to its prevalence in virtually all imaging lenses, it is hard to find an example with only SA. In general, SA causes the image to become blurry, lowering the system’s ability in high frequency detail reproduction. 
@@ -137,11 +139,13 @@ Above is an image from the SpeedMaster 50mm f/0.95 wide open at the edges (teste
   <p align="center">Stopping down to f/8 reduces coma</p>
 </div>
 
+Coma is one of the oblique aberrations, that is, aberrations only appearing on off axis rays. At the same time, it is also one of the few aberrations that can be reduced when stopping down the aperture. 
+
 </br>
 
 **Astigmatism**
 
-Astigmatism is caused by lights in 2 directions (sagittal and tangential) unable to focus together, thus stretching the spot in one direction. 
+Astigmatism is caused by lights in 2 directions (sagittal and tangential) unable to focus together, thus stretching the spot in one direction. Astigmatism is present in almost all lenses due to the simple reason that rays traveling in the sagittal plane tend to focus before the rays in the tangential plane do. 
 
 As an example, in the spot simulation below, the 25.6 degree field transits from horizontally stretched gradually in near distance imaging to vertically stretched in far distance imaging:
 
@@ -167,7 +171,7 @@ Field curvature describes how the focal plane is a curved surface instead of a �
 
 **Distortion** 
 
-Distortion is the uneven magnification through the image. From a visual aspect, this typically causes straight lines in the image to become curved. In the image below, the ground and the pillars are imaged as curved lines despite being straight: 
+Distortion is the uneven magnification ratio through the image. From a visual aspect, this typically causes straight lines in the image to become curved. In the image below, the ground and the pillars are imaged as curved lines despite being straight: 
 
 <div align="center">
 	<img src="resources/ReadmeImg/the-cinematography-of-shogun.png" width="640">
@@ -180,7 +184,9 @@ Note that both field curvature and distortion cannot be faithfully replicated by
 
 ### 1.2.3 Chromatic Aberration 
 
-Chromatic aberration (CA), as the name indicates, is the aberration caused by different colors, i.e., wavelengths. Depending on the direction, CA can also be classified into 2 categories: longitudinal/axial chromatic aberration (LCA) and transverse/lateral chromatic aberration (TCA) [^18]. 
+Chromatic aberration (CA), as the name indicates, is the aberration caused by different wavelengths, i.e. colors. Due to different wavelengths having different index of refraction when entering a medium, the amount of “bending” is not the same. As a result, different wavelengths cannot focus on the same point, but rather shifted away from each other. In photos, this appears as the colored edges in high contrast areas. 
+
+Depending on the direction, CA can also be classified into 2 categories: longitudinal/axial chromatic aberration (LCA) and transverse/lateral chromatic aberration (TCA) [^18]. 
 
 <div align="center">
 	<img src="resources/ReadmeImg/Chromatic_diag.png" width="360">
@@ -525,7 +531,7 @@ Halation goes here.
 
 ### 2.7.4 - Tilt Shift 
 
-Transformation of the imager when it no longer sits on the lens opticla axis. 
+Transformation of the imager when it no longer sits at the center of optical axis. 
 
 <br />
 
@@ -569,19 +575,66 @@ After that, images taken with a physical lens and ground truth about the objects
 
 Measures specifically created to facilitate the animation/VFX production. 
 
-# 5.1 - Highlight Maps
+<br />
+
+## 5.1 - Highlight Maps
 
 While 3D animations typically use 32-bit floats to record the render results, 2D hand drawn animations are less enthusiastic about high bit depth due to them being resource consuming. Additionally, some pipelines that use the algorithms described in this project may not be able to access the files with high bit depth. 
 
-While many photographers like to praise RAW format’s ability to restore information in the underexposed area, normal 8-bit images actually hold a decent amount of information in the shadow as well, albeit more prone to banding when brightened. What 8-bit images cannot restore is the overexposed highlights, these areas are entirely lost and cannot be darkened to reveal things like in RAW or HDRI formats. Highlight maps are thus proposed here to compensate for the loss of highlight information when the production is working with limited dynamic range. 
+While many photographers like to praise DNG and similar RAW format’s ability to restore information in the underexposed area, normal 8-bit images actually hold a decent amount of information in the shadow as well, albeit more prone to banding when brightened. What 8-bit images cannot restore is the overexposed highlights, these areas are entirely lost and cannot be darkened to reveal things like in RAW or HDRI formats. Highlight maps are thus proposed here to compensate for the loss of highlight information when the production is working with limited dynamic range. 
 
+<br />
 
+## 5.2 - Matte Box and Field Gates  
+
+In many movie scenes, the bokeh are not round, rather having a flat top or bottom, as if cut by knives. 
+
+We have previously addressed a similar problem caused by pupil occlusion. Pupil occlusion is the property of the lens itself and will happen regardless of external conditions. However, here the cause is the external riggings attached at the front of the lens. While never directly visible, they restrained the propagation of some off axial rays, which in turn cut into the CoC. 
+
+<br />
+
+## 5.3 - Depth Mapping
+
+Z-depth in animation and VFX is typically represnted in a single channel as `[0, 1]` value. However, to simulate real lenses, this value must be mapped into physical distances. 
+
+<br />
+
+## 5.4 - Lens Measuring and Digitalization 
+
+Steps to digitalize a lens for animation/VFX production. 
+
+<br />
+
+## 5.5 - Floating Elements and Synchro Focus
+
+When focus is achieved by moving separate elements and groups instead of moving the entire lens. 
+
+<br />
+
+### 5.5.1 - Panavision Counter-Rotating Astigmatizer 
+
+Most Anamorphic lenses and their focusing method  can be replicated by the linear movements described in last chapter, but certain Panavision anamorphic lenses are the exception. 
 
 <br />
 
 
 
+# Acronyms 
 
+
+- BFL/BFD: Back Focal Length/Distance. 
+
+- CA: Chromatic Aberration. 
+
+- CoC: Circle of Confusion.
+
+- DNG: Digital Negative. A widely used raw photo format. 
+
+- EFL: Effective Focal Length. 
+
+- SA: Spherical Aberration. 
+
+<br />
 
 **References**
 
