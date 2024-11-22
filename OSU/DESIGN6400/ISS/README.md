@@ -323,19 +323,25 @@ The project aims to define everything in a clear, quantifiable, and falsifiable 
 
 Geometric optics here is largely built upon the concept of ray batch, a form of representation similar to rays in ray tracing but with additional entries for the physical-based simulation. 
 
-$$\mathbf{r}=\left(  x,\\ y, \\ z, \\ v _x, \\ v _y, \\ v _z, \\ \lambda, \\ \Phi, \\ i _{\Phi}, \\ s, \\ b _s \right) ^T$$
+$$\mathbf{r}=\left(  x,\\ y, \\ z, \\ v _x, \\ v _y, \\ v _z, \\ \lambda, \\ \Phi, \\ i _{\Phi}, \\ p _d, \\ s, \\ b _s \right) ^T$$
 
 
 In those components: 
 
-- $x$, $y$, and $z$ are the location of the base point of rays, typically their position on a surface. $v _x$, $v _y$ and $v _z$ are the vector directions. These 2 sets of parameters can be used to express the position and direction of rays. Vector position and direction is used due to this project quite often will encounter rays that do not exist in the tangential plane, and lenses in this project may not be axial-symmetrical, which cannot be sufficed by the ray transfer matrix way of height $h$ and angle $\gamma$.
+- $x$, $y$, and $z$ are the location of the base point of rays, typically their position on a surface. $v _x$, $v _y$ and $v _z$ are the vector directions. These 2 sets of parameters can be used to express the position and direction of rays. 
+  
+  For the ray transfer matrix used in paraxial systems, rays are typically represented with only the height $h$ and angle $\gamma$. This cannot be used here due to the fact that the optical system may not be axisymmetric, and the rays quite often do not reside in the tangential plane. 
 
-- $\lambda$ is the wavelength, which is used to calculate the refraction index. Note that, while the wavelength in this document is also described in nanometers, many of the calculations are done by using the wavelength in micrometers, such as the dispersion formulas. 
+- $\lambda$ is the wavelength, which is used to calculate the refraction index.
 
-- $\Phi$ can be treated as the radiant, i.e., the number of photons per unit time. But it can also be viewed as a normal unitless scalar representing the intensity of the the ray at the given wavelength.
+  Note that, while the wavelength in this document is also described in nanometers, many of the calculations are calculating the wavelength in micrometers, such as the dispersion formulas. 
+
+- $\Phi$ can be treated as the radiant, i.e., the number of photons per unit time. But it can also be viewed as a unitless scalar representing the intensity of the the ray at the given wavelength.
 
 - $i _{\Phi}$ is also the radiant, but it is the imaginary part of the radiant. Combined with $\Phi$, they can represent the $s$ and $p$ polarization.
-
+  
+- $p _d$ is the phase difference between $s$ and $p$ polarization. This allows the representation of elliptical and linear polarization. 
+  
 - $s$ is an index denoting after which **s**urface this ray is currently located. This can help determining the relative location of the ray more easily than using the position and direction.
 
 - $b _s$ is boolean variable, with `True` meaning the given ray is propogating sequentially, and `False` meaning the ray is no longer treavling sequentially, such as being reflected or vignetted. This can be helpful making the lens more art directable. 
@@ -551,12 +557,23 @@ More advanced fitlering.
 
 At the beginning of [section 2](#2---geometric-optics), a ray batch data structure is introduced in the format of: 
 
-$$\mathbf{r}=\left(  x,\\ y, \\ z, \\ v _x, \\ v _y, \\ v _z, \\ \lambda, \\ \Phi, \\ i _{\Phi}, \\ s, \\ b _s \right) ^T$$
+$$\mathbf{r}=\left(  x,\\ y, \\ z, \\ v _x, \\ v _y, \\ v _z, \\ \lambda, \\ \Phi, \\ i _{\Phi}, \\ p _d, \\ s, \\ b _s \right) ^T$$
 
 This data structure above is also designed specifically to accommodate this section. The collection of ray batches can be treated as a light field, and the light field shall be used as the training material for a machine learning model that aims to create a relationship between the optics and the input/output light field. 
 
 After that, images taken with a physical lens and ground truth about the objects can be combined to approximate the input/output light field, with which the optics of the lens can be obtained, then used in digital productions. 
 
+<br />
+
+# 5 - Production Adaptation 
+
+Measures specifically created to facilitate the animation/VFX production. 
+
+# 5.1 - Highlight Maps
+
+While 3D animations typically use 32-bit floats to record the render results, 2D hand drawn animations are less enthusiastic about high bit depth due to them being resource consuming. Additionally, some pipelines that use the algorithms described in this project may not be able to access the files with high bit depth. 
+
+While many photographers like to praise RAW format’s ability to restore information in the underexposed area, normal 8-bit images actually hold a decent amount of information in the shadow as well, albeit more prone to banding when brightened. What 8-bit images cannot restore is the overexposed highlights, these areas are entirely lost and cannot be darkened to reveal things like in RAW or HDRI formats. Highlight maps are thus proposed here to compensate for the loss of highlight information when the production is working with limited dynamic range. 
 
 
 
