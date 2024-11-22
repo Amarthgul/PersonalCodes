@@ -36,6 +36,14 @@ Imaging System Simulation.
   - [3.1 - Diffraction](#31---diffraction)
   - [3.2 - Dichroic and Birefringence](#32---dichroic-and-birefringence)
 - [4 - Solving As an Inverse Problem](#4---solving-as-an-inverse-problem)
+- [5 - Production Adaptation](#5---production-adaptation)
+  - [5.1 - Highlight Maps](#51---highlight-maps)
+  - [5.2 - Matte Box and Field Gates](#52---matte-box-and-field-gates)
+  - [5.3 - Depth Mapping](#53---depth-mapping)
+  - [5.4 - Lens Measuring and Digitalization](#54---lens-measuring-and-digitalization)
+  - [5.5 - Floating Elements and Synchro Focus](#55---floating-elements-and-synchro-focus)
+    - [5.5.1 - Panavision Counter-Rotating Astigmatizer](#551---panavision-counter-rotating-astigmatizer)
+
 
 <br />
 
