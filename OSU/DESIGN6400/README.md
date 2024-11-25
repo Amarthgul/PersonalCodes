@@ -688,7 +688,8 @@ Date in parenthesis marks the Monday of that week for better identification.
 - [Week 11 (Oct 28th)](#week-11)
 - [Week 12 (Nov 4th)](#week-12)
 - [Week 13 (Nov 11th)](#week-13)
-
+- [Week 14 (Nov 18th)](#week-14)
+- 
 ### Week 1
 
 (Week of Aug 19th)
@@ -1071,6 +1072,28 @@ Poking around the memory boundary, eventually I was able to run a 1080p renderin
 However, there are parts that I think could have been better designed, and some modules definitely will be rewritten in GPU based operation rather than CPU based. It is quite likely that next semester this project will start over again, albeit taking less time to arrive at the same level of completion. 
 
 As I just found some very well written materials about optical design and ray tracing by William J. Claff, the next several weeks are most likely to be spent on non-implementation parts. So that during winter and in the next semester, I may have a faster and more capable version of the program. 
+
+
+-> Back to [journal selection](#journals)
+
+<br />
+
+
+### Week 14
+
+The previous iteration of the program has proved that the geometric optics implementation is pretty capable of replicating most optical artifacts. However, it is not able to replicate diffraction spikes, that can only be achieved with actual diffraction simulations, which belong to the realm of wave optics. As such, all the time this week was spent on searching and learning about wave optics and trying to come up with a way to incorporate wave optics into the current algorithm. 
+
+There is a very capable project on GitHub about simulating diffraction, but that project only contains one modulation (grate, silt, lens, etc.), whereas in my case there can be several dozens of modulations (lens surfaces). Due to it not having an extended implementation for different modulations, it is also hard to modify, not to mention the speed loss. So I have mostly been going through the code and try to understand how it does the job. 
+
+The current plan/assumption is to separate wave optics and geometric optics. For entertainment and media production, diffraction spike is really the only situation when diffraction is needed [^a], so it is possible to use an additional pass and calculate the effects of diffraction using wave optics. 
+
+During the process of searching I also decided to add an imaginary part $i _{\Phi}$ for the p-polarization radiant (light intensity) to represent light polarization during reflection, also added a $p _d$ as phase difference: 
+
+$$\mathbf{r}=\left(  x,\\ y, \\ z, \\ v _x, \\ v _y, \\ v _z, \\ \lambda, \\ \Phi, \\ i _{\Phi}, \\ p _d, \\ s, \\ b _s \right) ^T$$
+
+Outside of the program, Prof. Lewis has agreed to be my M.F.A. advisor. I have been thinking of who the rest of the committee members should be. Also have been creating a [new version of documentation](https://github.com/Amarthgul/PersonalCodes/blob/master/OSU/DESIGN6400/ISS/README.md) for the project. A slightly more formal and updated version.  
+
+[^a]: technically diffraction also causes a loss of clarity at extremely small apertures as the airy disk becomes very big. But this is practically invisible in virtually all films, so it is not important to model. 
 
 
 -> Back to [journal selection](#journals)
