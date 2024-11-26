@@ -41,8 +41,9 @@ Imaging System Simulation.
   - [5.2 - Matte Box and Field Gates](#52---matte-box-and-field-gates)
   - [5.3 - Depth Mapping](#53---depth-mapping)
   - [5.4 - Lens Measuring and Digitalization](#54---lens-measuring-and-digitalization)
-  - [5.5 - Floating Elements and Synchro Focus](#55---floating-elements-and-synchro-focus)
-    - [5.5.1 - Panavision Counter-Rotating Astigmatizer](#551---panavision-counter-rotating-astigmatizer)
+    - [5.4.1 - Block Focusing](#541---block-focusing)
+    - [5.4.2 - Floating Elements and Synchro Focus](#542---floating-elements-and-synchro-focus)
+    - [5.5.3 - Panavision Counter-Rotating Astigmatizer](#543---panavision-counter-rotating-astigmatizer)
 
 
 <br />
@@ -595,7 +596,7 @@ While many photographers like to praise DNG and similar RAW format’s ability t
 
 ## 5.2 - Matte Box and Field Gates  
 
-In many movie scenes, the bokeh are not round, rather having a flat top or bottom, as if cut by knives. 
+The bokeh in many movie scenes are not round, rather, they have a flat top or bottom as if cut by knives. 
 
 We have previously addressed a similar problem caused by pupil occlusion. Pupil occlusion is the property of the lens itself and will happen regardless of external conditions. However, here the cause is the external riggings attached at the front of the lens. While never directly visible, they restrained the propagation of some off axial rays, which in turn cut into the CoC. 
 
@@ -605,23 +606,37 @@ We have previously addressed a similar problem caused by pupil occlusion. Pupil 
 
 Z-depth in animation and VFX is typically represnted in a single channel as `[0, 1]` value. However, to simulate real lenses, this value must be mapped into physical distances. 
 
+Here the depth information will be combined with color information and sample points to create a pseudo point cloud. For a single image, this is quite similar to the point cloud created by lidar scans. 
+
 <br />
 
 ## 5.4 - Lens Measuring and Digitalization 
 
-Steps to digitalize a lens for animation/VFX production. 
+Steps to digitalize a lens for animation/VFX production. Depending on how the lens focusing method is implemented, digitalization may require different approaches. 
 
 <br />
 
-## 5.5 - Floating Elements and Synchro Focus
+### 5.4.1 - Block Focusing 
+
+For most vintage lenses, the focusing method is the exact same as the thin lens equation: 
+
+$$\frac{1}{f} = \frac{1}{u} + \frac{1}{v}$$
+
+That is, moving the entire lens further away from the image plane to focus on objects closer to the image plane.  
+
+<br />
+
+### 5.4.2 - Floating Elements and Synchro Focus
 
 When focus is achieved by moving separate elements and groups instead of moving the entire lens. 
 
 <br />
 
-### 5.5.1 - Panavision Counter-Rotating Astigmatizer 
+### 5.4.3 - Panavision Counter-Rotating Astigmatizer 
 
 Most Anamorphic lenses and their focusing method  can be replicated by the linear movements described in last chapter, but certain Panavision anamorphic lenses are the exception. 
+
+The famous Counter-Rotating Astigmatizer was patented by Panavision as their solution to fix the anamorphic mump. They used 2 additional cylindrical lens/groups that, during focusing, rotate toward opposite directions to offset the loss of squeeze ratio on the active axis. Obviously, this introduces z-axis rotation and cannot be modeled by simple translation. 
 
 <br />
 
