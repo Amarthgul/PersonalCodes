@@ -689,7 +689,9 @@ Date in parenthesis marks the Monday of that week for better identification.
 - [Week 12 (Nov 4th)](#week-12)
 - [Week 13 (Nov 11th)](#week-13)
 - [Week 14 (Nov 18th)](#week-14)
-- 
+- [Week 15 (Nov 25th)](#week-15)
+
+
 ### Week 1
 
 (Week of Aug 19th)
@@ -1078,7 +1080,6 @@ As I just found some very well written materials about optical design and ray tr
 
 <br />
 
-
 ### Week 14
 
 The previous iteration of the program has proved that the geometric optics implementation is pretty capable of replicating most optical artifacts. However, it is not able to replicate diffraction spikes, that can only be achieved with actual diffraction simulations, which belong to the realm of wave optics. As such, all the time this week was spent on searching and learning about wave optics and trying to come up with a way to incorporate wave optics into the current algorithm. 
@@ -1099,6 +1100,18 @@ Outside of the program, Prof. Lewis has agreed to be my M.F.A. advisor. I have b
 -> Back to [journal selection](#journals)
 
 <br />
+
+<br />
+
+
+### Week 15
+
+Nothing really happened this week aside from me realizing that theoretical physics is absolutely not possible for me to get a PhD in. 
+
+-> Back to [journal selection](#journals)
+
+<br />
+
 
 ## References 
 
