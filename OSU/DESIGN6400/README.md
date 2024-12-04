@@ -690,7 +690,7 @@ Date in parenthesis marks the Monday of that week for better identification.
 - [Week 13 (Nov 11th)](#week-13)
 - [Week 14 (Nov 18th)](#week-14)
 - [Week 15 (Nov 25th)](#week-15)
-
+- [Week 16 (Dec 2nd)](#week-16)
 
 ### Week 1
 
@@ -1101,12 +1101,18 @@ Outside of the program, Prof. Lewis has agreed to be my M.F.A. advisor. I have b
 
 <br />
 
-<br />
-
 
 ### Week 15
 
 Nothing really happened this week aside from me realizing that theoretical physics is absolutely not possible for me to get a PhD in. 
+
+-> Back to [journal selection](#journals)
+
+<br />
+
+### Week 16
+
+Placeholder 
 
 -> Back to [journal selection](#journals)
 
