@@ -269,7 +269,9 @@ There are content creators trying to solve the first problem by using an orthogr
 
 ## 1.4 - End Goal 
 
-The end goal of the project can be divided into several categories depending on their importance and urgency.
+The end goal of the project is **an algorithm for imaging system simulation** for entertainment production, the **deliverable is a software application** implementing the algorithm. 
+
+It can be further divided into several categories depending on their importance and urgency.
 
 ### 1.4.1 - "Must Accomplish"
 
